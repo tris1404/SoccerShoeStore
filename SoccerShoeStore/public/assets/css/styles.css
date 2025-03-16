@@ -326,22 +326,19 @@ position: relative;
 
 /* Banner */
 .slide-show {
-position: relative;
-    z-index: 1; /* Ensure the banner is below the menu */
-    width: 100%;
+    width: 100%; /* Adjust the width as needed */
     overflow: hidden;
 }
 
 .list-img {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    width: calc(100% * 3); /* Adjust based on the number of images */
 }
 
 .list-img img {
-    width: 100%;
-    height: 90%; /* Adjust the height as needed */
-    object-fit: cover;
+    width: 100%; /* Adjust the width as needed */
+    height: 100vh; /* Maintain aspect ratio */
+    flex-shrink: 0; /* Prevent images from shrinking */
 }
 
 /* Footer */

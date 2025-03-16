@@ -19,9 +19,11 @@
             <div class="content">
                 <div class="slide-show">
                     <div class="list-img">
-                        <img src="assets/img/banner/adidas.png"  alt="">
+                        <img src="assets/img/banner/adidas.png" alt="">
                         <img src="assets/img/banner/nike.png" alt="">
                         <img src="assets/img/banner/puma.png" alt="">
+                        <img src="assets/img/banner/mizuno.jpg" alt="">
+                        <img src="assets/img/banner/kamito.png" alt="">
                    </div>
                 </div>
             </div>
