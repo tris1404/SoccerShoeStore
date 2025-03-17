@@ -24,7 +24,7 @@
         </div>
         <nav class="navigation-menu">
             <ul class="main-navigation__list">
-                <li><a href="#" class="main-navigation__link">Trang chủ</a></li>
+                <li><a href="<?php echo dirname($_SERVER['PHP_SELF']) == '/template' ? '../index.php' : 'index.php'; ?>" class="main-navigation__link">Trang chủ</a></li>
                 <li class="main-navigation__item">
                     <a href="#" class="main-navigation__link">Giày bóng đá</a>
                     <i class="fa-solid fa-angle-down"></i>
@@ -41,7 +41,7 @@
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
                         <li><a href="#" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="#" class="sub-navigation__link">Adidas</a></li>
+                        <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
                         <li><a href="#" class="sub-navigation__link">Kamito</a></li>
@@ -52,7 +52,7 @@
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
                         <li><a href="#" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="#" class="sub-navigation__link">Adidas</a></li>
+                        <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
                         <li><a href="#" class="sub-navigation__link">Kamito</a></li>
@@ -63,7 +63,7 @@
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
                         <li><a href="#" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="#" class="sub-navigation__link">Adidas</a></li>
+                        <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
                         <li><a href="#" class="sub-navigation__link">Kamito</a></li>
@@ -96,11 +96,11 @@
                                 <i class="fa-solid fa-angle-right"></i>
                             </a>
                             <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">ADIDAS F50</a></li>
-                                <li><a href="#" class="sub-navigation__link">ADIDAS PREDATOR</a></li>
-                                <li><a href="#" class="sub-navigation__link">ADIDAS COPA</a></li>
-                                <li><a href="#" class="sub-navigation__link">ADIDAS X</a></li>
-                                <li><a href="#" class="sub-navigation__link">ADIDAS TOP SALA</a></li>
+                                <li><a href="adidas.php#f50" class="sub-navigation__link">ADIDAS F50</a></li>
+                                <li><a href="adidas.php#predator" class="sub-navigation__link">ADIDAS PREDATOR</a></li>
+                                <li><a href="adidas.php#copa" class="sub-navigation__link">ADIDAS COPA</a></li>
+                                <li><a href="adidas.php#x" class="sub-navigation__link">ADIDAS X</a></li>
+                                <li><a href="adidas.php#top-sala" class="sub-navigation__link">ADIDAS TOP SALA</a></li>
                             </ul>
                         </li>
                                     <!-- PUMA -->
