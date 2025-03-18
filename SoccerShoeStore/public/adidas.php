@@ -12,7 +12,7 @@
     </section>
     
     <section class="adidas-products">
-        <h2>Giày Adidas Chính Hãng</h2>
+        <h2>Giày Adidas Sân Tự Nhiên</h2>
         <div class="product-list"> 
             <div class="product-item">
                 <img src="assets/img/San_TuNhien/adidas_1.jpg" alt="Adidas Predator">
