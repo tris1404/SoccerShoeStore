@@ -305,11 +305,13 @@ position: relative;
 
 /* Content and Sidebar */
 .wrapper-container {
+    width: fit-content;
     display: flex;
     padding: 20px 0px;
     flex-direction: row-reverse; /* Added to move sidebar to the left */
     background-color: #F0F0F0;
     align-items: center;
+    
 }
 
 .content {
@@ -326,8 +328,11 @@ position: relative;
 
 /* Banner */
 .slide-show {
-    width: 100%; /* Adjust the width as needed */
+    max-width: 100%;
+    height: auto; /* Điều chỉnh chiều cao tự động theo nội dung */
     overflow: hidden;
+    display: flex; /* Nếu bạn sử dụng flexbox để căn chỉnh ảnh */
+    position: relative;
 }
 
 .list-img {
@@ -339,9 +344,70 @@ position: relative;
     width: 100%; /* Adjust the width as needed */
     height: 100vh; /* Maintain aspect ratio */
     flex-shrink: 0; /* Prevent images from shrinking */
-    object-fit: cover; /* Ensure images cover the container without distortion */
+    object-fit: fill; /* Ensure images cover the container without distortion */
 }
 
+.btns {
+    font-size: 50px;
+    position: absolute;
+    color: #ffffff;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    pointer-events: none;
+    z-index: 10; /* Đảm bảo hiển thị trên ảnh */
+}
+
+.btn-left,
+.btn-right {
+    cursor: pointer;
+    pointer-events: auto;
+    background: #dedede4b;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.btn-left {
+    left: 20px; /* Giảm khoảng cách để không quá sát mép */
+}
+
+.btn-right {
+    right: 20px; /* Đưa về sát mép bên phải hơn */
+}
+
+.btn-left i,
+.btn-right i {
+    font-size: 30px;
+    color: #ffffffb5;
+    margin: 0;
+}
+
+.index-img {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.index-item {
+    border-radius: 50%;
+    border: 1px solid #dedede4b;
+    padding: 5px;
+    margin: 5px;
+}
+
+.active {
+    background-color: #ffffffb5;
+}
 /* Footer */
 /* Footer styles */
 
@@ -483,3 +549,97 @@ footer p {
     margin-bottom: 15px; /* Adjust the margin as needed */
 }
 /* End footer */
+
+
+/* product */
+/* Căn giữa thẻ div lớn nhất */
+
+
+
+.mustbuy, .care-about, .list-brand {
+    min-width: 1200px;  /* Đặt chiều rộng cố định */
+    height: auto;  /* Chiều cao tự động theo nội dung */
+    background-color: #fff; /* Màu nền trắng */
+    padding: 20px 150px 0px;
+    margin: 0 auto;
+}
+
+.mustbuy-img img, .care-about-img img, .list-brand-img img {
+    width: 100%; /* Ảnh sẽ tự động co dãn theo phần tử cha */
+    height: auto; /* Giữ nguyên tỉ lệ ảnh */
+    display: block; /* Tránh khoảng trắng dư thừa */
+}
+
+
+
+/* Thiết lập layout sản phẩm */
+.mustbuy-product {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Thiết lập từng sản phẩm */
+.ega-container h2 {
+    text-align: center;
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: 35px;
+    margin: 20px 0px 40px;
+    text-underline-offset: 10px;
+}
+
+.mustbuy-item {
+    position: relative;
+    width: 40%; /* Chia đều 3 cột */
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+
+.list-brand .mustbuy-product {
+    flex-wrap: wrap; /* Cho phép các item tự động xuống hàng */
+    
+}
+
+.list-brand .mustbuy-item {
+    width: calc(33.33% - 10px); /* 3 item trên 1 hàng */
+    padding: 0 10px;
+}
+
+
+/* Điều chỉnh ảnh sản phẩm */
+.mustbuy-item img {
+    
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Định dạng tiêu đề sản phẩm */
+.mustbuy-item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Định dạng giá */
+.price {
+    font-weight: bold;
+    color: red;
+    font-size: 16px;
+}
+
+/* Gắn tag Sale */
+.sale-tag {
+    display: inline-block;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
