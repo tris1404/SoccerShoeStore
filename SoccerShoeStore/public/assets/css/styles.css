@@ -332,7 +332,9 @@ position: relative;
     height: auto; /* Điều chỉnh chiều cao tự động theo nội dung */
     overflow: hidden;
     display: flex; /* Nếu bạn sử dụng flexbox để căn chỉnh ảnh */
+    position: relative;
 }
+
 .list-img {
     display: flex;
     transition: transform 0.5s ease-in-out;
@@ -345,6 +347,67 @@ position: relative;
     object-fit: fill; /* Ensure images cover the container without distortion */
 }
 
+.btns {
+    font-size: 50px;
+    position: absolute;
+    color: #ffffff;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    pointer-events: none;
+    z-index: 10; /* Đảm bảo hiển thị trên ảnh */
+}
+
+.btn-left,
+.btn-right {
+    cursor: pointer;
+    pointer-events: auto;
+    background: #dedede4b;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.btn-left {
+    left: 20px; /* Giảm khoảng cách để không quá sát mép */
+}
+
+.btn-right {
+    right: 20px; /* Đưa về sát mép bên phải hơn */
+}
+
+.btn-left i,
+.btn-right i {
+    font-size: 30px;
+    color: #ffffffb5;
+    margin: 0;
+}
+
+.index-img {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.index-item {
+    border-radius: 50%;
+    border: 1px solid #dedede4b;
+    padding: 5px;
+    margin: 5px;
+}
+
+.active {
+    background-color: #ffffffb5;
+}
 /* Footer */
 /* Footer styles */
 
@@ -493,15 +556,15 @@ footer p {
 
 
 
-.mustbuy {
-    width: 1200px;  /* Đặt chiều rộng cố định */
+.mustbuy, .care-about, .list-brand {
+    min-width: 1200px;  /* Đặt chiều rộng cố định */
     height: auto;  /* Chiều cao tự động theo nội dung */
     background-color: #fff; /* Màu nền trắng */
-    padding: 20px;
+    padding: 20px 150px 0px;
     margin: 0 auto;
 }
 
-.mustbuy-img img {
+.mustbuy-img img, .care-about-img img, .list-brand-img img {
     width: 100%; /* Ảnh sẽ tự động co dãn theo phần tử cha */
     height: auto; /* Giữ nguyên tỉ lệ ảnh */
     display: block; /* Tránh khoảng trắng dư thừa */
@@ -517,18 +580,39 @@ footer p {
 }
 
 /* Thiết lập từng sản phẩm */
+.ega-container h2 {
+    text-align: center;
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: 35px;
+    margin: 20px 0px 40px;
+    text-underline-offset: 10px;
+}
+
 .mustbuy-item {
     position: relative;
-    width: 30%; /* Chia đều 3 cột */
-    background-color: #f8f8f8;
+    width: 40%; /* Chia đều 3 cột */
+    background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+
+.list-brand .mustbuy-product {
+    flex-wrap: wrap; /* Cho phép các item tự động xuống hàng */
+    
+}
+
+.list-brand .mustbuy-item {
+    width: calc(33.33% - 10px); /* 3 item trên 1 hàng */
+    padding: 0 10px;
+}
+
 
 /* Điều chỉnh ảnh sản phẩm */
 .mustbuy-item img {
+    
     width: 100%;
     height: auto;
     border-radius: 5px;
