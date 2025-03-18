@@ -40,19 +40,19 @@
                     <a href="#" class="main-navigation__link">Giày cỏ tự nhiên</a>
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
-                        <li><a href="#" class="sub-navigation__link">Nike</a></li>
+                        <li><a href="nike.php" class="sub-navigation__link">Nike</a></li>
                         <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
-                        <li><a href="#" class="sub-navigation__link">Puma</a></li>
-                        <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                        <li><a href="#" class="sub-navigation__link">Kamito</a></li>
+                        <li><a href="puma.php" class="sub-navigation__link">Puma</a></li>
+                        <li><a href="mizuno.php" class="sub-navigation__link">Mizuno</a></li>
+                        <li><a href="kamito.php" class="sub-navigation__link">Kamito</a></li>
                     </ul>
                 </li>
                 <li class="main-navigation__item">
                     <a href="#" class="main-navigation__link">Giày cỏ nhân tạo</a>
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
-                        <li><a href="#" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
+                        <li><a href="nike_tf.php" class="sub-navigation__link">Nike</a></li>
+                        <li><a href="adidas_tf.php" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
                         <li><a href="#" class="sub-navigation__link">Kamito</a></li>
@@ -62,7 +62,7 @@
                     <a href="#" class="main-navigation__link">Giày FUTSAL</a>
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
-                        <li><a href="#" class="sub-navigation__link">Nike</a></li>
+                        <li><a href="nike.php" class="sub-navigation__link">Nike</a></li>
                         <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
@@ -78,21 +78,21 @@
                     <ul class="sub-navigation__list">
                                     <!-- NIKE -->
                         <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">Nike
+                            <a href="nike.php" class="sub-navigation__link">Nike
                                 <i class="fa-solid fa-angle-right"></i>
                             </a>
                             <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">NIKE MERCURIAL</a></li>
-                                <li><a href="#" class="sub-navigation__link">NIKE TIEMPO</a></li>
-                                <li><a href="#" class="sub-navigation__link">NIKE PHANTOM</a></li>
-                                <li><a href="#" class="sub-navigation__link">NIKE REACT GATO</a></li>
-                                <li><a href="#" class="sub-navigation__link">NIKE LUNAR</a></li>
-                                <li><a href="#" class="sub-navigation__link">NIKE STREET GATO</a></li>
+                                <li><a href="nike.php#mercurial" class="sub-navigation__link">NIKE MERCURIAL</a></li>
+                                <li><a href="nike.php#tiempo" class="sub-navigation__link">NIKE TIEMPO</a></li>
+                                <li><a href="nike.php#phantom" class="sub-navigation__link">NIKE PHANTOM</a></li>
+                                <li><a href="nike.php#react-gato" class="sub-navigation__link">NIKE REACT GATO</a></li>
+                                <li><a href="nike.php#lunar" class="sub-navigation__link">NIKE LUNAR</a></li>
+                                <li><a href="nike.php#street-gato" class="sub-navigation__link">NIKE STREET GATO</a></li>
                             </ul>
                         </li>
                                     <!-- ADIDAS -->
                         <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">ADIDAS
+                            <a href="adidas.php" class="sub-navigation__link">ADIDAS
                                 <i class="fa-solid fa-angle-right"></i>
                             </a>
                             <ul class="sub-navigation__list">

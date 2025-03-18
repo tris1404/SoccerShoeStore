@@ -1,5 +1,5 @@
-<!-- Header -->
-<?php include 'template/header.php'; ?>
+    <!-- Header -->
+    <?php include './includes/header.php'; ?>
     <!-- End header -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -29,5 +29,5 @@
         </section>
     </main>
     <!-- Footer -->
-    <?php include 'template/footer.php'; ?>
+    <?php include './includes/footer.php'; ?>
     <!-- End footer -->

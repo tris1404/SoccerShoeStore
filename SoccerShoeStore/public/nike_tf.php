@@ -8,27 +8,27 @@
 
 <main class="nike-container">
     <section class="nike-banner">
-        <img src="assets/img/San_TuNhien/nike_banner.webp" alt="Nike Banner">
+        <img src="assets/img/San_NhanTao/nike_banner.jpg" alt="Nike Banner">
     </section>
     <section class="nike-products">
-        <h2>Giày Nike Sân Tự Nhiên</h2>
+        <h2>Giày Nike Sân Nhân Tạo</h2>
         <div class="product-list">
             <div class="product-item">
-                <img src="assets/img/San_TuNhien/nike_1.png" alt="Nike Mercurial">
+                <img src="assets/img/San_NhanTao/nike_1.jpeg" alt="Nike Mercurial">
                 <h3>Nike Mercurial</h3>
-                <p>Giá: 4.000.000 VNĐ</p>
+                <p>Giá: 4.500.000 VNĐ</p>
                 <button>Mua ngay</button>
             </div>
             <div class="product-item">
-                <img src="assets/img/San_TuNhien/nike_2.png" alt="Nike Tiempo">
+                <img src="assets/img/San_NhanTao/nike_2.jpg" alt="Nike Tiempo">
                 <h3>Nike Tiempo</h3>
-                <p>Giá: 3.800.000 VNĐ</p>
+                <p>Giá: 3.200.000 VNĐ</p>
                 <button>Mua ngay</button>
             </div>
             <div class="product-item">
-                <img src="assets/img/San_TuNhien/nike_3.png" alt="Nike Phantom">
+                <img src="assets/img/San_NhanTao/nike_3.jpg" alt="Nike Phantom">
                 <h3>Nike Phantom</h3>
-                <p>Giá: 2.500.000 VNĐ</p>
+                <p>Giá: 2.900.000 VNĐ</p>
                 <button>Mua ngay</button>
             </div>
         </div>
@@ -36,5 +36,5 @@
 </main>
 
 <!-- Footer -->
-<?php include './includes/footer.php'; ?>
+<?php include './includes/header.php'; ?>
 <!-- End footer -->
