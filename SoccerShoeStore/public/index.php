@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/styles.css?v=1" type="text/css">
+    <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Soccer Shoes Store</title>
 </head>
@@ -48,35 +48,49 @@
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
+                                    <span class="label-sale">10%</span>
                                     <span class="sale-tag">NEW</span>
                                     <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png" alt="Nike Air Max">
                                     <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
-                                    <p class="price">Giá: 2.500.000 VNĐ</p>
-                                    <p>Giày thể thao phong cách, êm ái, phù hợp cho mọi hoạt động.</p>
+                                    <div class="price-container">
+                                        <span class="price">2.500.000</span>
+                                        <span class="original-price">3.125.000đ</span>
+                                    </div>
                                 </div>
+                        
+                            
 
                                 <div class="mustbuy-item">
                                     <span class="sale-tag">NEW</span>
+                                    <span class="label-sale">10%</span>
                                     <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg" alt="Nike ZoomX">
                                     <h3>PUMA ULTRA 5 MATCH VOL. UP TT</h3>
-                                    <p class="price">Giá: 3.200.000 VNĐ</p>
-                                    <p>Thiết kế tối ưu cho chạy bộ, độ bám tốt, trọng lượng nhẹ.</p>
+                                    <div class="price-container">
+                                        <span class="price">2.500.000</span>
+                                        <span class="original-price">3.125.000đ</span>
+                                    </div>                                
                                 </div>
 
                                 <div class="mustbuy-item">
                                     <span class="sale-tag">NEW</span>
+                                    <span class="label-sale">10%</span>
                                     <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg" alt="Nike Air Force 1">
-                                    <h3>ADIDAS F50 PRO TF - IE1220 - TRẮNG/ĐỎ</h3>
-                                    <p class="price">Giá: 2.800.000 VNĐ</p>
-                                    <p>Giày sneaker huyền thoại, phối đồ đa dạng, phù hợp mọi phong cách.</p>
+                                    <h3>ADIDAS F50 PRO TF - IE1220 - TRẮNG/Ỏ</h3>
+                                    <div class="price-container">
+                                        <span class="price">2.500.000</span>
+                                        <span class="original-price">3.125.000đ</span>
+                                    </div>                                
                                 </div>
 
                                 <div class="mustbuy-item">
                                     <span class="sale-tag">NEW</span>
+                                    <span class="label-sale">10%</span>
                                     <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg" alt="Nike Air Force 1">
                                     <h3>MIZUNO A JAPAN</h3>
-                                    <p class="price">Giá: 2.800.000 VNĐ</p>
-                                    <p>Giày sneaker huyền thoại, phối đồ đa dạng, phù hợp mọi phong cách.</p>
+                                    <div class="price-container">
+                                        <span class="price">2.500.000</span>
+                                        <span class="original-price">3.125.000đ</span>
+                                    </div>                                
                                 </div>
                             </div>
                         </div>
@@ -166,7 +180,58 @@
                                     <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_9_large.jpg?v=2118" alt="Nike Air Force 1">                                                                      
                                     <h3>ZOCKER</h3>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="list-sole">
+                    <div class="ega-container">
+                        <div class="list-sole-title">
+                            <h2>LỰA CHỌN PHÙ HỢP - THỐNG TRỊ MỌI MẶT CỎ</h2>
+                        </div>
+                        <div class="list-sole-img">
+                            <a href="">
+                                <img src="" alt="">
+                            </a>
+                            <div class="mustbuy-product">
+                                <div class="mustbuy-item">
+                                    <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_1fg_d_992232ca56.jpg" alt="Nike Air Max">
+                                    <h3>FIRM GROUND (FG)</h3>
+                                    <p>Đế chuyên dụng cho sân cỏ tự nhiên khô ráo, có đinh dài giúp bám sân tốt</p>
+                                </div>
+
+                                <div class="mustbuy-item">
+                                    <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_6ag_d_e4cc4b01aa.jpg" alt="Nike ZoomX">                                 
+                                    <h3>Artificial Grass (AG)</h3>
+                                    <p>Đế dành cho sân cỏ nhân tạo, đinh ngắn và nhiều hơn để giảm áp lực lên chân.</p>
+                                </div>
+
+                                <div class="mustbuy-item">
+                                    <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_3mg_d_995c1a9a37.jpg" alt="Nike Air Force 1">                                                                      
+                                    <h3>Multi-Ground (MG)</h3>
+                                    <p>Đế đa dụng, kết hợp giữa FG và AG, phù hợp cho cả sân cỏ tự nhiên lẫn nhân tạo</p>
+                                </div> 
+
+                                <div class="mustbuy-item">
+                                    <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_5sg_d_e4249b8c10.jpg" alt="Nike Air Force 1">                                                                      
+                                    <h3>Soft Ground (SG)</h3>
+                                    <p>Đế dành cho sân cỏ tự nhiên mềm, thường có đinh kim loại giúp bám sân trơn trượt.</p>
+                                </div>
+
+                                <div class="mustbuy-item">
+                                    <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_4in_d_a2aec953c6.jpg" alt="Nike Air Force 1">                                                                      
+                                    <h3>indoor (IN)</h3>
+                                    <p>Đế bằng, chuyên dùng cho sân futsal trong nhà hoặc mặt sân cứng như bê tông.</p>
+                                </div>
+                                
+                                <div class="mustbuy-item">
+                                    <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_2tf_d_e7c204e02b.jpg" alt="Nike Air Force 1">                                                                      
+                                    <h3>Turf (tf)</h3>
+                                    <p>Đế đinh dăm, thiết kế cho sân cỏ nhân tạo cứng hoặc sân đất, giúp di chuyển linh hoạt.</p>
+                                </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

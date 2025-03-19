@@ -556,7 +556,7 @@ footer p {
 
 
 
-.mustbuy, .care-about, .list-brand {
+.mustbuy, .care-about, .list-brand, .list-sole {
     min-width: 1200px;  /* Đặt chiều rộng cố định */
     height: auto;  /* Chiều cao tự động theo nội dung */
     background-color: #fff; /* Màu nền trắng */
@@ -564,7 +564,7 @@ footer p {
     margin: 0 auto;
 }
 
-.mustbuy-img img, .care-about-img img, .list-brand-img img {
+.mustbuy-img img, .care-about-img img, .list-brand-img img, .list-sole-img{
     width: 100%; /* Ảnh sẽ tự động co dãn theo phần tử cha */
     height: auto; /* Giữ nguyên tỉ lệ ảnh */
     display: block; /* Tránh khoảng trắng dư thừa */
@@ -578,6 +578,8 @@ footer p {
     justify-content: space-between;
     margin-top: 20px;
 }
+
+
 
 /* Thiết lập từng sản phẩm */
 .ega-container h2 {
@@ -610,6 +612,14 @@ footer p {
 }
 
 
+.list-sole .mustbuy-product {
+    flex-wrap: wrap; /* Cho phép các item tự động xuống hàng */
+}
+.list-sole .mustbuy-item {
+    width: calc(33.33% - 10px); /* 3 item trên 1 hàng */
+    padding: 0 10px;
+}
+
 /* Điều chỉnh ảnh sản phẩm */
 .mustbuy-item img {
     
@@ -620,26 +630,67 @@ footer p {
 
 /* Định dạng tiêu đề sản phẩm */
 .mustbuy-item h3 {
-    font-size: 18px;
+    font-size: 15px;
     margin: 10px 0;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.mustbuy h3 {
+    min-height: 3rem; /* Đặt chiều cao cố định để giữ khoảng trống đồng đều */
+}
+
+.list-sole p {
+    margin-bottom: 5px;
 }
 
 /* Định dạng giá */
+
+.price-container {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa giá sale và giá gốc */
+}
+
 .price {
     font-weight: bold;
     color: red;
+    font-size: 18px;
+}
+
+.price::after {
+    content: "đ";
+    text-decoration: underline;
+    display: inline;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: gray;
     font-size: 16px;
 }
 
+
+
+
 /* Gắn tag Sale */
-.sale-tag {
+/* Gắn tag Sale */
+.sale-tag, .label-sale {
     display: inline-block;
     background-color: red;
     color: white;
     padding: 5px 10px;
-    border-radius: 5px;
     font-size: 14px;
     position: absolute;
-    top: 10px;
-    right: 10px;
+}
+
+/* Điều chỉnh vị trí riêng biệt */
+.sale-tag { 
+    top: 15px; 
+    right: 15px; 
+}
+
+.label-sale { 
+    top: 15px; 
+    left: 15px; 
 }
