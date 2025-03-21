@@ -318,6 +318,7 @@ position: relative;
     flex: 3;
     background: #ffffff;
     padding: 20px;
+    flex-direction: column;
 }
 
 .sidebar {
@@ -556,7 +557,7 @@ footer p {
 
 
 
-.mustbuy, .care-about, .list-brand, .list-sole {
+.mustbuy, .care-about, .list-brand, .list-sole, .hot {
     min-width: 1200px;  /* Đặt chiều rộng cố định */
     height: auto;  /* Chiều cao tự động theo nội dung */
     background-color: #fff; /* Màu nền trắng */
@@ -564,7 +565,7 @@ footer p {
     margin: 0 auto;
 }
 
-.mustbuy-img img, .care-about-img img, .list-brand-img img, .list-sole-img{
+.mustbuy-img img, .care-about-img img, .list-brand-img img, .list-sole-img, .hot-img img {
     width: 100%; /* Ảnh sẽ tự động co dãn theo phần tử cha */
     height: auto; /* Giữ nguyên tỉ lệ ảnh */
     display: block; /* Tránh khoảng trắng dư thừa */
@@ -579,7 +580,10 @@ footer p {
     margin-top: 20px;
 }
 
-
+a {
+    text-decoration: none; /* Loại bỏ gạch chân */
+    color: black;
+}
 
 /* Thiết lập từng sản phẩm */
 .ega-container h2 {
@@ -587,13 +591,17 @@ footer p {
     text-decoration: underline;
     text-transform: uppercase;
     font-size: 35px;
-    margin: 20px 0px 40px;
+    margin: 20px 0px 20px;
     text-underline-offset: 10px;
+}
+
+.mustbuy h2 {
+    margin-bottom: 40px;
 }
 
 .mustbuy-item {
     position: relative;
-    width: 40%; /* Chia đều 3 cột */
+    width: -webkit-fill-available;
     background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;
@@ -601,31 +609,42 @@ footer p {
 }
 
 
+
 .list-brand .mustbuy-product {
-    flex-wrap: wrap; /* Cho phép các item tự động xuống hàng */
-    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
 }
 
 .list-brand .mustbuy-item {
-    width: calc(33.33% - 10px); /* 3 item trên 1 hàng */
-    padding: 0 10px;
+    text-align: center;
+    padding: 0px 10px;
 }
-
 
 .list-sole .mustbuy-product {
-    flex-wrap: wrap; /* Cho phép các item tự động xuống hàng */
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;}
+
 .list-sole .mustbuy-item {
-    width: calc(33.33% - 10px); /* 3 item trên 1 hàng */
-    padding: 0 10px;
+    text-align: center;
+}
+
+
+.hot .mustbuy-product {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;}
+
+.hot .mustbuy-item {
+    text-align: center;
 }
 
 /* Điều chỉnh ảnh sản phẩm */
-.mustbuy-item img {
-    
-    width: 100%;
+
+.list-sole-img .mustbuy-item img {
+    width: 350px;
     height: auto;
-    border-radius: 5px;
 }
 
 /* Định dạng tiêu đề sản phẩm */
@@ -636,7 +655,7 @@ footer p {
     font-weight: normal;
 }
 
-.mustbuy h3 {
+.mustbuy h3, .hot h3 {
     min-height: 3rem; /* Đặt chiều cao cố định để giữ khoảng trống đồng đều */
 }
 
@@ -644,18 +663,30 @@ footer p {
     margin-bottom: 5px;
 }
 
+
+
+
 /* Định dạng giá */
 
 .price-container {
     display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    gap: 10px; /* Khoảng cách giữa giá sale và giá gốc */
+    align-items: center;
+    justify-content: space-between; /* Đẩy nút trái tim sang phải */
+    position: relative;
 }
 
 .price {
-    font-weight: bold;
-    color: red;
     font-size: 18px;
+    font-weight: bold;
+    color: #e60000; /* Màu đỏ nổi bật */
+    margin-right: 5px; /* Giảm khoảng cách giữa giá và giá gốc */
+}
+
+.original-price {
+    font-size: 16px;
+    text-decoration: line-through;
+    color: gray;
+    margin-left: 5px;
 }
 
 .price::after {
@@ -664,12 +695,27 @@ footer p {
     display: inline;
 }
 
-.original-price {
-    text-decoration: line-through;
-    color: gray;
+
+
+
+#btn-xem-them {
+    display: block;
+    width: 150px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 16px;
+    text-align: center;
+    border-color: black;
 }
 
+#btn-xem-them:hover {
+    background-color: black;
+    color: white;
+}
 
 
 
@@ -693,4 +739,63 @@ footer p {
 .label-sale { 
     top: 15px; 
     left: 15px; 
+}
+
+
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000;
+    margin-left: auto; /* Đẩy nút trái tim về bên phải */
+}
+
+.favorite-btn.active i {
+    color: red;
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #dedede4b;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex; /* Hiển thị nút */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999; /* Đảm bảo không bị che khuất */
+}
+
+
+
+#backToTop:hover {
+    background-color: black;
+    color: white;
+}
+
+
+#zaloChat {
+    position: fixed;
+    bottom: 70px; /* Điều chỉnh vị trí */
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 999;
+    margin-bottom: 10px;
+}
+
+#zaloChat img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
 }

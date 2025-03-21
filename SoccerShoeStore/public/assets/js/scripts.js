@@ -91,3 +91,38 @@ indexItems.forEach((item, index) => {
 
 // Bắt đầu tự động chạy slide
 startAutoSlide();
+
+// ?Nút quay lại trang đầu
+document.addEventListener("DOMContentLoaded", function () {
+    let backToTopButton = document.getElementById("backToTop");
+
+    // Ẩn/hiện nút khi cuộn trang
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 300) {
+            backToTopButton.style.display = "flex";
+        } else {
+            backToTopButton.style.display = "none";
+        }
+    });
+
+    // Xử lý sự kiện khi bấm vào nút
+    backToTopButton.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+});
+
+
+// icon trái tim yêu thích
+document.querySelectorAll(".favorite-btn").forEach(button => {
+    button.addEventListener("click", function(event) {
+        event.preventDefault();
+        this.classList.toggle("active");
+        this.innerHTML = this.classList.contains("active") 
+            ? '<i class="fa-solid fa-heart"></i>' 
+            : '<i class="fa-regular fa-heart"></i>';
+    });
+});
+

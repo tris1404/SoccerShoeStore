@@ -2,10 +2,11 @@
  <header class="header">
     <div class="top-bar-container">
         <nav class="top-bar__left">
-            <a href="#" class="top-bar__left__item">Soccer Shoes Store
+            <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer Shoes Store
                 <i class="fa-solid fa-location-dot"></i>
             </a>
-            <a href="#" class="top-bar__left__item">Kết nối
+
+            <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
                 <i class="fa-brands fa-facebook"></i>
             </a>
         </nav>
@@ -215,8 +216,6 @@
             <a href="?lang=vi" class="global-navigation__cart__link">
                 &#127483;&#127475; <!-- Lá cờ Việt Nam -->
             </a>
-            
-            
         </div>
     </div>
 </header>
