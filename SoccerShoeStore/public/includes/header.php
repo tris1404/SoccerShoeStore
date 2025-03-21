@@ -38,15 +38,7 @@
                 </li>
 
                 <li class="main-navigation__item">
-                    <a href="#" class="main-navigation__link">Giày cỏ tự nhiên</a>
-                    <i class="fa-solid fa-angle-down"></i>
-                    <ul class="sub-navigation__list">
-                        <li><a href="nike.php" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
-                        <li><a href="puma.php" class="sub-navigation__link">Puma</a></li>
-                        <li><a href="mizuno.php" class="sub-navigation__link">Mizuno</a></li>
-                        <li><a href="kamito.php" class="sub-navigation__link">Kamito</a></li>
-                    </ul>
+                    <a href="giay_san_tu_nhien.php" class="main-navigation__link">Giày cỏ tự nhiên</a>
                 </li>
                 <li class="main-navigation__item">
                     <a href="#" class="main-navigation__link">Giày cỏ nhân tạo</a>
