@@ -16,8 +16,8 @@ body {
 /* Sidebar bộ lọc */
 .sidebar {
     width: 20%;
-    background: #ede5e5 !important;
-    color: #000 !important;
+    background: #ede5e5 !important ;
+    color: #000 ;
     padding: 20px;
     border-radius: 5px;
 }
@@ -69,13 +69,12 @@ body {
     border-radius: 3px;
 }
 
-/* Danh sách sản phẩm */
+/* Định dạng chung cho sản phẩm */
 .product-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .product {
     width: calc(25% - 20px);
     border: 1px solid #ddd;
@@ -83,6 +82,8 @@ body {
     text-align: center;
     border-radius: 5px;
     position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
 }
 
 .product img {
@@ -90,9 +91,31 @@ body {
     border-radius: 5px;
 }
 
-.product p {
-    font-size: 16px;
-    margin: 10px 0;
+/* Container chứa biểu tượng */
+.product-icons {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Biểu tượng */
+.product-icons a {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Khi di chuột vào sản phẩm */
+.product:hover .product-icons {
+    opacity: 1;
 }
 
 .price {
@@ -110,4 +133,25 @@ body {
     padding: 5px 10px;
     font-size: 14px;
     border-radius: 3px;
+}
+
+/*nút cuộn lên đầu trang*/
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    display: none; /* Ẩn ban đầu */
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#scrollToTopBtn:hover {
+    background-color: #e65c00;
 }
