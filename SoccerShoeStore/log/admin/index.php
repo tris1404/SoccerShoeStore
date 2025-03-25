@@ -1,3 +1,10 @@
+<?php
+session_start();
+    if( !isset($_SESSION['email'])){
+        header('SoccerShoeStore/SoccerShoeStore/log/login.php');
+    
+    }
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -30,3 +37,4 @@
 <script src="assets/js/scripts.js"></script>
 </body>
 </html>
+
