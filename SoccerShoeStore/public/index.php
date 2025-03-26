@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=1" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Soccer Shoes Store</title>
 </head>
@@ -19,26 +19,27 @@
         <div id="wrapper-container">
             <!-- Content -->
             <div class="content">
-                <div class="slide-show">
-                    <div class="list-img">
-                        <img src="assets/img/banner/adidas.png" alt="">
-                        <img src="assets/img/banner/nike.png" alt="">
-                        <img src="assets/img/banner/puma.png" alt="">
-                        <img src="assets/img/banner/mizuno.jpg" alt="">
-                        <img src="assets/img/banner/kamito.png" alt="">
-                    </div>
-                    <div class="btns">
-                        <div class="btn-left"><i class="fa-solid fa-angle-left"></i></div>
-                        <div class="btn-right"><i class="fa-solid fa-angle-right"></i></div>
-                    </div>
-                    <div class="index-img">
-                        <div class="index-item index-item-0 active"></div>
-                        <div class="index-item index-item-1"></div>
-                        <div class="index-item index-item-2"></div>
-                        <div class="index-item index-item-3"></div>
-                        <div class="index-item index-item-4"></div>
-                    </div>
+            <div class="slide-show">
+                <div class="list-img">
+                    <a href="#"><img src="assets/img/banner/adidas.png" alt="Banner1"></a>
+                    <a href="#"><img src="assets/img/banner/nike.png" alt="Banner2"></a>
+                    <a href="#"><img src="assets/img/banner/puma.png" alt="Banner3"></a>
+                    <a href="#"><img src="assets/img/banner/mizuno.jpg" alt="Banner4"></a>
+                    <a href="#"><img src="assets/img/banner/kamito.png" alt="Banner5"></a>
                 </div>
+                <div class="btns">
+                    <div class="btn-left"><i class="fa-solid fa-angle-left"></i></div>
+                    <div class="btn-right"><i class="fa-solid fa-angle-right"></i></div>
+                </div>
+                <div class="index-img">
+                    <div class="index-item index-item-0 active"></div>
+                    <div class="index-item index-item-1"></div>
+                    <div class="index-item index-item-2"></div>
+                    <div class="index-item index-item-3"></div>
+                    <div class="index-item index-item-4"></div>
+                </div>
+            </div>
+
 
                 <div class="mustbuy">
                     <div class="ega-container">
@@ -47,7 +48,7 @@
                         </div>
                         <div class="mustbuy-img">
                             <a href="">
-                                <img src="assets/img/banner-title/nike.jpg" alt="">
+                                <img src="assets/img/banner-title/nike.jpg" alt="Bộ sưu tập mới">
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
@@ -120,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
 
                 <div class="care-about">
@@ -648,7 +649,7 @@
     </button>
 
 
-    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js?v=1"></script>
 </body>
 
 </html>

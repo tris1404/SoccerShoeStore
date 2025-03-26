@@ -210,8 +210,7 @@
                  <i class="fa-solid fa-user"></i>
                  <span class="global-navigation__cart__link__count">0</span>
              </a>
-             <a href="?lang=vi" class="global-navigation__cart__link">
-                 &#127483;&#127475;
+             
                  <!-- Lá cờ Việt Nam -->
              </a>
          </div>

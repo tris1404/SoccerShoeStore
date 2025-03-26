@@ -14,7 +14,7 @@ body {
     width: 1520px;
     margin: 0 auto;
     background: #fff;
-
+}
 
 /* Header */
 .header {
@@ -26,7 +26,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   padding-bottom: 10px;
   background-color: #f0f0f0;
@@ -39,8 +39,7 @@ body {
 .top-bar__left,
 .top-bar__right {
   display: flex;
-  gap: 15px;
-  font-size: 20px;
+  gap: 5px;
 }
 
 /* Định dạng dấu | */
@@ -91,6 +90,9 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+
 }
 
 .sub-navigation__list {
@@ -108,9 +110,10 @@ body {
 .main-navigation__link {
   color: #000000;
   text-decoration: none;
-  font-size: 20px;
   transition: 1s, text-decoration 1s;
   white-space: nowrap;
+  padding-bottom: 10px;
+
 }
 
 .main-navigation__link:hover {
@@ -125,13 +128,15 @@ body {
   justify-content: space-between;
   align-items: center;
   text-transform: uppercase;
-  font-size: 16px;
   padding: 10px;
   text-decoration: none;
   color: #000000;
 }
 .sub-navigation__link i {
-  margin-left: 100px; /* Khoảng cách giữa chữ và icon */
+    position: absolute;
+    right: 10px; /* Căn lề phải */
+    top: 50%;
+    transform: translateY(-50%); /* Căn giữa theo chiều dọc */
 }
 
 .main-navigation__item {
@@ -194,6 +199,7 @@ body {
 
 .fa-angle-down {
   font-size: 10px;
+  
 }
 
 .fa-angle-right {
@@ -271,12 +277,14 @@ body {
 }
 
 .cart {
+  padding-bottom: 5px;
   position: relative;
   margin-left: 5px;
+  margin-right: 10px;
 }
 
 .cart a {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 /* Chỉnh icon bên cạnh search */
@@ -295,12 +303,12 @@ body {
 .global-navigation__cart__link__count {
   background: #ffd200;
   color: #000000;
-  font-size: 12px;
+  font-size: 10px;
   border-radius: 50%;
   padding: 2px 6px;
   position: absolute;
-  top: -5px;
-  right: -10px;
+  top: 0px;
+  right: 0px;
 }
 
 /* End Header */
@@ -313,7 +321,7 @@ body {
     flex-direction: row-reverse; /* Added to move sidebar to the left */
     background-color: #F0F0F0;
     align-items: center;
-    
+}    
 
 
 .content {
@@ -336,6 +344,12 @@ body {
   overflow: hidden;
   display: flex; /* Nếu bạn sử dụng flexbox để căn chỉnh ảnh */
   position: relative;
+}
+
+
+.list-img a {
+  flex-shrink: 0;
+  width: 100%; /* Đảm bảo mỗi ảnh chiếm toàn bộ khung */
 }
 
 .list-img {
@@ -585,6 +599,12 @@ footer p {
   margin-top: 20px;
 }
 
+.mustbuy-item a {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Đảm bảo chiều cao đầy đủ */
+}
+
 a {
   text-decoration: none; /* Loại bỏ gạch chân */
   color: black;
@@ -677,6 +697,7 @@ a {
   align-items: center;
   justify-content: space-between; /* Đẩy nút trái tim sang phải */
   position: relative;
+  margin-top: auto;
 }
 
 .price {
