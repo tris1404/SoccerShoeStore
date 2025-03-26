@@ -10,13 +10,13 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div id="wrapper">
         <!-- Header -->
         <?php include 'includes/header.php'; ?>
         <!-- End header -->
 
         <!-- Wrapper-container -->
-        <div class="wrapper-container">
+        <div id="wrapper-container">
             <!-- Content -->
             <div class="content">
                 <div class="slide-show">

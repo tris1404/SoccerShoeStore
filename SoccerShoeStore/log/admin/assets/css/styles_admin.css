@@ -10,7 +10,7 @@
 .wrapper {
   min-height: calc(100vh - 60px); /* Điều chỉnh chiều cao */
   display: flex;
-  height: 100vh;
+  width: 1520px;
 }
 
 /* Sidebar */
@@ -212,8 +212,8 @@
 
 /* Footer mới */
 .footer {
-  background: #1E293B;
-  color: #E5E7EB;
+  background: #d5d5d5;
+  color: #000000;
   text-align: center;
   padding: 15px 0;
   font-size: 14px;

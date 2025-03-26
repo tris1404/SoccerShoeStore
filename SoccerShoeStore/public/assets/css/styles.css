@@ -10,11 +10,11 @@ body {
   background-color: #ffffff;
 }
 
-.wrapper {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #fff;
-}
+#wrapper {
+    width: 1520px;
+    margin: 0 auto;
+    background: #fff;
+
 
 /* Header */
 .header {
@@ -306,14 +306,15 @@ body {
 /* End Header */
 
 /* Content and Sidebar */
-.wrapper-container {
-  width: fit-content;
-  display: flex;
-  padding: 20px 0px;
-  flex-direction: row-reverse; /* Added to move sidebar to the left */
-  background-color: #f0f0f0;
-  align-items: center;
-}
+#wrapper-container {
+    width: fit-content;
+    display: flex;
+    padding: 20px 0px;
+    flex-direction: row-reverse; /* Added to move sidebar to the left */
+    background-color: #F0F0F0;
+    align-items: center;
+    
+
 
 .content {
   flex: 3;
