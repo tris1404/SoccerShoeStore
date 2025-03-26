@@ -6,10 +6,7 @@
 
 
   $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
-  if ($conn) {
-    echo"Your database connection is successful";
-  }
-  else {
-    echo"Your database connection is not successful";
+  if (!$conn) {
+    echo"Your database connection is not successful"; 
   }
 ?>

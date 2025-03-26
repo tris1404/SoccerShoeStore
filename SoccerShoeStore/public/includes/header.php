@@ -16,8 +16,8 @@
          <nav class="top-bar__right">
              <a href="#" class="top-bar__right__item">Liên hệ</a><span class="pipe2">|</span>
              <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a><span class="pipe2">|</span>
-             <a href="#" class="top-bar__right__item">Đăng ký</a><span class="pipe2">|</span>
-             <a href="#" class="top-bar__right__item">Đăng nhập</a>
+             <a href="login.php" class="top-bar__right__item">Đăng ký</a><span class="pipe2">|</span>
+             <a href="logon.php" class="top-bar__right__item">Đăng nhập</a>
          </nav>
      </div>
      <div class="navigation-container">
@@ -202,13 +202,11 @@
 
              <a href="#" class="global-navigation__cart__link">
                  <i class="fas fa-shopping-cart"></i>
-                 <!-- <i class="fa-regular fa-cart-shopping"></i> -->
                  <span class="global-navigation__cart__link__count">0</span>
              </a>
 
              <a href="#" class="global-navigation__cart__link">
                  <i class="fa-solid fa-user"></i>
-                 <span class="global-navigation__cart__link__count">0</span>
              </a>
              
                  <!-- Lá cờ Việt Nam -->
