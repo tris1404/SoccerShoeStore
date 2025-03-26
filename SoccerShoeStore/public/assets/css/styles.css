@@ -11,9 +11,9 @@ body {
 }
 
 #wrapper {
-    width: 1520px;
-    margin: 0 auto;
-    background: #fff;
+  width: 1520px;
+  margin: 0 auto;
+  background: #fff;
 }
 
 /* Header */
@@ -40,6 +40,7 @@ body {
 .top-bar__right {
   display: flex;
   gap: 5px;
+  font-size: 14px;
 }
 
 /* Định dạng dấu | */
@@ -81,7 +82,7 @@ body {
 }
 
 .logo img {
-  height: 70px;
+  height: 60px;
 }
 
 .navigation-menu {
@@ -92,7 +93,6 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   font-size: 16px;
-
 }
 
 .sub-navigation__list {
@@ -113,7 +113,7 @@ body {
   transition: 1s, text-decoration 1s;
   white-space: nowrap;
   padding-bottom: 10px;
-
+  font-size: 13px;
 }
 
 .main-navigation__link:hover {
@@ -131,12 +131,13 @@ body {
   padding: 10px;
   text-decoration: none;
   color: #000000;
+  font-size: 13px;
 }
 .sub-navigation__link i {
-    position: absolute;
-    right: 10px; /* Căn lề phải */
-    top: 50%;
-    transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+  position: absolute;
+  right: 10px; /* Căn lề phải */
+  top: 50%;
+  transform: translateY(-50%); /* Căn giữa theo chiều dọc */
 }
 
 .main-navigation__item {
@@ -199,7 +200,6 @@ body {
 
 .fa-angle-down {
   font-size: 10px;
-  
 }
 
 .fa-angle-right {
@@ -213,7 +213,7 @@ body {
   align-items: center;
   flex: 1;
   justify-content: flex-end;
-  width: 40px;
+  width: 10px;
 }
 
 .search-form {
@@ -234,7 +234,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 32px; /* Tăng chiều cao */
+  height: 30px; /* Tăng chiều cao */
   width: 32px; /* Tăng chiều rộng */
 }
 
@@ -243,7 +243,7 @@ body {
 }
 
 .fa-search {
-  font-size: 18px; /* Tăng kích thước icon */
+  font-size: 18px; /* Tăng kích thước icon kính lúp*/
   color: #111111; /* Đổi màu icon giống với màu chữ của chữ Search */
 }
 
@@ -254,8 +254,8 @@ body {
   border-radius: 25px 0 0 25px; /* Thay đổi border-radius để vừa khít với nút icon */
   outline: none;
   flex: 1;
-  height: 35px; /* Giảm chiều cao */
-  width: 160px; /* Giảm chiều dài */
+  height: 30px; /* Giảm chiều cao */
+  width: 170px; /* Giảm chiều dài */
   font-size: 18px;
 }
 
@@ -315,14 +315,13 @@ body {
 
 /* Content and Sidebar */
 #wrapper-container {
-    width: fit-content;
-    display: flex;
-    padding: 20px 0px;
-    flex-direction: row-reverse; /* Added to move sidebar to the left */
-    background-color: #F0F0F0;
-    align-items: center;
-}    
-
+  width: fit-content;
+  display: flex;
+  padding: 20px 0px;
+  flex-direction: row-reverse; /* Added to move sidebar to the left */
+  background-color: #f0f0f0;
+  align-items: center;
+}
 
 .content {
   flex: 3;
@@ -345,7 +344,6 @@ body {
   display: flex; /* Nếu bạn sử dụng flexbox để căn chỉnh ảnh */
   position: relative;
 }
-
 
 .list-img a {
   flex-shrink: 0;
