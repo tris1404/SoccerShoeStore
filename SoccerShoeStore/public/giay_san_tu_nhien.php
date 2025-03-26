@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,12 @@
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <!-- Header -->
     <?php include 'includes/header.php'; ?>
-    <!-- End header -->
 
+    <!-- End header -->
     <div class="container">
         <aside class="sidebar">
             <h3>Tìm Theo</h3>
@@ -42,6 +44,7 @@
         </aside>
 
         <main class="main-content">
+
             <!-- Banner -->
             <div class="banner">
                 <img src="assets/img/San_TuNhien/adidas_banner.webp" alt="Banner Giày Cỏ Tự Nhiên">
@@ -49,9 +52,12 @@
 
             <div class="description">
                 <h2>Giày Cỏ Tự Nhiên</h2>
-                <p>Giày đá bóng sân cỏ tự nhiên là loại giày có thiết kế đinh đặc biệt (FG, AG-PRO, MG) để hỗ trợ chơi bóng trên sân cỏ thật 11 người.
+                <p>Giày đá bóng sân cỏ tự nhiên là loại giày có thiết kế đinh đặc biệt (FG, AG-PRO, MG) để hỗ trợ chơi
+                    bóng trên sân cỏ thật 11 người.
 
-Đến với SoccerShoeStore bạn có thể dễ dàng trải nghiệm những mẫu giày cỏ tự nhiên mới nhất và được săn đón nhiều nhất từ các thương hiệu hàng đầu trong và ngoài nước hiện nay như Nike, Adidas, Puma, Mizuno.</p>
+                    Đến với SoccerShoeStore bạn có thể dễ dàng trải nghiệm những mẫu giày cỏ tự nhiên mới nhất và được
+                    săn đón nhiều nhất từ các thương hiệu hàng đầu trong và ngoài nước hiện nay như Nike, Adidas, Puma,
+                    Mizuno.</p>
             </div>
 
             <div class="sort-filter">
@@ -119,37 +125,39 @@
     </div>
 
     <script>
-        function sortProducts() {
-            let sortType = document.getElementById("sort").value;
-            let productList = document.getElementById("product-list");
-            let products = Array.from(productList.getElementsByClassName("product"));
-            
-            products.sort((a, b) => {
-                let priceA = parseInt(a.getAttribute("data-price"));
-                let priceB = parseInt(b.getAttribute("data-price"));
-                if (sortType === "asc") return priceA - priceB;
-                if (sortType === "desc") return priceB - priceA;
-                return 0;
-            });
-            
-            productList.innerHTML = "";
-            products.forEach(product => productList.appendChild(product));
-        }
+    function sortProducts() {
+        let sortType = document.getElementById("sort").value;
+        let productList = document.getElementById("product-list");
+        let products = Array.from(productList.getElementsByClassName("product"));
 
-        //nút cuộn lên đầu trang
-        window.onscroll = function () {
-            let button = document.getElementById("scrollToTopBtn");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                button.style.display = "block"; // Hiện nút khi cuộn xuống
-            } else {
-                button.style.display = "none"; // Ẩn nút khi ở đầu trang
-            }
-        };
+        products.sort((a, b) => {
+            let priceA = parseInt(a.getAttribute("data-price"));
+            let priceB = parseInt(b.getAttribute("data-price"));
+            if (sortType === "asc") return priceA - priceB;
+            if (sortType === "desc") return priceB - priceA;
+            return 0;
+        });
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+        productList.innerHTML = "";
+        products.forEach(product => productList.appendChild(product));
+    }
+
+    //nút cuộn lên đầu trang
+    window.onscroll = function() {
+        let button = document.getElementById("scrollToTopBtn");
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            button.style.display = "block"; // Hiện nút khi cuộn xuống
+        } else {
+            button.style.display = "none"; // Ẩn nút khi ở đầu trang
         }
-        
+    };
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
     </script>
 
     <button id="scrollToTopBtn" onclick="scrollToTop()">
@@ -160,17 +168,17 @@
     <?php include 'includes/footer.php'; ?>
     <!-- End footer -->
 
-<!-- Popup sản phẩm -->
-<div id="productPopup" class="popup-container" style="display: none;">
-    <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <div id="popupDetails">
-            <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
+    <!-- Popup sản phẩm -->
+    <div id="productPopup" class="popup-container" style="display: none;">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <div id="popupDetails">
+                <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
+            </div>
         </div>
     </div>
-</div>
 
-<style>
+    <style>
     /* Popup container */
     .popup-container {
         position: fixed;
@@ -203,6 +211,7 @@
             opacity: 0;
             transform: scale(0.9);
         }
+
         to {
             opacity: 1;
             transform: scale(1);
@@ -253,10 +262,9 @@
     .popup-content button:hover {
         background: #218838;
     }
+    </style>
 
-</style>
-
-<script>
+    <script>
     function openPopup(productId) {
         fetch("get_product_details.php?id=" + productId)
             .then(response => response.text())
@@ -269,8 +277,9 @@
     function closePopup() {
         document.getElementById("productPopup").style.display = "none";
     }
-</script>
+    </script>
 
 
 </body>
+
 </html>
