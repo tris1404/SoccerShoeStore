@@ -208,3 +208,9 @@ body{
 .container.active .toggle-right{
     transform: translateX(200%);
 }
+
+.invalid-feedback {
+    font-size: 12px;
+    color: red;
+    margin-top: 10px;
+}
