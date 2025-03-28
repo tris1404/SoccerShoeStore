@@ -1,41 +1,46 @@
  <!-- Hearder -->
  <header class="header">
-    <div class="top-bar-container">
-        <nav class="top-bar__left">
-            <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer Shoes Store
-                <i class="fa-solid fa-location-dot"></i>
-            </a>
+     <div class="top-bar-container">
+         <nav class="top-bar__left">
+             <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer
+                 Shoes Store
+                 <i class="fa-solid fa-location-dot"></i>
+             </a> <span class="pipe1">|</span>
 
-            <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
-                <i class="fa-brands fa-facebook"></i>
-            </a>
-        </nav>
-        <nav class="top-bar__right">
-                <a href="#" class="top-bar__right__item">Liên hệ</a>
-                <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a>
-                <a href="#" class="top-bar__right__item">Đăng Ký</a>
-                <a href="#" class="top-bar__right__item">Đăng nhập</a>
-        </nav> 
-    </div>
-    <div class="navigation-container">
-        <div class="logo">
-            <a href="#" class="logo-link">
-                <img src="assets/img/logo.png" alt="Soccer Shoes Store">
-            </a>
-        </div>
-        <nav class="navigation-menu">
-            <ul class="main-navigation__list">
-                <li><a href="<?php echo dirname($_SERVER['PHP_SELF']) == '/template' ? '../index.php' : 'index.php'; ?>" class="main-navigation__link">Trang chủ</a></li>
-                <li class="main-navigation__item">
-                    <a href="#" class="main-navigation__link">Giày bóng đá</a>
-                    <i class="fa-solid fa-angle-down"></i>
-                    <ul class="sub-navigation__list">
-                        <li><a href="#" class="sub-navigation__link">Tất cả sản phẩm</a></li>
-                        <li><a href="#" class="sub-navigation__link">Hàng mới về</a></li>
-                        <li><a href="#" class="sub-navigation__link">Giày giá rẻ</a></li>
-                        <li><a href="#" class="sub-navigation__link">Giày trẻ em</a></li>
-                    </ul>
-                </li>
+             <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
+                 <i class="fa-brands fa-facebook"></i>
+             </a>
+         </nav>
+
+         <!-- TOP-BAR RIGHT -->
+         <nav class="top-bar__right">
+             <a href="#" class="top-bar__right__item">Liên hệ</a><span class="pipe2">|</span>
+             <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a><span class="pipe2">|</span>
+             <a href="login.php" class="top-bar__right__item">Đăng ký</a><span class="pipe2">|</span>
+             <a href="logon.php" class="top-bar__right__item">Đăng nhập</a>
+         </nav>
+     </div>
+     <div class="navigation-container">
+         <div class="logo">
+             <a href="#" class="logo-link">
+                 <img src="assets/img/logo.png" alt="Soccer Shoes Store">
+             </a>
+         </div>
+         <nav class="navigation-menu">
+             <ul class="main-navigation__list">
+                 <li class="main-navigation__item">
+                     <a href="index.php" class="main-navigation__link">Trang chủ</a>
+                 </li>
+                 <li class="main-navigation__item">
+                     <a href="#" class="main-navigation__link">Giày bóng đá</a>
+                     <i class="fa-solid fa-angle-down"></i>
+                     <ul class="sub-navigation__list">
+                         <li><a href="#" class="sub-navigation__link">Tất cả sản phẩm</a></li>
+                         <li><a href="#" class="sub-navigation__link">Hàng mới về</a></li>
+                         <li><a href="#" class="sub-navigation__link">Giày giá rẻ</a></li>
+                         <li><a href="#" class="sub-navigation__link">Giày trẻ em</a></li>
+                     </ul>
+                 </li>
 
                 <li class="main-navigation__item">
                     <a href="giay_san_tu_nhien.php" class="main-navigation__link">Giày cỏ tự nhiên</a>
@@ -197,26 +202,24 @@
             </form>
         </div>
 
-        <div class="cart">
-            <a href="#" class="global-navigation__cart__link">
-                <i class="fa-regular fa-heart"></i>
-                <span class="global-navigation__cart__link__count">0</span>
-            </a>
+         <div class="cart">
+             <a href="#" class="global-navigation__cart__link">
+                 <i class="fa-regular fa-heart"></i>
+                 <span class="global-navigation__cart__link__count">0</span>
+             </a>
 
-            <a href="#" class="global-navigation__cart__link">
-                <i class="fas fa-shopping-cart"></i>
-                <!-- <i class="fa-regular fa-cart-shopping"></i> -->
-                <span class="global-navigation__cart__link__count">0</span>
-            </a>
-            
-            <a href="#" class="global-navigation__cart__link">
-                <i class="fa-solid fa-user"></i>
-                <span class="global-navigation__cart__link__count">0</span>
-            </a>
-            <a href="?lang=vi" class="global-navigation__cart__link">
-                &#127483;&#127475; <!-- Lá cờ Việt Nam -->
-            </a>
-        </div>
-    </div>
-</header>
-<!-- End header -->
+             <a href="#" class="global-navigation__cart__link">
+                 <i class="fas fa-shopping-cart"></i>
+                 <span class="global-navigation__cart__link__count">0</span>
+             </a>
+
+             <a href="#" class="global-navigation__cart__link">
+                 <i class="fa-solid fa-user"></i>
+             </a>
+             
+                 <!-- Lá cờ Việt Nam -->
+             </a>
+         </div>
+     </div>
+ </header>
+ <!-- End header -->

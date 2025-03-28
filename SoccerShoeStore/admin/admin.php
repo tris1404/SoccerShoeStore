@@ -1,10 +1,17 @@
+<?php
+session_start();
+    if( !isset($_SESSION['email'])){
+        header('SoccerShoeStore/SoccerShoeStore/log/login.php');
+    
+    }
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Quản lý Cửa Hàng Bán Giày</title>
-    <link rel="stylesheet" href="assets/css/styles_admin.css">
+    <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -30,3 +37,4 @@
 <script src="assets/js/scripts.js"></script>
 </body>
 </html>
+
