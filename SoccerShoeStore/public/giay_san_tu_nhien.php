@@ -124,6 +124,42 @@
         </main>
     </div>
 
+    <!-- Popup sản phẩm -->
+    <div id="productPopup" class="popup-container" style="display: none;">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <div id="popupDetails">
+                <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
+            </div>
+        </div>
+    </div>
+
+    <button id="scrollToTopBtn" onclick="scrollToTop()">
+        &#x25B2;
+    </button>
+    <button id="zaloChat" onclick="window.open('https://zalo.me/09xxxxxxxx', '_blank')">
+        <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png" alt="Chat Zalo">
+    </button>
+
+
+    <!-- Footer -->
+    <?php include 'includes/footer.php'; ?>
+    <!-- End footer -->
+
+    <script>
+    function openPopup(productId) {
+        fetch("get_product_details.php?id=" + productId)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("popupDetails").innerHTML = data;
+                document.getElementById("productPopup").style.display = "flex";
+            });
+    }
+
+    function closePopup() {
+        document.getElementById("productPopup").style.display = "none";
+    }
+    </script>
     <script>
     function sortProducts() {
         let sortType = document.getElementById("sort").value;
@@ -159,125 +195,7 @@
         });
     }
     </script>
-
-    <button id="scrollToTopBtn" onclick="scrollToTop()">
-        &#x25B2;
-    </button>
-
-    <!-- Footer -->
-    <?php include 'includes/footer.php'; ?>
-    <!-- End footer -->
-
-    <!-- Popup sản phẩm -->
-    <div id="productPopup" class="popup-container" style="display: none;">
-        <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <div id="popupDetails">
-                <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
-            </div>
-        </div>
-    </div>
-
-    <style>
-    /* Popup container */
-    .popup-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    /* Nội dung popup */
-    .popup-content {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        width: 50%;
-        max-width: 500px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        position: relative;
-        animation: fadeIn 0.3s ease-in-out;
-    }
-
-    /* Hiệu ứng xuất hiện */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    /* Nút đóng */
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 24px;
-        cursor: pointer;
-        color: red;
-        font-weight: bold;
-    }
-
-    /* Hình ảnh sản phẩm */
-    .popup-content img {
-        width: 100%;
-        border-radius: 5px;
-    }
-
-    /* Thông tin sản phẩm */
-    .popup-content h2 {
-        font-size: 20px;
-        margin-top: 10px;
-    }
-
-    /* Giá */
-    .popup-content p strong {
-        color: red;
-        font-size: 18px;
-    }
-
-    /* Nút thêm vào giỏ hàng */
-    .popup-content button {
-        width: 100%;
-        background: #28a745;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .popup-content button:hover {
-        background: #218838;
-    }
-    </style>
-
-    <script>
-    function openPopup(productId) {
-        fetch("get_product_details.php?id=" + productId)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("popupDetails").innerHTML = data;
-                document.getElementById("productPopup").style.display = "flex";
-            });
-    }
-
-    function closePopup() {
-        document.getElementById("productPopup").style.display = "none";
-    }
-    </script>
+    <script src="assets/js/scripts.js?v=1"></script>
 
 
 </body>

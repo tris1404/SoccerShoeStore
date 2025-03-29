@@ -44,6 +44,14 @@
 
                 <li class="main-navigation__item">
                     <a href="giay_san_tu_nhien.php" class="main-navigation__link">Giày cỏ tự nhiên</a>
+                    <i class="fa-solid fa-angle-down"></i>
+                    <ul class="sub-navigation__list">
+                        <li><a href="#" class="sub-navigation__link">Nike</a></li>
+                        <li><a href="#" class="sub-navigation__link">Adidas</a></li>
+                        <li><a href="#" class="sub-navigation__link">Puma</a></li>
+                        <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
+                        <li><a href="#" class="sub-navigation__link">Kamito</a></li>
+                    </ul>                    
                 </li>
                 <li class="main-navigation__item">
                     <a href="#" class="main-navigation__link">Giày cỏ nhân tạo</a>
