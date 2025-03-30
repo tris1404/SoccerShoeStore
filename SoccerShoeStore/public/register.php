@@ -4,17 +4,9 @@ $errorMsg = "";
 require_once("../config/database.php");
 
 if (isset($_POST["signup"])) {
-    // Kiểm tra nếu có trường nào bị bỏ trống
-    if (!isset($_POST["name"]) || trim($_POST["name"]) == "") {
-        echo "<script>alert('Vui lòng nhập họ và tên!');</script>";
-        exit();
-    } elseif (!isset($_POST["email"]) || trim($_POST["email"]) == "") {
-        echo "<script>alert('Vui lòng nhập email!');</script>";
-        exit();
-    } elseif (!isset($_POST["password"]) || trim($_POST["password"]) == "") {
-        echo "<script>alert('Vui lòng nhập mật khẩu!');</script>";
-        exit();
-    }
+    $name = trim($_POST["name"]);
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
 
     // Lấy dữ liệu từ form và xử lý tránh SQL Injection
     $name = mysqli_real_escape_string($conn, trim($_POST["name"]));

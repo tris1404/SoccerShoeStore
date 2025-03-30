@@ -2,22 +2,25 @@
  <header class="header">
      <div class="top-bar-container">
          <nav class="top-bar__left">
-             <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer
-                 Shoes Store
-                 <i class="fa-solid fa-location-dot"></i>
-             </a> <span class="pipe1">|</span>
+            <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer
+                Shoes Store
+                <i class="fa-solid fa-location-dot"></i>
+            </a> <span class="pipe1">|</span>
 
-             <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
-                 <i class="fa-brands fa-facebook"></i>
-             </a>
+            <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
+                <i class="fa-brands fa-facebook"></i>
+            </a>
          </nav>
 
          <!-- TOP-BAR RIGHT -->
          <nav class="top-bar__right">
-             <a href="#" class="top-bar__right__item">Liên hệ</a><span class="pipe2">|</span>
-             <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a><span class="pipe2">|</span>
-             <a href="login.php" class="top-bar__right__item">Đăng ký</a><span class="pipe2">|</span>
-             <a href="login.php" class="top-bar__right__item">Đăng nhập</a>
+            <a href="#" class="top-bar__right__item">Liên hệ</a><span class="pipe2">|</span>
+            <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a><span class="pipe2">|</span>
+            <a href="register.php" class="top-bar__right__item">Đăng ký</a><span class="pipe2">|</span>
+            <a href="login.php" class="top-bar__right__item">Đăng nhập</a>
+
+
+
          </nav>
      </div>
      <div class="navigation-container">

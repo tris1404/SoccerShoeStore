@@ -12,7 +12,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-in">
-            <form method="post" action="login.php" >
+            <form method="post" action="login.php" onsubmit="return validateForm(event)">
                 <h1>Sign In</h1>
                 <?php echo "<h4 style='color: red; font-size: 14px; font-weight: bold; margin-top: 5px;' class='invalid-feedback'>$errorMsg</h4>"; ?>
                 <div class="social-icons">
@@ -22,20 +22,26 @@
                     <a href="#" onclick="alert('Đang hiện thực.....')" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email password</span>
-                <select name="role" id="role">
+                <select name="role" id="role" class="role">
+                    <option value="" disabled selected hidden>Role</option>
                     <option value="admin">Admin</option>
                     <option value="staff">Staff</option>
                     <option value="user">User</option>
                 </select>
-
-                <input type="email" name="email"placeholder="Email">
-                <input type="password" name="password" placeholder="Password">
+                <span id="role-error" class="error-msg"></span>
+                <input type="email" name="email" id="email" placeholder="Email">
+                <span id="email-error" class="error-msg"></span>
+                <div class="password-container">
+                    <input type="password" id="login-password" name="password" placeholder="Mật khẩu">
+                    <i class="fa-solid fa-eye" id="toggleLoginPassword" onclick="togglePassword('login-password', 'toggleLoginPassword')"></i>
+                </div>  
+                <span id="password-error" class="error-msg"></span>
                 <a href="#">Forget Your Password?</a>
                 <button name="signin">Sign In</button>
             </form>
         </div>
         <div class="form-container sign-up">
-            <form method="post" action="register.php">
+            <form method="post" action="register.php" onsubmit="return validateForm(event)">
                 <h1>Create Account</h1>
                 <?php echo "<h4 style='color: red; font-size: 14px; font-weight: bold; margin-top: 5px;' class='invalid-feedback'>$errorMsg</h4>"; ?>
                 <div class="social-icons">
@@ -45,10 +51,19 @@
                     <a href="#" onclick="alert('Đang hiện thực.....')" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registeration</span>
-                <?php echo "<h4 style='color: red; font-size: 10px; font-weight: bold; margin-top: 5px;' class='invalid-feedback'>$errorMsg</h4>"; ?>
-                <input type="text" name="name" placeholder="Name">
-                <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Password">
+                <input type="text" name="name" id="name" placeholder="Name">
+                <span id="name-error" class="error-msg"></span>
+
+                <input type="email" name="email" id="email" placeholder="Email">
+                <span id="email-error" class="error-msg"></span>
+
+                <div class="password-container">
+                    <input type="password" id="register-password" name="password" placeholder="Mật khẩu">
+                    <i class="fa-solid fa-eye" id="toggleRegisterPassword" onclick="togglePassword('register-password', 'toggleRegisterPassword')"></i>
+                </div>
+
+
+                <span id="password-error" class="error-msg"></span>
                 <button name="signup">Sign Up</button>
             </form>
         </div>
@@ -68,7 +83,7 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/login.js"></script>
+    <script src="assets/js/login.js?v=4"></script>
 </body>
 </html>
 
