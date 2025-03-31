@@ -2,22 +2,25 @@
  <header class="header">
      <div class="top-bar-container">
          <nav class="top-bar__left">
-             <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer
-                 Shoes Store
-                 <i class="fa-solid fa-location-dot"></i>
-             </a> <span class="pipe1">|</span>
+            <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer
+                Shoes Store
+                <i class="fa-solid fa-location-dot"></i>
+            </a> <span class="pipe1">|</span>
 
-             <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
-                 <i class="fa-brands fa-facebook"></i>
-             </a>
+            <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
+                <i class="fa-brands fa-facebook"></i>
+            </a>
          </nav>
 
          <!-- TOP-BAR RIGHT -->
          <nav class="top-bar__right">
-             <a href="#" class="top-bar__right__item">Liên hệ</a><span class="pipe2">|</span>
-             <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a><span class="pipe2">|</span>
-             <a href="login.php" class="top-bar__right__item">Đăng ký</a><span class="pipe2">|</span>
-             <a href="logon.php" class="top-bar__right__item">Đăng nhập</a>
+            <a href="#" class="top-bar__right__item">Liên hệ</a><span class="pipe2">|</span>
+            <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a><span class="pipe2">|</span>
+            <a href="register.php" class="top-bar__right__item">Đăng ký</a><span class="pipe2">|</span>
+            <a href="login.php" class="top-bar__right__item">Đăng nhập</a>
+
+
+
          </nav>
      </div>
      <div class="navigation-container">
@@ -213,13 +216,50 @@
                  <span class="global-navigation__cart__link__count">0</span>
              </a>
 
-             <a href="#" class="global-navigation__cart__link">
-                 <i class="fa-solid fa-user"></i>
-             </a>
-             
-                 <!-- Lá cờ Việt Nam -->
-             </a>
+             <div class="user-menu">
+                <a href="#" class="global-navigation__cart__link">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Đăng ký</a></li>
+                    <li><a href="#">Đăng nhập</a></li>
+                    <li><a href="#">Đăng xuất</a></li>
+                </ul>
+            </div>
          </div>
      </div>
  </header>
  <!-- End header -->
+
+ 
+<style>
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 2px;
+    background: white;
+    list-style: none;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 130px;
+}
+
+.dropdown-menu li {
+    padding: 8px 16px;
+}
+
+/* Hiển thị menu khi hover vào user-menu */
+.user-menu:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li:hover {
+    background-color: #e8e8e8;
+}
+</style>
