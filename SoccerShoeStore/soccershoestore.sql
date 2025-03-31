@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 29, 2025 lúc 07:23 PM
+-- Thời gian đã tạo: Th3 31, 2025 lúc 06:32 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -335,7 +335,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `phone`, `address`, `status`, `created_at`, `updated_at`, `role`) VALUES
 (1, 'user', 'user@gmail.com', NULL, 'user', NULL, '0123456789', 'Long An', 'Active', NULL, NULL, 'User'),
-(5, '', 'tri@gmail.com', NULL, 'tri', NULL, '', '', 'Active', NULL, NULL, 'User');
+(18, 'user2', 'user2@gmail.com', NULL, 'User2@123', NULL, '', '', 'Active', NULL, NULL, 'User');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -497,7 +497,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
