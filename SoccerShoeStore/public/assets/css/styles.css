@@ -317,7 +317,6 @@ body {
 
 /* Content and Sidebar */
 #wrapper-container {
-  width: fit-content;
   display: flex;
   padding: 20px 0px;
   flex-direction: row-reverse; /* Added to move sidebar to the left */
