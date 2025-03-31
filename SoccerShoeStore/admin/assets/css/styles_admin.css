@@ -8,12 +8,11 @@
 
 /* Layout chính */
 .wrapper {
-  min-height: calc(100vh - 60px); /* Điều chỉnh chiều cao */
+  min-height: 100vh;
   display: flex;
-  width: 1520px;
+  overflow: hidden; /* Tránh bị tràn */
 }
 
-/* Sidebar */
 .sidebar {
   width: 250px;
   background-color: #1E293B;
@@ -23,6 +22,7 @@
   left: 0;
   top: 0;
   bottom: 0;
+  transition: width 0.3s ease;
 }
 
 .sidebar .logo {
@@ -67,10 +67,16 @@
 
 /* Nội dung chính */
 .main-content {
-  flex: 1;
+  margin-top: 60px;
+  flex-grow: 1;
   background-color: #f8fafc;
   padding: 20px;
   margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.expanded {
+  margin-left: 0;
 }
 
 /* Navbar */
@@ -79,13 +85,20 @@
   top: 0;
   left: 250px;
   width: calc(100% - 250px);
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: white;
-  padding: 12px 20px;
+  padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+.navbar.expanded {
+  left: 0;
+  width: 100%;
 }
 
 /* Menu Toggle */
@@ -218,8 +231,10 @@
   font-size: 14px;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  left: 250px; /* Đẩy footer sang phải để tránh Sidebar */
+  width: calc(100% - 250px); /* Đảm bảo footer chiếm toàn bộ phần còn lại */
   box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease, width 0.3s ease;
 }
 
 .footer p {
@@ -256,12 +271,12 @@
 /* Khi sidebar đóng */
 .sidebar.closed {
   width: 0;
-  transition: width 0.3s ease;
   overflow: hidden;
 }
 
 /* Cập nhật main-content khi sidebar đóng */
 .main-content {
+  width: calc(100% - 250px);
   margin-left: 250px;
   transition: margin-left 0.3s ease;
 }

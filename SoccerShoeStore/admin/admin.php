@@ -23,6 +23,7 @@ session_start();
         <!-- header -->
         <?php include 'template/header.php'; ?>
         <!-- end header -->
+         <!-- Nội dung chính --> 
         <main class="main-content">
             <!-- dashboad -->
             <?php include 'template/dashboard.php'; ?>
@@ -33,8 +34,6 @@ session_start();
         <?php include 'template/footer.php'; ?> 
         <!-- End Footer -->   
     </div>
-<script src="https://kit.fontawesome.com/c6a9a4ea28.js" crossorigin="anonymous"></script>
-<script src="assets/js/scripts.js"></script>
 </body>
 </html>
 
