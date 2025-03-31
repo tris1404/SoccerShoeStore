@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="assets/css/giay_san_tu_nhien.css">
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="assets/js/scripts.js?v=1"></script>
 </head>
 
 <body>
@@ -18,29 +20,45 @@
     <div class="container">
         <aside class="sidebar">
             <h3>Tìm Theo</h3>
-            <form method="GET" action="">
-                <h4>Thương Hiệu</h4>
-                <?php
-                $brands = ["Nike", "Adidas", "Puma", "Mizuno"];
-                foreach ($brands as $brand) {
-                    $checked = (isset($_GET['brand']) && in_array($brand, $_GET['brand'])) ? "checked" : "";
-                    echo "<label><input type='checkbox' name='brand[]' value='$brand' $checked onchange='this.form.submit()'> $brand</label><br>";
-                }
-                ?>
-                <h4>Khoảng Giá</h4>
-                <?php
-                $priceRanges = [
-                    "1000000-2000000" => "1.000.000 - 2.000.000",
-                    "2000000-3000000" => "2.000.000 - 3.000.000",
-                    "3000000-4000000" => "3.000.000 - 4.000.000",
-                    "4000000-5000000" => "4.000.000 - 5.000.000"
-                ];
-                foreach ($priceRanges as $range => $label) {
-                    $checked = (isset($_GET['price']) && in_array($range, $_GET['price'])) ? "checked" : "";
-                    echo "<label><input type='checkbox' name='price[]' value='$range' $checked onchange='this.form.submit()'> $label</label><br>";
-                }
-                ?>
-            </form>
+            <table class="filter-table">
+                <tr class="brand-toggle">
+                    <th>Thương Hiệu <i class="fas fa-chevron-down"></i></th>
+                </tr>
+                <tr class="brand-options" style="display: none;">
+                    <td>
+                        <form method="GET" action="">
+                            <?php
+                            $brands = ["Nike", "Adidas", "Puma", "Mizuno"];
+                            foreach ($brands as $brand) {
+                                $checked = (isset($_GET['brand']) && in_array($brand, $_GET['brand'])) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='brand[]' value='$brand' $checked onchange='this.form.submit()'> $brand</label><br>";
+                            }
+                            ?>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="price-toggle">
+                    <th>Khoảng Giá <i class="fas fa-chevron-down"></i></th>
+                </tr>
+                <tr class="price-options" style="display: none;">
+                    <td>
+                        <form method="GET" action="">
+                            <?php
+                            $priceRanges = [
+                                "1000000-2000000" => "1.000.000 - 2.000.000",
+                                "2000000-3000000" => "2.000.000 - 3.000.000",
+                                "3000000-4000000" => "3.000.000 - 4.000.000",
+                                "4000000-5000000" => "4.000.000 - 5.000.000"
+                            ];
+                            foreach ($priceRanges as $range => $label) {
+                                $checked = (isset($_GET['price']) && in_array($range, $_GET['price'])) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='price[]' value='$range' $checked onchange='this.form.submit()'> $label</label><br>";
+                            }
+                            ?>
+                        </form>
+                    </td>
+                </tr>
+            </table>
         </aside>
 
         <main class="main-content">
@@ -195,8 +213,19 @@
         });
     }
     </script>
-    <script src="assets/js/scripts.js?v=1"></script>
+    <script>
+    $(document).ready(function() {
+        $(".brand-toggle").click(function() {
+            $(this).next(".brand-options").stop(true, true).slideToggle();
+            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up"); 
+        });
 
+        $(".price-toggle").click(function() {
+            $(this).next(".price-options").stop(true, true).slideToggle();
+            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up"); 
+        });
+    });
+    </script>
 
 </body>
 
