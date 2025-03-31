@@ -71,7 +71,7 @@
 
             <div class="product-list" id="product-list">
                 <?php
-                $conn = new mysqli("localhost", "root", "", "shoe_store");
+                $conn = new mysqli("localhost", "root", "", "soccershoestore");
                 if ($conn->connect_error) {
                     die("Kết nối thất bại: " . $conn->connect_error);
                 }
