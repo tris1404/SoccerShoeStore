@@ -23,7 +23,7 @@ h2 {
     width: 200px;
     margin: 10px auto;
     padding: 10px;
-    background: #28a745;
+    background: #0b529e;
     color: white;
     border: none;
     cursor: pointer;
@@ -31,7 +31,7 @@ h2 {
 }
 
 .add-btn:hover {
-    background: #218838;
+    background: #4a76a4;
 }
 
 table {
@@ -47,7 +47,7 @@ th, td {
 }
 
 th {
-    background: #007bff;
+    background: #0b529e;
     color: white;
 }
 
@@ -79,4 +79,67 @@ td img {
 
 .delete-btn:hover {
     background: #c82333;
+}
+
+/* Ẩn form mặc định */
+.hidden {
+    display: none;
+}
+
+/* Phần form nhập sản phẩm */
+#product-form {
+    width: 50%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Tiêu đề của form */
+#product-form h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Nhãn cho ô nhập liệu */
+#product-form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Ô nhập liệu */
+#product-form input, 
+#product-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Ô chọn ảnh */
+#product-form input[type="file"] {
+    padding: 5px;
+}
+
+/* Nút submit */
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #0b529e;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.submit-btn:hover {
+    background: #4a76a4;
 }
