@@ -211,7 +211,7 @@
                  <span class="global-navigation__cart__link__count">0</span>
              </a>
 
-             <a href="#" class="global-navigation__cart__link">
+             <a href="cart.php" class="global-navigation__cart__link">
                  <i class="fas fa-shopping-cart"></i>
                  <span class="global-navigation__cart__link__count">0</span>
              </a>

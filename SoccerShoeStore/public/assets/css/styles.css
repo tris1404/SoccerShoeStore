@@ -322,6 +322,7 @@ body {
   flex-direction: row-reverse; /* Added to move sidebar to the left */
   background-color: #f0f0f0;
   align-items: center;
+  justify-content: center;
 }
 
 .content {
