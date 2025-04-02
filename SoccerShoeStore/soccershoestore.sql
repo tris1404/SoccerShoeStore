@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th4 02, 2025 lúc 11:21 AM
+-- Thời gian đã tạo: Th4 02, 2025 lúc 12:15 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -325,7 +325,7 @@ CREATE TABLE `products_admin` (
 --
 
 INSERT INTO `products_admin` (`id`, `name`, `size`, `price`, `category`, `shoe_type`, `quantity`, `image`) VALUES
-(11, 'adidas1', '40, 39', 1700000, 'Adidas', 'Sân tự nhiên', 2, 'logo.png');
+(12, 'adidas1', '29, 40, 45, 46', 2000000, 'Adidas', 'Sân nhân tạo', 7, 'adidas_1.jpg');
 
 -- --------------------------------------------------------
 
@@ -530,7 +530,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `products_admin`
 --
 ALTER TABLE `products_admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `reviews`
