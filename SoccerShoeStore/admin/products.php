@@ -21,7 +21,7 @@
         <button class="add-btn" onclick="showForm()">Thêm Sản phẩm</button>
             <div id="product-form" class="hidden">
                 <h3>Nhập thông tin sản phẩm</h3>
-                <form id="add-product-form" enctype="multipart/form-data">
+                <form id="add-product-form" method="POST" action="add_products.php" enctype="multipart/form-data">
                     <label for="product-name">Tên Sản phẩm:</label>
                     <input type="text" id="product-name" name="product_name" required>
 
@@ -110,28 +110,6 @@
             form.classList.add('hidden');
         }
     }
-</script>
-<script>
-document.getElementById("add-product-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // Ngăn trang load lại
-
-    let formData = new FormData(this);
-
-    fetch("add_product.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        if (data.includes("Lỗi")) {
-            alert("Thêm sản phẩm thất bại!");
-        } else {
-            alert("Thêm sản phẩm thành công!");
-            location.reload(); // Cập nhật lại danh sách sản phẩm
-        }
-    })
-    .catch(error => console.log(error));
-});
 </script>
 </body>
 </html>

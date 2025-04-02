@@ -1,10 +1,10 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "soccershoestore");
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
+    $conn = new mysqli("localhost", "root", "", "soccershoestore");
+    if ($conn->connect_error) {
+        die("Kết nối thất bại: " . $conn->connect_error);
+    }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_name = $_POST['product_name'];
     $size = $_POST['size'];
     $price = $_POST['price'];
@@ -23,11 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$product_name', '$size', '$price', '$category', '$shoe_type', '$quantity', '$image_name')";
     
     if (mysqli_query($conn, $sql)) {
-        header("Location: products.php"); // Quay lại trang quản lý sản phẩm
-    } else {
-        echo "Lỗi: " . mysqli_error($conn);
-    }
+        header("Location: products.php");
+     } else {
+         echo "Lỗi SQL: " . mysqli_error($conn);
+     }
+    
     
     mysqli_close($conn);
-}
+    }
 ?>

@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 31, 2025 lúc 06:32 AM
+-- Máy chủ: 127.0.0.1:3306
+-- Thời gian đã tạo: Th4 02, 2025 lúc 11:21 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -278,19 +278,54 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `summary` text NOT NULL,
-  `stock` tinyint(3) UNSIGNED NOT NULL,
-  `price` double NOT NULL,
-  `disscounted_price` double NOT NULL,
-  `images` text NOT NULL,
-  `category_id` bigint(20) UNSIGNED NOT NULL,
-  `brand_id` bigint(20) UNSIGNED NOT NULL,
-  `status` enum('Active','Inactive') NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `brand` varchar(50) NOT NULL,
+  `price` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `discount` int(11) DEFAULT 0,
+  `sizes` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `brand`, `price`, `image`, `discount`, `sizes`) VALUES
+(1, 'Giày Nike Phantom', 'nike', 1500000, 'assets/img/San_TuNhien/nike_3.png', 10, '38,39,40,41,42'),
+(2, 'Giày Adidas Predator', 'adidas', 1200000, 'assets/img/San_TuNhien/adidas_1.jpg', 15, '38,39,40,41,42'),
+(3, 'Giày Mizuno Morelia', 'mizuno', 1800000, 'assets/img/San_TuNhien/mizuno_1.jpg', 20, '38,39,40,41,42'),
+(4, 'Giày Puma Ultra', 'puma', 1400000, 'assets/img/San_TuNhien/puma_2.jpg', 5, '38,39,40,41,42'),
+(5, 'Giày Nike Tiempo', 'nike', 2500000, 'assets/img/San_TuNhien/nike_2.png', 10, '38,39,40,41,42'),
+(6, 'Giày Nike Mercurial', 'nike', 2800000, 'assets/img/San_TuNhien/nike_1.png', 10, '38,39,40,41,42'),
+(8, 'Giày Adidas F50', 'adidas', 1900000, 'assets/img/San_TuNhien/adidas_3.webp', 15, '38,39,40,41,42'),
+(9, 'Giày Adidas Copa', 'adidas', 4000000, 'assets/img/San_TuNhien/adidas_4.avif', 15, '38,39,40,41,42'),
+(10, 'Giày Adidas X', 'adidas', 4500000, 'assets/img/San_TuNhien/adidas_messi.webp', 15, '38,39,40,41,42'),
+(11, 'Giày Puma Future', 'puma', 1400000, 'assets/img/San_TuNhien/puma_1.jpg', 5, '38,39,40,41,42'),
+(12, 'Giày Mizuno Alpha', 'mizuno', 3000000, 'assets/img/San_TuNhien/mizuno_3.png', 15, '38,39,40,41,42'),
+(13, 'Giày Mizuno Monarcida', 'mizuno', 2800000, 'assets/img/San_TuNhien/mizuno_2.webp', 5, '38,39,40,41,42');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `products_admin`
+--
+
+CREATE TABLE `products_admin` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `size` varchar(50) NOT NULL,
+  `price` int(11) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `shoe_type` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `products_admin`
+--
+
+INSERT INTO `products_admin` (`id`, `name`, `size`, `price`, `category`, `shoe_type`, `quantity`, `image`) VALUES
+(11, 'adidas1', '40, 39', 1700000, 'Adidas', 'Sân tự nhiên', 2, 'logo.png');
 
 -- --------------------------------------------------------
 
@@ -335,7 +370,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `phone`, `address`, `status`, `created_at`, `updated_at`, `role`) VALUES
 (1, 'user', 'user@gmail.com', NULL, 'user', NULL, '0123456789', 'Long An', 'Active', NULL, NULL, 'User'),
-(18, 'user2', 'user2@gmail.com', NULL, 'User2@123', NULL, '', '', 'Active', NULL, NULL, 'User');
+(18, 'user2', 'user2@gmail.com', NULL, 'User2@123', NULL, '', '', 'Active', NULL, NULL, 'User'),
+(19, 'trong', 'dangtrong@gmail.com', NULL, 'Dangtrong@123', NULL, '', '', 'Active', NULL, NULL, 'User');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -409,10 +445,13 @@ ALTER TABLE `personal_access_tokens`
 -- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `products_slug_unique` (`slug`),
-  ADD KEY `products_category_id_foreign` (`category_id`),
-  ADD KEY `products_brand_id_foreign` (`brand_id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `products_admin`
+--
+ALTER TABLE `products_admin`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `reviews`
@@ -485,7 +524,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT cho bảng `products_admin`
+--
+ALTER TABLE `products_admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `reviews`
@@ -497,7 +542,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -521,20 +566,6 @@ ALTER TABLE `orders`
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   ADD CONSTRAINT `order_details_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
---
--- Các ràng buộc cho bảng `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_brand_id_foreign` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`),
-  ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
-
---
--- Các ràng buộc cho bảng `reviews`
---
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `reviews_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
