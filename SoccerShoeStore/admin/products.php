@@ -21,7 +21,7 @@
         <button class="add-btn" onclick="showForm()">Thêm Sản phẩm</button>
             <div id="product-form" class="hidden">
                 <h3>Nhập thông tin sản phẩm</h3>
-                <form id="add-product-form" method="POST" action="add_products.php" enctype="multipart/form-data">
+                <form id="add-product-form" method="POST" action="XuLy_Products/add.php" enctype="multipart/form-data">
                     <label for="product-name">Tên Sản phẩm:</label>
                     <input type="text" id="product-name" name="product_name" required>
 
@@ -62,6 +62,7 @@
                     <th>Hình ảnh</th>
                     <th>Giá</th>
                     <th>Danh mục</th>
+                    <th>Loại Giày</th>
                     <th>Size</th>
                     <th>Số lượng</th>
                     <th>Thao tác</th>
@@ -83,11 +84,12 @@
                     echo "<td><img src='uploads/" . $row['image'] . "' width='50'></td>";
                     echo "<td>" . number_format($row['price'], 0, ',', '.') . " VND</td>";
                     echo "<td>" . $row['category'] . "</td>";
-                    echo "<td>" . $row['shoe_type'] . "</td>"; 
+                    echo "<td>" . $row['shoe_type'] . "</td>";
+                    echo "<td>" . $row['size'] . "</td>"; 
                     echo "<td>" . $row['quantity'] . "</td>";  
                     echo "<td>
-                            <button class='edit-btn'>Sửa</button>
-                            <button class='delete-btn' onclick='deleteProduct(" . $row['id'] . ")'>Xóa</button>
+                            <a class='edit-btn' href='XuLy_Products/edit.php?id=" . $row['id'] . "'>Sửa</a>
+                            <a class='delete-btn' href='XuLy_Products/delete.php?id=" . $row['id'] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xóa?\")'>Xóa</a>
                         </td>";
                     echo "</tr>";
                 }

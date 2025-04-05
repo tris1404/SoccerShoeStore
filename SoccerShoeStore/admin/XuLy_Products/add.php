@@ -13,7 +13,7 @@
     $quantity = $_POST['quantity'];
 
     // Xử lý ảnh tải lên
-    $target_dir = "uploads/";
+    $target_dir = "../uploads/";
     $image_name = basename($_FILES["image"]["name"]);
     $target_file = $target_dir . $image_name;
     move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
@@ -23,7 +23,7 @@
             VALUES ('$product_name', '$size', '$price', '$category', '$shoe_type', '$quantity', '$image_name')";
     
     if (mysqli_query($conn, $sql)) {
-        header("Location: products.php");
+        header("Location: ../products.php");
      } else {
          echo "Lỗi SQL: " . mysqli_error($conn);
      }
