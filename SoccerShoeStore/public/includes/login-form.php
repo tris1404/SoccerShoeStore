@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/login.js?v=4"></script>
+    <script src="assets/js/login.js"></script>
 </body>
 </html>
 

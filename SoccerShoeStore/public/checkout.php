@@ -84,8 +84,8 @@
 
     .delivery-method {
         padding: 15px;
+        margin-top: 10px;
         background-color: #f9f9f9;
-        border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
@@ -133,7 +133,9 @@
         margin-bottom: 20px;
     }
 
-    .product-details, .discount-container, .bill-info{
+    .product-details,
+    .discount-container,
+    .bill-info {
         display: flex;
         justify-content: space-between;
         padding: 10px;
@@ -195,7 +197,7 @@
         display: flex;
         justify-content: space-between;
         padding: 10px;
-    
+
     }
 </style>
 
@@ -266,18 +268,34 @@
                 <div class="product-header">
                     <h1>Giày đá banh chính hãng</h1>
                 </div>
-                <div class="product-details">
-                    <div class="product-image">
-                        <img src="https://www.sport9.vn/images/thumbs/002/0024851_nike-air-zoom-mercurial-vapor-16-pro-tf-xamhong-fq8687-301_1000.jpeg" alt="NIKE ZOOM MERCURIAL VAPOR 16 PRO TF">
+                <div class="list-product">
+                    <div class="product-details">
+                        <div class="product-image">
+                            <img src="https://www.sport9.vn/images/thumbs/002/0024851_nike-air-zoom-mercurial-vapor-16-pro-tf-xamhong-fq8687-301_1000.jpeg" alt="NIKE ZOOM MERCURIAL VAPOR 16 PRO TF">
+                        </div>
+                        <div class="product-info">
+                            <h2>NIKE ZOOM MERCURIAL VAPOR 16 PRO TF - FQ8687-301 - XÁM XANH / HỒNG</h2>
+                            <p>Size: 38.5</p>
+                        </div>
+                        <div class="price-product">
+                            <p>2,850,000₫</p>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <h2>NIKE ZOOM MERCURIAL VAPOR 16 PRO TF - FQ8687-301 - XÁM XANH / HỒNG</h2>
-                        <p>Size: 38.5</p>
+
+                    <div class="product-details">
+                        <div class="product-image">
+                            <img src="https://www.sport9.vn/images/thumbs/002/0024851_nike-air-zoom-mercurial-vapor-16-pro-tf-xamhong-fq8687-301_1000.jpeg" alt="NIKE ZOOM MERCURIAL VAPOR 16 PRO TF">
+                        </div>
+                        <div class="product-info">
+                            <h2>NIKE ZOOM MERCURIAL VAPOR 16 PRO TF - FQ8687-301 - XÁM XANH / HỒNG</h2>
+                            <p>Size: 38.5</p>
+                        </div>
+                        <div class="price-product">
+                            <p>2,850,000₫</p>
+                        </div>
                     </div>
-                    <div class="price-product">
-                        <p>2,850,000₫</p>
-                    </div>
-                </div>
+
+                    
                 <div class="discount-container">
                     <input type="text" class="discount-input" placeholder="Nhập mã giảm giá">
                     <button class="apply-btn">Áp dụng</button>

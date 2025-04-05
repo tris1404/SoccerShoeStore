@@ -13,9 +13,7 @@
     .wrapper-cart {
         background-color: white;
         margin: 20px 150px 0px;
-        border: 1px solid black;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);        
         overflow: hidden;
     }
 
@@ -65,7 +63,6 @@
     .product {
         display: flex;
         flex-direction: column;
-        gap: 30px;
         width: 100%;
     }
 
@@ -75,7 +72,8 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        border: 1px solid #ddd;
+        border: 1px solid #ddd;  
+        border-width: 1px 0;  /* Chỉ giữ viền trên & dưới, bỏ trái & phải */        
         padding: 20px;
         text-align: left;
         background-color: #fff;
@@ -240,6 +238,20 @@
                             <div class="product-section">
                                 <div class="section-title">Sản phẩm trong giỏ hàng</div>
                                 <div class="product">
+                                    <div class="product-items">
+                                        <input type="checkbox" class="select-product">
+                                        <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
+                                        <div class="product-info">
+                                            <h3>Adidas Turf Predator Club</h3>
+                                            <div class="quantity-container">
+                                                <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
+                                                <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
+                                                <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
+                                            </div>
+                                            <span class="price">2.500.000</span>
+                                            <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
+                                        </div>
+                                    </div>
                                     <div class="product-items">
                                         <input type="checkbox" class="select-product">
                                         <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">

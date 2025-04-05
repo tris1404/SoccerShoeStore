@@ -73,17 +73,17 @@ function validateForm(event) {
 
 
 
-function togglePassword() {
-    let passwordInput = document.getElementById("password");
-    let toggleIcon = document.getElementById("togglePassword");
+function togglePassword(passwordId, toggleId) {
+    let passwordInput = document.getElementById(passwordId);
+    let toggleIcon = document.getElementById(toggleId); 
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
         toggleIcon.classList.remove("fa-eye");
-        toggleIcon.classList.add("fa-eye-slash"); // Đổi thành mắt đóng
+        toggleIcon.classList.add("fa-eye-slash");
     } else {
         passwordInput.type = "password";
         toggleIcon.classList.remove("fa-eye-slash");
-        toggleIcon.classList.add("fa-eye"); // Đổi thành mắt mở
+        toggleIcon.classList.add("fa-eye");
     }
 }

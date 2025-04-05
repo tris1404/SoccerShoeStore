@@ -1,11 +1,17 @@
 <?php
+ini_set('session.cookie_lifetime', 0); // Hết khi đóng trình duyệt
 session_start();
 $errorMsg = "";
+$_SESSION['success'] = "Đăng nhập thành công!";
+
+
 
 if (isset($_POST["signin"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $role = $_POST["role"];
+    $_SESSION['success'] = "Đăng nhập thành công!";
+
 
     // Kết nối cơ sở dữ liệu
     require_once("../config/database.php");
@@ -27,7 +33,11 @@ if (isset($_POST["signin"])) {
         // Lưu thông tin đăng nhập
         $row = mysqli_fetch_assoc($result);
         $_SESSION['user'] = $row;
-        $_SESSION['role'] = $role; // Lưu vai trò 
+        $_SESSION['role'] = $role; // Lưu vai trò s
+
+
+        // Lưu tên người dùng vào session để hiển thị sau khi đăng nhập thành công
+        $_SESSION['user_name'] = $row['name']; // Giả sử cột tên là 'name'
 
         // Chuyển hướng đến trang quản trị
         if ($role === "admin" || $role === "staff") {
@@ -37,7 +47,7 @@ if (isset($_POST["signin"])) {
         }
         exit(); // Dừng script sau khi chuyển hướng
     } else {
-        $errorMsg = "Đăng nhập không hợp lệ, vui lòng thử lại";
+        $_SESSION['error'] = "Đăng nhập không hợp lệ, vui lòng thử lại";
         header("Location: login.php"); // Chuyển hướng về trang login
         exit();
     }
