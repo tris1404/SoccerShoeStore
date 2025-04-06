@@ -6,6 +6,7 @@
     <title>Quản lý Sản phẩm</title>
     <link rel="stylesheet" href="assets/css/products.css">
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <div class="wrapper">
