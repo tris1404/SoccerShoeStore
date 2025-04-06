@@ -36,7 +36,7 @@ $result = $conn->query($sql);
     <main class="main-content">
         <h2>Quản lý Hóa đơn</h2>
 
-        <form method="GET" action="order.php" style="margin-bottom: 20px;">
+        <form method="GET" action="orders.php" style="margin-bottom: 20px;">
             <input type="text" name="search" value="<?= htmlspecialchars($search); ?>" placeholder="Tìm kiếm theo tên, email, SĐT, mã đơn..." style="padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px;">
             <button type="submit" style="padding: 8px 12px; border: 1px solid #ccc; background-color:#0b529e; color: white; border-radius: 4px; cursor: pointer;">Tìm kiếm</button>
         </form>
