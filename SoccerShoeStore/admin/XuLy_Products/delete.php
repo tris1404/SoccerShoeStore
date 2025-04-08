@@ -4,24 +4,36 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+// Lấy ID sản phẩm cần xóa
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-    // Xoá hình ảnh nếu cần
-    $img_sql = "SELECT image FROM products_admin WHERE id = $id";
-    $img_result = mysqli_query($conn, $img_sql);
-    $img_row = mysqli_fetch_assoc($img_result);
-    if ($img_row && file_exists("../uploads/" . $img_row['image'])) {
-        unlink("../uploads/" . $img_row['image']);
-    }
+// Lấy thông tin hình ảnh để xóa file
+$sql = "SELECT image FROM products_admin WHERE id = $id";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $image_name = $row['image'];
+    $image_path = "../uploads/" . $image_name;
 
-    // Xoá sản phẩm
-    $sql = "DELETE FROM products_admin WHERE id = $id";
-    if (mysqli_query($conn, $sql)) {
+    // Xóa sản phẩm từ bảng products_admin
+    $sql_admin = "DELETE FROM products_admin WHERE id = $id";
+    
+    // Xóa sản phẩm từ bảng products (cho khách hàng)
+    $sql_customer = "DELETE FROM products WHERE id = $id";
+
+    if (mysqli_query($conn, $sql_admin) && mysqli_query($conn, $sql_customer)) {
+        // Xóa file hình ảnh (nếu tồn tại)
+        if (file_exists($image_path)) {
+            unlink($image_path);
+        }
         header("Location: ../products.php");
+        exit();
     } else {
-        echo "Lỗi khi xoá: " . mysqli_error($conn);
+        echo "Lỗi SQL: " . mysqli_error($conn);
     }
+} else {
+    echo "Không tìm thấy sản phẩm!";
 }
-mysqli_close($conn);
+
+$conn->close();
 ?>

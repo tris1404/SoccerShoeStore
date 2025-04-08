@@ -10,7 +10,7 @@ $product = null;
 
 // LẤY THÔNG TIN SẢN PHẨM TRƯỚC KHI VÀO HTML
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = intval($_GET['id']);
     $sql = "SELECT * FROM products_admin WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
@@ -23,6 +23,9 @@ if (isset($_GET['id'])) {
     echo "<h3>Thiếu ID sản phẩm!</h3>";
     exit();
 }
+
+// Lấy thông tin discount từ bảng products_admin (sau khi đã thêm cột discount)
+$discount = isset($product['discount']) ? $product['discount'] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +46,7 @@ if (isset($_GET['id'])) {
 
         h2 {
             text-align: left; /* Căn trái tiêu đề */
-            color:rgb(39, 83, 150);
+            color: rgb(39, 83, 150);
             margin-bottom: 20px; /* Giảm margin bottom */
             font-size: 24px; /* Nhỏ hơn */
             font-weight: bold;
@@ -52,7 +55,7 @@ if (isset($_GET['id'])) {
         form {
             width: 100%;
             max-width: 700px; /* Điều chỉnh chiều rộng form */
-            background-color:rgb(245, 236, 213);
+            background-color: rgb(245, 236, 213);
             padding: 20px; /* Giảm padding */
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Bóng đổ nhẹ hơn */
@@ -75,7 +78,8 @@ if (isset($_GET['id'])) {
         }
 
         .form-group:nth-child(7), /* Số lượng */
-        .form-group:nth-child(8) /* Hình ảnh */ {
+        .form-group:nth-child(8), /* Giảm giá */
+        .form-group:nth-child(9) /* Hình ảnh */ {
             grid-column: 1 / span 2; /* Chiếm cả hai cột */
         }
 
@@ -126,7 +130,7 @@ if (isset($_GET['id'])) {
         }
 
         button[type="submit"]:hover {
-            background-color:rgb(25, 94, 198);
+            background-color: rgb(25, 94, 198);
         }
 
         .container {
@@ -166,34 +170,54 @@ if (isset($_GET['id'])) {
     <form method="POST" action="edit.php?id=<?= $product['id'] ?>" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $product['id'] ?>">
 
-        <label>Tên sản phẩm:</label>
-        <input type="text" name="product_name" value="<?= $product['name'] ?>" required>
+        <div class="form-group">
+            <label class="form-label">Tên sản phẩm:</label>
+            <input type="text" class="form-control" name="product_name" value="<?= htmlspecialchars($product['name']) ?>" required>
+        </div>
 
-        <label>Size:</label>
-        <input type="text" name="size" value="<?= $product['size'] ?>" required>
+        <div class="form-group">
+            <label class="form-label">Size:</label>
+            <input type="text" class="form-control" name="size" value="<?= htmlspecialchars($product['size']) ?>" required>
+        </div>
 
-        <label>Giá:</label>
-        <input type="number" name="price" value="<?= $product['price'] ?>" required>
+        <div class="form-group">
+            <label class="form-label">Giá:</label>
+            <input type="number" class="form-control" name="price" value="<?= $product['price'] ?>" required>
+        </div>
 
-        <label>Danh mục:</label>
-        <select name="category">
-            <option value="Adidas" <?= $product['category'] == 'Adidas' ? 'selected' : '' ?>>Adidas</option>
-            <option value="Nike" <?= $product['category'] == 'Nike' ? 'selected' : '' ?>>Nike</option>
-            <option value="Puma" <?= $product['category'] == 'Puma' ? 'selected' : '' ?>>Puma</option>
-        </select>
+        <div class="form-group">
+            <label class="form-label">Danh mục:</label>
+            <select class="form-select" name="category" required>
+                <option value="Adidas" <?= $product['category'] == 'Adidas' ? 'selected' : '' ?>>Adidas</option>
+                <option value="Nike" <?= $product['category'] == 'Nike' ? 'selected' : '' ?>>Nike</option>
+                <option value="Puma" <?= $product['category'] == 'Puma' ? 'selected' : '' ?>>Puma</option>
+            </select>
+        </div>
 
-        <label>Loại giày:</label>
-        <select name="shoe_type">
-            <option value="Sân tự nhiên" <?= $product['shoe_type'] == 'Sân tự nhiên' ? 'selected' : '' ?>>Giày sân tự nhiên</option>
-            <option value="Sân nhân tạo" <?= $product['shoe_type'] == 'Sân nhân tạo' ? 'selected' : '' ?>>Giày sân nhân tạo</option>
-            <option value="Futsal" <?= $product['shoe_type'] == 'Futsal' ? 'selected' : '' ?>>Giày Futsal</option>
-        </select>
+        <div class="form-group">
+            <label class="form-label">Loại giày:</label>
+            <select class="form-select" name="shoe_type" required>
+                <option value="Sân tự nhiên" <?= $product['shoe_type'] == 'Sân tự nhiên' ? 'selected' : '' ?>>Giày sân tự nhiên</option>
+                <option value="Sân nhân tạo" <?= $product['shoe_type'] == 'Sân nhân tạo' ? 'selected' : '' ?>>Giày sân nhân tạo</option>
+                <option value="Futsal" <?= $product['shoe_type'] == 'Futsal' ? 'selected' : '' ?>>Giày Futsal</option>
+            </select>
+        </div>
 
-        <label>Số lượng:</label>
-        <input type="number" name="quantity" value="<?= $product['quantity'] ?>" required>
+        <div class="form-group">
+            <label class="form-label">Số lượng:</label>
+            <input type="number" class="form-control" name="quantity" value="<?= $product['quantity'] ?>" required>
+        </div>
 
-        <label>Hình ảnh mới (nếu muốn đổi):</label>
-        <input type="file" name="image">
+        <div class="form-group">
+            <label class="form-label">Giảm giá (%):</label>
+            <input type="number" class="form-control" name="discount" min="0" max="100" value="<?= $discount ?>">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Hình ảnh mới (nếu muốn đổi):</label>
+            <input type="file" name="image">
+            <p>Hình ảnh hiện tại: <img src="../uploads/<?= $product['image'] ?>" width="50"></p>
+        </div>
 
         <button type="submit">Cập nhật</button>
     </form>
@@ -203,35 +227,45 @@ if (isset($_GET['id'])) {
 <?php
 // Xử lý cập nhật khi submit form
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST['id'];
-    $name = $_POST['product_name'];
-    $size = $_POST['size'];
-    $price = $_POST['price'];
-    $category = $_POST['category'];
-    $shoe_type = $_POST['shoe_type'];
-    $quantity = $_POST['quantity'];
+    $id = $conn->real_escape_string($_POST['id']);
+    $name = $conn->real_escape_string($_POST['product_name']);
+    $size = $conn->real_escape_string($_POST['size']);
+    $price = $conn->real_escape_string($_POST['price']);
+    $category = $conn->real_escape_string($_POST['category']);
+    $shoe_type = $conn->real_escape_string($_POST['shoe_type']);
+    $quantity = $conn->real_escape_string($_POST['quantity']);
+    $discount = isset($_POST['discount']) ? $conn->real_escape_string($_POST['discount']) : 0;
 
     // Kiểm tra nếu có ảnh mới
+    $image_name = $product['image']; // Giữ nguyên hình ảnh cũ nếu không upload hình mới
     if (!empty($_FILES['image']['name'])) {
         $target_dir = "../uploads/";
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
         $image_name = basename($_FILES["image"]["name"]);
         $target_file = $target_dir . $image_name;
-        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-
-        $sql = "UPDATE products_admin SET 
-                name='$name', size='$size', price='$price', 
-                category='$category', shoe_type='$shoe_type',
-                quantity='$quantity', image='$image_name' 
-                WHERE id = $id";
-    } else {
-        $sql = "UPDATE products_admin SET 
-                name='$name', size='$size', price='$price', 
-                category='$category', shoe_type='$shoe_type',
-                quantity='$quantity' 
-                WHERE id = $id";
+        if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            echo "Lỗi khi tải ảnh lên.";
+            exit();
+        }
     }
 
-    if (mysqli_query($conn, $sql)) {
+    // Cập nhật bảng products_admin
+    $sql_admin = "UPDATE products_admin SET 
+                  name='$name', size='$size', price='$price', 
+                  category='$category', shoe_type='$shoe_type',
+                  quantity='$quantity', image='$image_name', discount='$discount' 
+                  WHERE id = $id";
+
+    // Cập nhật bảng products (cho khách hàng)
+    $sql_customer = "UPDATE products SET 
+                     name='$name', size='$size', price='$price', 
+                     brand='$category', shoe_type='$shoe_type',
+                     quantity='$quantity', image='$image_name', discount='$discount' 
+                     WHERE id = $id";
+
+    if (mysqli_query($conn, $sql_admin) && mysqli_query($conn, $sql_customer)) {
         header("Location: ../products.php");
         exit();
     } else {
@@ -239,5 +273,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+$conn->close();
 ob_end_flush(); // Gửi output sau khi đã xử lý
 ?>

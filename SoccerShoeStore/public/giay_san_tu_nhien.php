@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="assets/js/scripts.js?v=1"></script>
 </head>
-
 <body>
     <!-- Header -->
     <?php include 'includes/header.php'; ?>
@@ -62,7 +60,6 @@
         </aside>
 
         <main class="main-content">
-
             <!-- Banner -->
             <div class="banner">
                 <img src="assets/img/San_TuNhien/adidas_banner.webp" alt="Banner Giày Cỏ Tự Nhiên">
@@ -94,10 +91,10 @@
                     die("Kết nối thất bại: " . $conn->connect_error);
                 }
 
-                $sql = "SELECT * FROM products WHERE 1";
+                // Chỉ lấy sản phẩm có shoe_type là "Sân tự nhiên"
+                $sql = "SELECT * FROM products WHERE shoe_type = 'Sân tự nhiên'";
 
-
-                // lọc theo thương hiệu
+                // Lọc theo thương hiệu
                 if (!empty($_GET['brand'])) {
                     $brands = array_map([$conn, 'real_escape_string'], $_GET['brand']);
                     $brands_placeholder = "'" . implode("','", $brands) . "'";
@@ -111,16 +108,26 @@
                         $priceConditions[] = "(price BETWEEN $min AND $max)";
                     }
                     $sql .= " AND (" . implode(" OR ", $priceConditions) . ")";
-                }    
+                }
+
+                // Sắp xếp mặc định theo sản phẩm mới nhất
+                $sql .= " ORDER BY id DESC";
+
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='product' data-price='{$row['price']}'>";
                         echo "<span class='discount'>-{$row['discount']}%</span>";
-                        echo "<img src='{$row['image']}' alt='{$row['name']}'>";
+                        // Kiểm tra đường dẫn hình ảnh
+                        $image_path = '../admin/uploads/' . $row['image'];
+                        if (file_exists($image_path)) {
+                            echo "<img src='$image_path' alt='{$row['name']}'>";
+                        } else {
+                            echo "<p>Hình ảnh không tồn tại: $image_path</p>";
+                        }
                         echo "<p>{$row['name']}</p>";
                         echo "<span class='price'>" . number_format($row['price'], 0, ',', '.') . "đ</span>";
-                    
+
                         // Thêm biểu tượng "Xem nhanh" & "Thêm vào giỏ hàng"
                         echo "<div class='product-icons'>";
                         echo "<a href='#' title='Xem nhanh'><i class='fas fa-eye'></i></a>";
@@ -128,10 +135,9 @@
                         echo "<i class='fas fa-shopping-cart'></i>";
                         echo "</a>";
                         echo "</div>";
-                    
+
                         echo "</div>";
                     }
-                    
                 } else {
                     echo "<p>Không tìm thấy sản phẩm nào!</p>";
                 }
@@ -145,7 +151,7 @@
     <!-- Popup sản phẩm -->
     <div id="productPopup" class="popup-container" style="display: none;">
         <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <span class="close-btn" onclick="closePopup()">×</span>
             <div id="popupDetails">
                 <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
             </div>
@@ -153,12 +159,11 @@
     </div>
 
     <button id="scrollToTopBtn" onclick="scrollToTop()">
-        &#x25B2;
+        ▲
     </button>
     <button id="zaloChat" onclick="window.open('https://zalo.me/09xxxxxxxx', '_blank')">
         <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png" alt="Chat Zalo">
     </button>
-
 
     <!-- Footer -->
     <?php include 'includes/footer.php'; ?>
@@ -171,14 +176,22 @@
             .then(data => {
                 document.getElementById("popupDetails").innerHTML = data;
                 document.getElementById("productPopup").style.display = "flex";
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+                document.getElementById("popupDetails").innerHTML = "<p>Đã xảy ra lỗi khi tải chi tiết sản phẩm.</p>";
             });
     }
 
     function closePopup() {
         document.getElementById("productPopup").style.display = "none";
     }
-    </script>
-    <script>
+
+    function addToCart() {
+        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+        closePopup();
+    }
+
     function sortProducts() {
         let sortType = document.getElementById("sort").value;
         let productList = document.getElementById("product-list");
@@ -196,13 +209,13 @@
         products.forEach(product => productList.appendChild(product));
     }
 
-    //nút cuộn lên đầu trang
+    // Nút cuộn lên đầu trang
     window.onscroll = function() {
         let button = document.getElementById("scrollToTopBtn");
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            button.style.display = "block"; // Hiện nút khi cuộn xuống
+            button.style.display = "block";
         } else {
-            button.style.display = "none"; // Ẩn nút khi ở đầu trang
+            button.style.display = "none";
         }
     };
 
@@ -212,21 +225,18 @@
             behavior: "smooth"
         });
     }
-    </script>
-    <script>
+
     $(document).ready(function() {
         $(".brand-toggle").click(function() {
             $(this).next(".brand-options").stop(true, true).slideToggle();
-            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up"); 
+            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
         });
 
         $(".price-toggle").click(function() {
             $(this).next(".price-options").stop(true, true).slideToggle();
-            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up"); 
+            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
         });
     });
     </script>
-
 </body>
-
 </html>

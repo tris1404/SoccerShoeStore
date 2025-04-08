@@ -11,15 +11,25 @@ if (isset($_GET['id'])) {
 
     if ($row = $result->fetch_assoc()) {
         echo "<div class='popup-product'>";
-        echo "<img src='{$row['image']}' alt='{$row['name']}'>";
+        // Hiển thị giảm giá
+        if ($row['discount'] > 0) {
+            echo "<span class='discount'>-{$row['discount']}%</span>";
+        }
+        // Hiển thị hình ảnh
+        $image_path = '../admin/uploads/' . $row['image'];
+        if (file_exists($image_path)) {
+            echo "<img src='$image_path' alt='{$row['name']}'>";
+        } else {
+            echo "<p>Hình ảnh không tồn tại</p>";
+        }
         echo "<h2>{$row['name']}</h2>";
         echo "<p><strong>Giá:</strong> " . number_format($row['price'], 0, ',', '.') . "đ</p>";
         echo "<p><strong>Nhà cung cấp:</strong> {$row['brand']}</p>";
 
         // Hiển thị kích cỡ
         echo "<p><strong>Kích cỡ:</strong> ";
-        if (!empty($row['sizes'])) {
-            $sizes = explode(",", $row['sizes']);
+        if (!empty($row['size'])) {
+            $sizes = explode(",", $row['size']);
             foreach ($sizes as $size) {
                 echo "<span class='size-option'>$size</span> ";
             }
@@ -28,7 +38,7 @@ if (isset($_GET['id'])) {
         }
         echo "</p>";
 
-        echo "<p><strong>Số lượng:</strong> <input type='number' value='1' min='1' max='10'></p>";
+        echo "<p><strong>Số lượng:</strong> <input type='number' id='popup-quantity-{$row['id']}' value='1' min='1' max='10'></p>";
         echo "<button onclick='addToCart({$row['id']})'>Thêm vào giỏ hàng</button>";
         echo "</div>";
     } else {

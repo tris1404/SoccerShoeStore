@@ -49,8 +49,11 @@
                     <label for="quantity">Số lượng:</label>
                     <input type="number" id="quantity" name="quantity" required>
 
+                    <label for="discount">Giảm giá (%):</label>
+                    <input type="number" id="discount" name="discount" min="0" max="100" value="0">
+
                     <label for="image">Hình ảnh:</label>
-                    <input type="file" id="image" name="image" required>
+                    <input type="file" id="image" name="image" accept="image/*" required>
 
                     <button type="submit" class="submit-btn">Thêm</button>
                 </form>
@@ -66,6 +69,7 @@
                     <th>Loại Giày</th>
                     <th>Size</th>
                     <th>Số lượng</th>
+                    <th>Giảm giá (%)</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -75,7 +79,7 @@
                 if ($conn->connect_error) {
                     die("Kết nối thất bại: " . $conn->connect_error);
                 }
-                $sql = "SELECT * FROM products_admin ORDER BY id DESC"; // Lấy sản phẩm mới nhất trước
+                $sql = "SELECT * FROM products_admin ORDER BY id DESC";
                 $result = mysqli_query($conn, $sql);
 
                 while ($row = mysqli_fetch_assoc($result)) {
@@ -86,8 +90,9 @@
                     echo "<td>" . number_format($row['price'], 0, ',', '.') . " VND</td>";
                     echo "<td>" . $row['category'] . "</td>";
                     echo "<td>" . $row['shoe_type'] . "</td>";
-                    echo "<td>" . $row['size'] . "</td>"; 
-                    echo "<td>" . $row['quantity'] . "</td>";  
+                    echo "<td>" . $row['size'] . "</td>";
+                    echo "<td>" . $row['quantity'] . "</td>";
+                    echo "<td>" . (isset($row['discount']) ? $row['discount'] : 0) . "</td>";
                     echo "<td>
                             <a class='edit-btn' href='XuLy_Products/edit.php?id=" . $row['id'] . "'>Sửa</a>
                             <a class='delete-btn' href='XuLy_Products/delete.php?id=" . $row['id'] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xóa?\")'>Xóa</a>
@@ -101,8 +106,8 @@
         </main>
         <!-- end Nội dung chính -->
         <!-- Footer -->
-        <?php include 'template/footer.php'; ?> 
-        <!-- End Footer --> 
+        <?php include 'template/footer.php'; ?>
+        <!-- End Footer -->
     </div>
     <script>
     function showForm() {
@@ -113,6 +118,6 @@
             form.classList.add('hidden');
         }
     }
-</script>
+    </script>
 </body>
 </html>
