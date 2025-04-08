@@ -44,24 +44,16 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
             justify-content: center;
         }
 
-        h2 {
-            text-align: left; /* Căn trái tiêu đề */
-            color: rgb(39, 83, 150);
-            margin-bottom: 20px; /* Giảm margin bottom */
-            font-size: 24px; /* Nhỏ hơn */
-            font-weight: bold;
-        }
-
         form {
             width: 100%;
-            max-width: 700px; /* Điều chỉnh chiều rộng form */
+            max-width: 700px;
             background-color: rgb(245, 236, 213);
-            padding: 20px; /* Giảm padding */
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Bóng đổ nhẹ hơn */
-            display: grid; /* Sử dụng grid layout */
-            grid-template-columns: auto auto; /* Hai cột bằng nhau */
-            gap: 15px 20px; /* Khoảng cách giữa các item */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 15px 20px;
         }
 
         .form-group {
@@ -70,22 +62,36 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
         }
 
         .form-group:nth-child(odd) {
-            grid-column: 1; /* Các label/input ở cột lẻ */
+            grid-column: 1;
         }
 
         .form-group:nth-child(even) {
-            grid-column: 2; /* Các label/input ở cột chẵn */
+            grid-column: 2;
         }
 
         .form-group:nth-child(7), /* Số lượng */
         .form-group:nth-child(8), /* Giảm giá */
         .form-group:nth-child(9) /* Hình ảnh */ {
-            grid-column: 1 / span 2; /* Chiếm cả hai cột */
+            grid-column: 1 / span 2;
+        }
+
+        /* Đảm bảo tiêu đề "Sửa sản phẩm" chiếm cả hai cột */
+        .form-group.form-title {
+            grid-column: 1 / span 2;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group.form-title h2 {
+            color: rgb(39, 83, 150);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
         }
 
         .form-label {
             font-weight: 500;
-            margin-bottom: 5px; /* Giảm margin bottom */
+            margin-bottom: 5px;
             display: block;
             color: #495057;
             font-size: 14px;
@@ -93,11 +99,11 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
 
         .form-control,
         .form-select {
-            width: calc(100% - 12px); /* Tính toán để trừ border */
-            padding: 8px; /* Giảm padding */
-            margin-bottom: 0; /* Loại bỏ margin bottom ở đây */
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 0;
             border: 1px solid #ced4da;
-            border-radius: 4px; /* Giảm bo tròn */
+            border-radius: 4px;
             box-sizing: border-box;
             font-size: 14px;
             background-color: #fff;
@@ -117,16 +123,16 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
         }
 
         button[type="submit"] {
-            grid-column: 1 / span 2; /* Chiếm cả hai cột */
+            grid-column: 1 / span 2;
             padding: 10px 15px;
-            border-radius: 4px; /* Giảm bo tròn */
+            border-radius: 4px;
             border: none;
             background-color: rgb(39, 83, 150);
             color: white;
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.2s ease-in-out;
-            margin-top: 20px; /* Thêm margin top cho nút */
+            margin-top: 20px;
         }
 
         button[type="submit"]:hover {
@@ -166,9 +172,13 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
     </style>
 </head>
 <body>
-    <h2>Sửa sản phẩm</h2>
     <form method="POST" action="edit.php?id=<?= $product['id'] ?>" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $product['id'] ?>">
+
+        <!-- Tiêu đề "Sửa sản phẩm" được đưa vào bên trong form -->
+        <div class="form-group form-title">
+            <h2>Sửa sản phẩm</h2>
+        </div>
 
         <div class="form-group">
             <label class="form-label">Tên sản phẩm:</label>

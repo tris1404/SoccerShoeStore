@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2025 at 11:10 AM
+-- Generation Time: Apr 08, 2025 at 07:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -161,7 +161,7 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `created_at`, `updated
 (74, 'Desporte Sao Luis', 'desporte-sao-luis', 'Active', NULL, NULL, 43),
 (75, 'Zocker Winner Energy', 'zocker-winner-energy', 'Active', NULL, NULL, 44),
 (76, 'Zocker Inspire Pro', 'zocker-inspire-pro', 'Active', NULL, NULL, 44),
-(77, 'Zocker Inspire', 'zocker-inspire', 'Active', NULL, NULL, 44);
+(77, 'Zocker Inspire', 'zocker-inspire', 'Active', NULL, '2025-04-08 16:16:51', NULL);
 
 -- --------------------------------------------------------
 

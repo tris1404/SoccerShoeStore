@@ -40,14 +40,6 @@ if (isset($_GET['id'])) {
             justify-content: center;
         }
 
-        h2 {
-            text-align: left;
-            color: rgb(39, 83, 150);
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
         form {
             width: 100%;
             max-width: 700px;
@@ -69,6 +61,20 @@ if (isset($_GET['id'])) {
             grid-column: 1 / span 2;
         }
 
+        /* Đảm bảo tiêu đề "Sửa khách hàng" chiếm cả hai cột */
+        .form-group.form-title {
+            grid-column: 1 / span 2;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group.form-title h2 {
+            color: rgb(39, 83, 150);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
         label {
             font-weight: 500;
             margin-bottom: 5px;
@@ -78,7 +84,8 @@ if (isset($_GET['id'])) {
 
         input[type="text"],
         input[type="email"],
-        input[type="password"] {
+        input[type="password"],
+        select {
             width: 100%;
             padding: 8px;
             border: 1px solid #ced4da;
@@ -87,7 +94,8 @@ if (isset($_GET['id'])) {
             background-color: #fff;
         }
 
-        input:focus {
+        input:focus,
+        select:focus {
             border-color: rgb(39, 83, 150);
             outline: none;
             box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
@@ -112,9 +120,13 @@ if (isset($_GET['id'])) {
     </style>
 </head>
 <body>
-    <h2>Sửa khách hàng</h2>
     <form method="POST" action="edit.php?id=<?= $user['id'] ?>">
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
+
+        <!-- Tiêu đề "Sửa khách hàng" được đưa vào bên trong form -->
+        <div class="form-group form-title">
+            <h2>Sửa khách hàng</h2>
+        </div>
 
         <div class="form-group">
             <label>Họ và tên:</label>
@@ -139,8 +151,8 @@ if (isset($_GET['id'])) {
         <div class="form-group">
             <label>Trạng Thái:</label>
             <select name="status" id="status">
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option value="Active" <?= $user['status'] == 'Active' ? 'selected' : '' ?>>Active</option>
+                <option value="Inactive" <?= $user['status'] == 'Inactive' ? 'selected' : '' ?>>Inactive</option>
             </select>
         </div>
 

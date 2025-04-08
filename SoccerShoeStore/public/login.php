@@ -41,7 +41,7 @@ if (isset($_POST["signin"])) {
 
         // Chuyển hướng đến trang quản trị
         if ($role === "admin" || $role === "staff") {
-            header("Location: ../admin/admin.php");
+            header("Location: ../admin/index.php");
         } else {
             header("Location: index.php");
         }
