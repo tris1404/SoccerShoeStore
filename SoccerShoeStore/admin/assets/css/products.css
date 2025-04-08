@@ -161,7 +161,7 @@ td img {
 
 .filter-section button {
     padding: 8px 15px;
-    background-color: #0b529e;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
@@ -169,7 +169,7 @@ td img {
 }
 
 .filter-section button:hover {
-    background-color: #4a76a4;
+    background-color: #0056b3;
 }
 
 /* CSS cho cảnh báo số lượng */

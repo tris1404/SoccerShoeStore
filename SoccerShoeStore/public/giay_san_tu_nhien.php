@@ -117,7 +117,9 @@
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='product' data-price='{$row['price']}'>";
-                        echo "<span class='discount'>-{$row['discount']}%</span>";
+                        if ($row['discount'] > 0) {
+                            echo "<span class='discount'>-{$row['discount']}%</span>";
+                        }
                         // Kiểm tra đường dẫn hình ảnh
                         $image_path = '../admin/uploads/' . $row['image'];
                         if (file_exists($image_path)) {
@@ -130,7 +132,7 @@
 
                         // Thêm biểu tượng "Xem nhanh" & "Thêm vào giỏ hàng"
                         echo "<div class='product-icons'>";
-                        echo "<a href='#' title='Xem nhanh'><i class='fas fa-eye'></i></a>";
+                        echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Xem nhanh'><i class='fas fa-eye'></i></a>";
                         echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Thêm vào giỏ hàng'>";
                         echo "<i class='fas fa-shopping-cart'></i>";
                         echo "</a>";
@@ -149,12 +151,9 @@
     </div>
 
     <!-- Popup sản phẩm -->
-    <div id="productPopup" class="popup-container" style="display: none;">
-        <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">×</span>
-            <div id="popupDetails">
-                <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
-            </div>
+    <div id="productPopup" class="cart-popup" style="display: none;">
+        <div id="popupDetails">
+            <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
         </div>
     </div>
 
@@ -187,8 +186,10 @@
         document.getElementById("productPopup").style.display = "none";
     }
 
-    function addToCart() {
-        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    function addToCart(productId) {
+        const quantity = document.getElementById(`popup-quantity-${productId}`).value;
+        const size = document.getElementById(`popup-size-${productId}`).value;
+        alert(`Đã thêm sản phẩm ID ${productId} vào giỏ hàng với số lượng ${quantity} và kích cỡ ${size}`);
         closePopup();
     }
 
