@@ -19,26 +19,26 @@
         <div id="wrapper-container">
             <!-- Content -->
             <div class="content">
-            <div class="slide-show">
-                <div class="list-img">
-                    <a href="#"><img src="assets/img/banner/adidas.png" alt="Banner1"></a>
-                    <a href="#"><img src="assets/img/banner/nike.png" alt="Banner2"></a>
-                    <a href="#"><img src="assets/img/banner/puma.png" alt="Banner3"></a>
-                    <a href="#"><img src="assets/img/banner/mizuno.jpg" alt="Banner4"></a>
-                    <a href="#"><img src="assets/img/banner/kamito.png" alt="Banner5"></a>
+                <div class="slide-show">
+                    <div class="list-img">
+                        <a href="#"><img src="assets/img/banner/adidas.png" alt="Banner1"></a>
+                        <a href="#"><img src="assets/img/banner/nike.png" alt="Banner2"></a>
+                        <a href="#"><img src="assets/img/banner/puma.png" alt="Banner3"></a>
+                        <a href="#"><img src="assets/img/banner/mizuno.jpg" alt="Banner4"></a>
+                        <a href="#"><img src="assets/img/banner/kamito.png" alt="Banner5"></a>
+                    </div>
+                    <div class="btns">
+                        <div class="btn-left"><i class="fa-solid fa-angle-left"></i></div>
+                        <div class="btn-right"><i class="fa-solid fa-angle-right"></i></div>
+                    </div>
+                    <div class="index-img">
+                        <div class="index-item index-item-0 active"></div>
+                        <div class="index-item index-item-1"></div>
+                        <div class="index-item index-item-2"></div>
+                        <div class="index-item index-item-3"></div>
+                        <div class="index-item index-item-4"></div>
+                    </div>
                 </div>
-                <div class="btns">
-                    <div class="btn-left"><i class="fa-solid fa-angle-left"></i></div>
-                    <div class="btn-right"><i class="fa-solid fa-angle-right"></i></div>
-                </div>
-                <div class="index-img">
-                    <div class="index-item index-item-0 active"></div>
-                    <div class="index-item index-item-1"></div>
-                    <div class="index-item index-item-2"></div>
-                    <div class="index-item index-item-3"></div>
-                    <div class="index-item index-item-4"></div>
-                </div>
-            </div>
 
 
                 <div class="mustbuy">
@@ -52,11 +52,11 @@
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=1">
                                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
                                             alt="Nike Air Max">
                                         <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
-                                        <span class="label-sale">10%</span>
+                                        <span class="label-sale">-10%</span>
                                         <span class="sale-tag">NEW</span>
                                         <div class="price-container">
                                             <span class="price">2.500.000</span>
@@ -70,9 +70,11 @@
 
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <!--  -->
+                                    <a href="product-detail.php?id=2">
+                                        <!--  -->
                                         <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
+                                        <span class="label-sale">-10%</span>
                                         <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
                                             alt="Nike ZoomX">
                                         <h3>PUMA ULTRA 5 MATCH VOL. UP TT</h3>
@@ -87,12 +89,14 @@
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <!--  -->
+                                    <a href="product-detail.php?id=3">
+                                        <!--  -->
                                         <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
+                                        <span class="label-sale">-10%</span>
                                         <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
                                             alt="Nike Air Force 1">
-                                        <h3>ADIDAS F50 PRO TF - IE1220 - TRẮNG/Ỏ</h3>
+                                        <h3>ADIDAS F50 PRO TF - IE1220 - TRẮNG/ĐỎ</h3>
                                         <div class="price-container">
                                             <span class="price">2.500.000</span>
                                             <span class="original-price">3.125.000đ</span>
@@ -104,9 +108,9 @@
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=4">
                                         <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
+                                        <span class="label-sale">-10%</span>
                                         <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
                                             alt="Nike Air Force 1">
                                         <h3>MIZUNO A JAPAN</h3>
@@ -121,7 +125,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
 
                 <div class="care-about">
