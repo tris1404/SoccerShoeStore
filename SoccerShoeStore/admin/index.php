@@ -51,7 +51,7 @@ $conn->close();
     <title>Trang chủ Admin</title>
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <link rel="stylesheet" href="assets/css/index.css?v=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://kit.fontawesome.com/1e93584bbb.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="wrapper">
