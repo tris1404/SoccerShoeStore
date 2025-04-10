@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +7,9 @@
     <link rel="stylesheet" href="assets/css/giay_san_tu_nhien.css">
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="assets/js/scripts.js?v=1"></script>
 </head>
-
 <body>
     <!-- Header -->
     <?php include 'includes/header.php'; ?>
@@ -18,33 +18,48 @@
     <div class="container">
         <aside class="sidebar">
             <h3>Tìm Theo</h3>
-            <form method="GET" action="">
-                <h4>Thương Hiệu</h4>
-                <?php
-                $brands = ["Nike", "Adidas", "Puma", "Mizuno"];
-                foreach ($brands as $brand) {
-                    $checked = (isset($_GET['brand']) && in_array($brand, $_GET['brand'])) ? "checked" : "";
-                    echo "<label><input type='checkbox' name='brand[]' value='$brand' $checked onchange='this.form.submit()'> $brand</label><br>";
-                }
-                ?>
-                <h4>Khoảng Giá</h4>
-                <?php
-                $priceRanges = [
-                    "1000000-2000000" => "1.000.000 - 2.000.000",
-                    "2000000-3000000" => "2.000.000 - 3.000.000",
-                    "3000000-4000000" => "3.000.000 - 4.000.000",
-                    "4000000-5000000" => "4.000.000 - 5.000.000"
-                ];
-                foreach ($priceRanges as $range => $label) {
-                    $checked = (isset($_GET['price']) && in_array($range, $_GET['price'])) ? "checked" : "";
-                    echo "<label><input type='checkbox' name='price[]' value='$range' $checked onchange='this.form.submit()'> $label</label><br>";
-                }
-                ?>
-            </form>
+            <table class="filter-table">
+                <tr class="brand-toggle">
+                    <th>Thương Hiệu <i class="fas fa-chevron-down"></i></th>
+                </tr>
+                <tr class="brand-options" style="display: none;">
+                    <td>
+                        <form method="GET" action="">
+                            <?php
+                            $brands = ["Nike", "Adidas", "Puma", "Mizuno"];
+                            foreach ($brands as $brand) {
+                                $checked = (isset($_GET['brand']) && in_array($brand, $_GET['brand'])) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='brand[]' value='$brand' $checked onchange='this.form.submit()'> $brand</label><br>";
+                            }
+                            ?>
+                        </form>
+                    </td>
+                </tr>
+                <tr class="price-toggle">
+                    <th>Khoảng Giá <i class="fas fa-chevron-down"></i></th>
+                </tr>
+                <tr class="price-options" style="display: none;">
+                    <td>
+                        <form method="GET" action="">
+                            <?php
+                            $priceRanges = [
+                                "1000000-2000000" => "1.000.000 - 2.000.000",
+                                "2000000-3000000" => "2.000.000 - 3.000.000",
+                                "3000000-4000000" => "3.000.000 - 4.000.000",
+                                "4000000-5000000" => "4.000.000 - 5.000.000"
+                            ];
+                            foreach ($priceRanges as $range => $label) {
+                                $checked = (isset($_GET['price']) && in_array($range, $_GET['price'])) ? "checked" : "";
+                                echo "<label><input type='checkbox' name='price[]' value='$range' $checked onchange='this.form.submit()'> $label</label><br>";
+                            }
+                            ?>
+                        </form>
+                    </td>
+                </tr>
+            </table>
         </aside>
 
         <main class="main-content">
-
             <!-- Banner -->
             <div class="banner">
                 <img src="assets/img/San_TuNhien/adidas_banner.webp" alt="Banner Giày Cỏ Tự Nhiên">
@@ -71,15 +86,15 @@
 
             <div class="product-list" id="product-list">
                 <?php
-                $conn = new mysqli("localhost", "root", "", "shoe_store");
+                $conn = new mysqli("localhost", "root", "", "soccershoestore");
                 if ($conn->connect_error) {
                     die("Kết nối thất bại: " . $conn->connect_error);
                 }
 
-                $sql = "SELECT * FROM products WHERE 1";
+                // Chỉ lấy sản phẩm có shoe_type là "Sân tự nhiên"
+                $sql = "SELECT * FROM products WHERE shoe_type = 'Sân tự nhiên'";
 
-
-                // lọc theo thương hiệu
+                // Lọc theo thương hiệu
                 if (!empty($_GET['brand'])) {
                     $brands = array_map([$conn, 'real_escape_string'], $_GET['brand']);
                     $brands_placeholder = "'" . implode("','", $brands) . "'";
@@ -93,27 +108,38 @@
                         $priceConditions[] = "(price BETWEEN $min AND $max)";
                     }
                     $sql .= " AND (" . implode(" OR ", $priceConditions) . ")";
-                }    
+                }
+
+                // Sắp xếp mặc định theo sản phẩm mới nhất
+                $sql .= " ORDER BY id DESC";
+
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo "<div class='product' data-price='{$row['price']}'>";
-                        echo "<span class='discount'>-{$row['discount']}%</span>";
-                        echo "<img src='{$row['image']}' alt='{$row['name']}'>";
+                        if ($row['discount'] > 0) {
+                            echo "<span class='discount'>-{$row['discount']}%</span>";
+                        }
+                        // Kiểm tra đường dẫn hình ảnh
+                        $image_path = '../admin/uploads/' . $row['image'];
+                        if (file_exists($image_path)) {
+                            echo "<img src='$image_path' alt='{$row['name']}'>";
+                        } else {
+                            echo "<p>Hình ảnh không tồn tại: $image_path</p>";
+                        }
                         echo "<p>{$row['name']}</p>";
                         echo "<span class='price'>" . number_format($row['price'], 0, ',', '.') . "đ</span>";
-                    
+
                         // Thêm biểu tượng "Xem nhanh" & "Thêm vào giỏ hàng"
                         echo "<div class='product-icons'>";
-                        echo "<a href='#' title='Xem nhanh'><i class='fas fa-eye'></i></a>";
+                        echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Xem nhanh'><i class='fas fa-eye'></i></a>";
                         echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Thêm vào giỏ hàng'>";
                         echo "<i class='fas fa-shopping-cart'></i>";
                         echo "</a>";
                         echo "</div>";
-                    
+
                         echo "</div>";
                     }
-                    
                 } else {
                     echo "<p>Không tìm thấy sản phẩm nào!</p>";
                 }
@@ -125,22 +151,18 @@
     </div>
 
     <!-- Popup sản phẩm -->
-    <div id="productPopup" class="popup-container" style="display: none;">
-        <div class="popup-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <div id="popupDetails">
-                <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
-            </div>
+    <div id="productPopup" class="cart-popup" style="display: none;">
+        <div id="popupDetails">
+            <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
         </div>
     </div>
 
     <button id="scrollToTopBtn" onclick="scrollToTop()">
-        &#x25B2;
+        ▲
     </button>
     <button id="zaloChat" onclick="window.open('https://zalo.me/09xxxxxxxx', '_blank')">
         <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png" alt="Chat Zalo">
     </button>
-
 
     <!-- Footer -->
     <?php include 'includes/footer.php'; ?>
@@ -153,14 +175,24 @@
             .then(data => {
                 document.getElementById("popupDetails").innerHTML = data;
                 document.getElementById("productPopup").style.display = "flex";
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+                document.getElementById("popupDetails").innerHTML = "<p>Đã xảy ra lỗi khi tải chi tiết sản phẩm.</p>";
             });
     }
 
     function closePopup() {
         document.getElementById("productPopup").style.display = "none";
     }
-    </script>
-    <script>
+
+    function addToCart(productId) {
+        const quantity = document.getElementById(`popup-quantity-${productId}`).value;
+        const size = document.getElementById(`popup-size-${productId}`).value;
+        alert(`Đã thêm sản phẩm ID ${productId} vào giỏ hàng với số lượng ${quantity} và kích cỡ ${size}`);
+        closePopup();
+    }
+
     function sortProducts() {
         let sortType = document.getElementById("sort").value;
         let productList = document.getElementById("product-list");
@@ -178,13 +210,13 @@
         products.forEach(product => productList.appendChild(product));
     }
 
-    //nút cuộn lên đầu trang
+    // Nút cuộn lên đầu trang
     window.onscroll = function() {
         let button = document.getElementById("scrollToTopBtn");
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            button.style.display = "block"; // Hiện nút khi cuộn xuống
+            button.style.display = "block";
         } else {
-            button.style.display = "none"; // Ẩn nút khi ở đầu trang
+            button.style.display = "none";
         }
     };
 
@@ -194,10 +226,18 @@
             behavior: "smooth"
         });
     }
+
+    $(document).ready(function() {
+        $(".brand-toggle").click(function() {
+            $(this).next(".brand-options").stop(true, true).slideToggle();
+            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
+        });
+
+        $(".price-toggle").click(function() {
+            $(this).next(".price-options").stop(true, true).slideToggle();
+            $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
+        });
+    });
     </script>
-    <script src="assets/js/scripts.js?v=1"></script>
-
-
 </body>
-
 </html>

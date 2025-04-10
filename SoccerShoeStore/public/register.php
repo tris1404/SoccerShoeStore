@@ -1,27 +1,39 @@
 <?php
-include '../config/database.php';
+session_start();
+$errorMsg = "";
+require_once("../config/database.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $phone = $_POST["phone"];
-    $address = $_POST["address"];
-    $type = $_POST["type"];
+if (isset($_POST["signup"])) {
+    $name = trim($_POST["name"]);
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
 
-    // Mã hóa mật khẩu
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    // Lấy dữ liệu từ form và xử lý tránh SQL Injection
+    $name = mysqli_real_escape_string($conn, trim($_POST["name"]));
+    $email = mysqli_real_escape_string($conn, trim($_POST["email"]));
+    $password = mysqli_real_escape_string($conn, trim($_POST["password"]));
 
-    $sql = "INSERT INTO admins (name, email, password, phone, address, status, type, created_at, updated_at) 
-            VALUES (?, ?, ?, ?, ?, 1, ?, NOW(), NOW())";
+    // Kiểm tra xem email đã tồn tại chưa
+    $check_email = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $check_email);
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssss", $name, $email, $hashed_password, $phone, $address, $type);
-
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Đăng ký thành công!"]);
+    if (mysqli_num_rows($result) > 0) {
+        echo "<script>alert('Email này đã được sử dụng!');</script>";
+        exit();
     } else {
-        echo json_encode(["success" => false, "message" => "Lỗi: " . $stmt->error]);
+        // Chèn dữ liệu vào CSDL
+        $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "<script>alert('Đăng ký thành công!'); window.location.href='login.php';</script>";
+            exit();
+        } else {
+            $errorMsg = "Đăng ký không hợp lệ, vui lòng thử lại.";
+            require_once("includes/login-form.php");
+            exit();
+        }
     }
+} else {
+    require_once("includes/login-form.php");
 }
 ?>

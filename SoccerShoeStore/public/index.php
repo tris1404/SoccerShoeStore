@@ -1,3 +1,18 @@
+<?php
+session_start();
+if (isset($_SESSION['success'])) {
+    $message = $_SESSION['success'];
+    echo "<script>alert('$message');</script>";
+    unset($_SESSION['success']);
+}
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
