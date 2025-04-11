@@ -223,7 +223,7 @@
         </div>
 
         <div class="cart">
-            <a href="#" class="global-navigation__cart__link">
+            <a href="favorite.php" class="global-navigation__cart__link">
                 <i class="fa-regular fa-heart"></i>
                 <span class="global-navigation__cart__link__count">0</span>
             </a>

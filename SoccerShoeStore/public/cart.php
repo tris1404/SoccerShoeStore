@@ -16,7 +16,7 @@ session_start();
     .wrapper-cart {
         background-color: white;
         margin: 20px 150px 0px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);        
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         overflow: hidden;
     }
 
@@ -25,7 +25,7 @@ session_start();
         background-color: white;
     }
 
-  
+
 
     .top-bar {
         justify-content: space-between;
@@ -75,8 +75,9 @@ session_start();
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        border: 1px solid #ddd;  
-        border-width: 1px 0;  /* Chỉ giữ viền trên & dưới, bỏ trái & phải */        
+        border: 1px solid #ddd;
+        border-width: 1px 0;
+        /* Chỉ giữ viền trên & dưới, bỏ trái & phải */
         padding: 20px;
         text-align: left;
         background-color: #fff;
@@ -93,7 +94,7 @@ session_start();
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 140px;
+        gap: 100px;
         flex-grow: 1;
     }
 
@@ -106,6 +107,7 @@ session_start();
         display: flex;
         align-items: center;
         gap: 15px;
+        justify-content: center;
     }
 
     .quantity-btn {
@@ -134,7 +136,7 @@ session_start();
     .price {
         font-size: 18px;
         font-weight: bold;
-        color: #e60000;
+        color: black;
     }
 
     .function {
@@ -203,7 +205,7 @@ session_start();
 
 
     .checkout-btn {
-        background-color: #E0E0E0	;
+        background-color: #E0E0E0;
         color: black;
         padding: 10px 15px;
         font-size: 18px;
@@ -216,6 +218,83 @@ session_start();
         background-color: black;
         color: white;
     }
+
+    .cart-header {
+        display: flex;
+        gap: 190px;
+        font-weight: bold;
+        padding: 20px;
+    }
+
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .product-table th,
+    .product-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .product-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .product-table img {
+        width: 100px;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .favorite-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    .favorite-table th,
+    .favorite-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .favorite-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .favorite-table img {
+        width: 100px;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .product-table td img, .favorite-table td img {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0px 15px;
+    }
+
+    .product-table td h3, .favorite-table td h3 {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        text-align: left;
+    }
+
+    .product-table td:first-child, .favorite-table td:first-child {
+        text-align: left;
+    }
+
+    .product-table td:not(:first-child), .favorite-table td:not(:first-child) {
+        text-align: center;
+    }
+    
+    
 </style>
 
 <body>
@@ -234,72 +313,108 @@ session_start();
                             <div class="title">
                                 <h4>Giỏ hàng</h4>
                             </div>
-                            <div class="numbers-product">Sản phẩm: 1</div>
+                            <div class="numbers-product">Tổng sản phẩm: 2</div>
 
                         </div>
                         <div class="product-container">
                             <div class="product-section">
                                 <div class="section-title">Sản phẩm trong giỏ hàng</div>
-                                <div class="product">
-                                    <div class="product-items">
-                                        <input type="checkbox" class="select-product">
-                                        <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
-                                        <div class="product-info">
-                                            <h3>Adidas Turf Predator Club</h3>
-                                            <div class="quantity-container">
-                                                <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
-                                                <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
-                                                <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
-                                            </div>
-                                            <span class="price">2.500.000</span>
-                                            <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
-                                        </div>
-                                    </div>
-                                    <div class="product-items">
-                                        <input type="checkbox" class="select-product">
-                                        <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
-                                        <div class="product-info">
-                                            <h3>Adidas Turf Predator Club</h3>
-                                            <div class="quantity-container">
-                                                <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
-                                                <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
-                                                <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
-                                            </div>
-                                            <span class="price">2.500.000</span>
-                                            <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-section">
-                                <div class="section-title">Sản phẩm yêu thích</div>
-                                <div class="product">
-                                    <div class="product-items">
-                                        <input type="checkbox" class="select-product">
-                                        <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
-                                        <div class="product-info">
-                                            <h3>Adidas Turf Predator Club</h3>
-                                            <div class="quantity-container">
-                                                <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity2')">-</button>
-                                                <input type="text" id="quantity2" class="quantity-input" value="1" readonly>
-                                                <button class="quantity-btn" onclick="changeQuantity(1, 'quantity2')">+</button>
-                                            </div>
-                                            <span class="price">2.500.000</span>
-                                            <div class="function">
+                                <table class="product-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Đơn giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
+                                                <h3>Adidas Turf Predator Club</h3>
+                                                
+                                            </td>
+                                            <td>2.500.000</td>
+                                            <td>
+                                                <div class="quantity-container">
+                                                    <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
+                                                    <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
+                                                    <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
+                                                </div>
+                                            </td>
+                                            <td>2.500.000</td>
+                                            <td>
                                                 <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
-                                                <button class="add-to-cart-btn" onclick="addToCart(this)">Thêm vào giỏ hàng</button> <!-- Nút thêm vào giỏ hàng -->
-                                            </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
 
-                                        </div>
-                                    </div>
-                                </div>
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
+                                                <h3>Adidas Turf Predator Club</h3>
+                                            </td>
+                                            <td>2.500.000</td>
+                                            <td>
+                                                <div class="quantity-container">
+                                                    <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
+                                                    <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
+                                                    <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
+                                                </div>
+                                            </td>
+                                            <td>2.500.000</td>
+                                            <td>
+                                                <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
+                                            </td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3" style="text-align: left; font-weight: bold;">Tổng tiền:</td>
+                                            <td colspan="2" style="text-align: right; font-weight: bold; color:red" >5.000.000 VNĐ</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
+                            <!-- <div class="product-section">
+                                <div class="section-title">Sản phẩm yêu thích</div>
+                                <div class="favorite-section">
+                                    <table class="favorite-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
+                                                    <h3>Adidas Turf Predator Club</h3>
+                                                </td>
+                                                <td>2.500.000</td>
+                                                <td>
+                                                    <div class="quantity-container">
+                                                        <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
+                                                        <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
+                                                        <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
+                                                    </div>
+                                                </td>
+                                                <td>2.500.000</td>
+                                                <td>
+                                                    <button class="add-to-cart-btn" onclick="addToCart(this)">Thêm vào giỏ hàng</button>
+                                                    <button class="delete-btn" onclick="deleteFavorite(this)">Xóa</button>
+                                                </td>
+                                            </tr>
+                                             Add more rows as needed
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="bill">
-                        <h3>HÓA ĐƠN</h3>
-                        <div class="bill-info">Thành tiền: 5.000.000 VNĐ</div>
-                            <button class="checkout-btn" onclick="redirectToCheckout()">Thanh toán</button>
+                        <button class="checkout-btn" onclick="redirectToCheckout()">Thanh toán</button>
                     </div>
                 </div>
 
@@ -348,7 +463,7 @@ session_start();
         }
 
         function redirectToCheckout() {
-        window.location.href = "checkout.php"; // Thay bằng đường dẫn đúng
+            window.location.href = "checkout.php"; // Thay bằng đường dẫn đúng
         }
     </script>
 </body>

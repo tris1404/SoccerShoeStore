@@ -46,7 +46,7 @@ if ($id && isset($products[$id])) {
     <link rel="stylesheet" href="assets/css/styles.css?v=1" type="text/css"> <!-- CSS của trang chủ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/css/product-detail.css?v=1" type="text/css">
+    <link rel="stylesheet" href="assets/css/product-detail.css" type="text/css">
     <!-- CSS riêng cho trang chi tiết -->
     <title><?php echo $product['name']; ?> - Soccer Shoes Store</title>
 </head>
@@ -59,15 +59,36 @@ if ($id && isset($products[$id])) {
         <!-- End header -->
 
         <!-- Nội dung chi tiết sản phẩm -->
-        <div class="product-detail-container">
-            <div class="product-image">
-                <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
-            </div>
-            <div class="product-info">
-                <h1><?php echo $product['name']; ?></h1>
-                <p class="price"><?php echo $product['price']; ?></p>
-                <p class="description"><?php echo $product['description']; ?></p>
-                <button class="add-to-cart-btn">Thêm vào giỏ hàng</button>
+        <div id="wrapper-container">
+            <!-- Content -->
+            <div class="content">
+                <div class="product-detail-container">
+                    <div class="product-image">
+                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
+                    </div>
+                    <div class="product-info">
+                        <h1><?php echo $product['name']; ?></h1>
+                        <p class="price"><?php echo $product['price']; ?></p>
+                        <!-- <p class="description"><?php echo $product['description']; ?></p> -->
+                        <div class="size-container">
+                            <label for="size">Chọn kích thước:</label>
+                            <div class="size-options">
+                                <?php for ($size = 38; $size <= 45; $size++): ?>
+                                    <button class="size-btn" onclick="selectSize(<?php echo $size; ?>)"><?php echo $size; ?></button>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+                        <div class="quantity-cart-container">
+                            <div class="quantity-container">
+                                <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
+                                <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
+                                <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
+                            </div>
+                            <button class="add-to-cart-btn">Thêm vào giỏ hàng</button>
+                        </div>
+                        <button class="buy-now-btn">Mua ngay</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -76,6 +97,23 @@ if ($id && isset($products[$id])) {
         <!-- Footer giống trang chủ -->
         <!-- End footer -->
     </div>
+    <script>
+        function changeQuantity(amount, inputId) {
+            const input = document.getElementById(inputId);
+            let currentValue = parseInt(input.value);
+            if (!isNaN(currentValue)) {
+                currentValue += amount;
+                if (currentValue < 1) {
+                    currentValue = 1; // Không cho phép giá trị nhỏ hơn 1
+                }
+                input.value = currentValue;
+            }
+        }
+
+        function selectSize(size) {
+            alert('Bạn đã chọn size ' + size);
+        }
+    </script>
 </body>
 
 </html>
