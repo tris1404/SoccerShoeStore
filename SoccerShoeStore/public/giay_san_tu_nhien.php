@@ -175,6 +175,7 @@
         <?php include 'includes/footer.php'; ?>
         <!-- End footer -->
     </div>
+    
 </body>
 
 
