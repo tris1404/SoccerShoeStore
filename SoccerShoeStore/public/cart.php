@@ -1,5 +1,35 @@
 <?php
 session_start();
+
+// Kiểm tra nếu giỏ hàng đã được khởi tạo
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// Xử lý thêm sản phẩm vào giỏ hàng
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+    $productId = $_POST['product_id'];
+    $productName = $_POST['product_name'];
+    $productPrice = $_POST['product_price'];
+    $productQuantity = (int)$_POST['product_quantity'];
+
+    // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
+    if (isset($_SESSION['cart'][$productId])) {
+        $_SESSION['cart'][$productId]['quantity'] += $productQuantity;
+    } else {
+        $_SESSION['cart'][$productId] = [
+            'name' => $productName,
+            'price' => $productPrice,
+            'quantity' => $productQuantity
+        ];
+    }
+
+    header('Location: cart.php');
+    exit();
+}
+
+// Hiển thị giỏ hàng
+$cartItems = $_SESSION['cart'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -330,54 +360,45 @@ session_start();
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
-                                                <h3>Adidas Turf Predator Club</h3>
-                                                
-                                            </td>
-                                            <td>2.500.000</td>
-                                            <td>
-                                                <div class="quantity-container">
-                                                    <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
-                                                    <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
-                                                    <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
-                                                </div>
-                                            </td>
-                                            <td>2.500.000</td>
-                                            <td>
-                                                <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
-                                            </td>
-                                        </tr>
-                                        <!-- Add more rows as needed -->
-                                    </tbody>
-
-
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
-                                                <h3>Adidas Turf Predator Club</h3>
-                                            </td>
-                                            <td>2.500.000</td>
-                                            <td>
-                                                <div class="quantity-container">
-                                                    <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity1')">-</button>
-                                                    <input type="text" id="quantity1" class="quantity-input" value="1" readonly>
-                                                    <button class="quantity-btn" onclick="changeQuantity(1, 'quantity1')">+</button>
-                                                </div>
-                                            </td>
-                                            <td>2.500.000</td>
-                                            <td>
-                                                <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
-                                            </td>
-                                        </tr>
-                                        <!-- Add more rows as needed -->
+                                        <?php if (empty($cartItems)): ?>
+                                            <tr>
+                                                <td colspan="5">Giỏ hàng của bạn đang trống.</td>
+                                            </tr>
+                                        <?php else: ?>
+                                            <?php foreach ($cartItems as $productId => $item): ?>
+                                                <tr>
+                                                    <td>
+                                                        <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
+                                                        <h3><?php echo htmlspecialchars($item['name']); ?></h3>
+                                                    </td>
+                                                    <td><?php echo htmlspecialchars($item['price']); ?></td>
+                                                    <td>
+                                                        <div class="quantity-container">
+                                                            <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity<?php echo $productId; ?>')">-</button>
+                                                            <input type="text" id="quantity<?php echo $productId; ?>" class="quantity-input" value="<?php echo htmlspecialchars($item['quantity']); ?>" readonly>
+                                                            <button class="quantity-btn" onclick="changeQuantity(1, 'quantity<?php echo $productId; ?>')">+</button>
+                                                        </div>
+                                                    </td>
+                                                    <td><?php echo htmlspecialchars($item['quantity'] * $item['price']); ?></td>
+                                                    <td>
+                                                        <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="3" style="text-align: left; font-weight: bold;">Tổng tiền:</td>
-                                            <td colspan="2" style="text-align: right; font-weight: bold; color:red" >5.000.000 VNĐ</td>
+                                            <td colspan="2" style="text-align: right; font-weight: bold; color:red">
+                                                <?php
+                                                $total = 0;
+                                                foreach ($cartItems as $item) {
+                                                    $total += $item['quantity'] * $item['price'];
+                                                }
+                                                echo htmlspecialchars($total) . ' VNĐ';
+                                                ?>
+                                            </td>
                                         </tr>
                                     </tfoot>
                                 </table>

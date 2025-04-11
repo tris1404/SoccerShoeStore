@@ -6,20 +6,20 @@ body {
     background-color: #fff;
 }
 
-.container {
+#wrapper-container .container {
     display: flex;
-    width: 90%;
     margin: auto;
-    padding-top: 20px;
+    padding: 20px 150px;
+    background-color: white;
+    gap: 30px;
 }
+
 
 /* Sidebar bộ lọc */
 .sidebar {
-    width: 20%;
-    background: #fff !important;
+    width: 16%;
+    background: white;
     color: #000;
-    padding: 20px;
-    border-radius: 5px;
 }
 
 .sidebar h3 {
@@ -35,6 +35,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     color: #555;
+    width: fit-content;
 }
 
 .sidebar input[type="checkbox"] {
@@ -43,13 +44,13 @@ body {
 
 /* Nội dung chính */
 .main-content {
-    width: 75%;
-    margin-left: 5%;
+    width: 80%;
+    margin-left: auto;
 }
 
 .banner img {
     width: 100%;
-    border-radius: 5px;
+    height: 350px;
 }
 
 .description {
