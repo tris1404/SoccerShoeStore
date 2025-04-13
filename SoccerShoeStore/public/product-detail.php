@@ -1,5 +1,5 @@
 <?php
-// Giả sử bạn có một mảng sản phẩm (hoặc truy vấn từ database)
+// Giữ nguyên mảng $products hiện tại
 $products = [
     1 => [
         'name' => 'Nike Zoom Mercurial Superfly 9 Elite "Marcus Rashford"',
@@ -27,18 +27,52 @@ $products = [
     ],
 ];
 
-// Lấy ID từ URL
+// Lấy ID và nguồn từ URL
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+$source = isset($_GET['source']) ? $_GET['source'] : 'home'; // Mặc định là 'home' nếu không có source
 
-// Kiểm tra sản phẩm có tồn tại
-if ($id && isset($products[$id])) {
-    $product = $products[$id];
+// Khởi tạo biến $product
+$product = null;
+
+// Nếu nguồn là 'home', lấy từ mảng $products
+if ($source === 'home') {
+    if ($id && isset($products[$id])) {
+        $product = $products[$id];
+    } else {
+        die('Sản phẩm không tồn tại trong danh sách trang chủ!');
+    }
+}
+// Nếu nguồn là 'natural', lấy từ database
+elseif ($source === 'natural') {
+    // Bổ sung kết nối database
+    $conn = new mysqli("localhost", "root", "", "soccershoestore");
+    if ($conn->connect_error) {
+        die("Kết nối thất bại: " . $conn->connect_error);
+    }
+
+    // Truy vấn sản phẩm từ database
+    $sql = "SELECT * FROM products WHERE id = $id";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $product_from_db = $result->fetch_assoc();
+        $product = [
+            'name' => $product_from_db['name'],
+            'price' => number_format($product_from_db['price'], 0, ',', '.') . 'đ',
+            'image' => '../admin/uploads/' . $product_from_db['image'],
+            'description' => $product_from_db['description'] ?? 'Không có mô tả',
+            'size' => $product_from_db['size'] ?? ''
+        ];
+    } else {
+        die('Sản phẩm không tồn tại trong cơ sở dữ liệu!');
+    }
+
+    $conn->close();
 } else {
-    die('Sản phẩm không tồn tại!');
+    die('Nguồn dữ liệu không hợp lệ!');
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -48,14 +82,13 @@ if ($id && isset($products[$id])) {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="assets/css/product-detail.css?v=1" type="text/css">
     <!-- CSS riêng cho trang chi tiết -->
-    <title><?php echo $product['name']; ?> - Soccer Shoes Store</title>
+    <title><?php echo htmlspecialchars($product['name']); ?> - Soccer Shoes Store</title>
 </head>
 
 <body>
     <div id="wrapper">
         <!-- Header -->
-        <?php include 'includes/header.php'; ?>s
-        <!-- Header giống trang chủ -->
+        <?php include 'includes/header.php'; ?>
         <!-- End header -->
 
         <!-- Nội dung chi tiết sản phẩm -->
@@ -64,18 +97,36 @@ if ($id && isset($products[$id])) {
             <div class="content">
                 <div class="product-detail-container">
                     <div class="product-image">
-                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
+                        <?php
+                        // Kiểm tra xem hình ảnh có phải từ database không
+                        if ($source === 'natural' && file_exists($product['image'])) {
+                            echo "<img src='{$product['image']}' alt='" . htmlspecialchars($product['name']) . "'>";
+                        } else {
+                            echo "<img src='{$product['image']}' alt='" . htmlspecialchars($product['name']) . "'>";
+                        }
+                        ?>
                     </div>
                     <div class="product-info">
-                        <h1><?php echo $product['name']; ?></h1>
+                        <h1><?php echo htmlspecialchars($product['name']); ?></h1>
                         <p class="price"><?php echo $product['price']; ?></p>
-                        <!-- <p class="description"><?php echo $product['description']; ?></p> -->
+                        <p class="description"><?php echo htmlspecialchars($product['description']); ?></p>
                         <div class="size-container">
                             <label for="size">Chọn kích thước:</label>
                             <div class="size-options">
-                                <?php for ($size = 38; $size <= 45; $size++): ?>
-                                    <button class="size-btn" onclick="selectSize(<?php echo $size; ?>)"><?php echo $size; ?></button>
-                                <?php endfor; ?>
+                                <?php
+                                // Bổ sung logic để hiển thị kích thước từ database nếu có
+                                if ($source === 'natural' && isset($product['size']) && !empty($product['size'])) {
+                                    $sizes = explode(",", $product['size']);
+                                    foreach ($sizes as $size) {
+                                        echo "<button class='size-btn' onclick='selectSize($size)'>$size</button>";
+                                    }
+                                } else {
+                                    // Giữ nguyên logic cũ nếu không có size trong database hoặc source là 'home'
+                                    for ($size = 38; $size <= 45; $size++) {
+                                        echo "<button class='size-btn' onclick='selectSize($size)'>$size</button>";
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="quantity-cart-container">
@@ -97,9 +148,9 @@ if ($id && isset($products[$id])) {
 
         <!-- Footer -->
         <?php include 'includes/footer.php'; ?>
-        <!-- Footer giống trang chủ -->
         <!-- End footer -->
     </div>
+
     <script>
         function changeQuantity(amount, inputId) {
             const input = document.getElementById(inputId);

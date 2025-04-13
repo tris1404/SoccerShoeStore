@@ -12,9 +12,9 @@
 }
 
 .product-image img {
-  width: 400px; /* Đặt chiều rộng cố định */
-  height: 400px; /* Đặt chiều cao cố định */
-  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+  max-width: 400px; /* Giới hạn chiều rộng tối đa */
+  max-height: 400px; /* Giới hạn chiều cao tối đa */
+  object-fit: contain; /* Hiển thị toàn bộ hình ảnh mà không bị cắt */
   border: 1px solid #ddd;
 }
 
@@ -51,7 +51,7 @@
   transition: background-color 0.3s;
 }
 
-.add-to-cart-btn:hover, .favorite-btn:hover{
+.add-to-cart-btn:hover, .favorite-btn:hover {
   background-color: #9C9C9C; /* Màu nền khi hover */
   color: white; /* Màu chữ khi hover */
 }
@@ -67,7 +67,6 @@
   background-color: #990000; /* Màu nền khi hover */
   color: white; /* Màu chữ khi hover */
 }
-
 
 .quantity-btn {
   width: 30px;
@@ -137,4 +136,3 @@
   font-size: 13px;
   margin: 0;  
 }
-

@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
 
         // Nút hành động
         echo "<div class='cart-popup-actions'>";
-        echo "<button class='view-details-btn' onclick=\"window.location.href='product_details.php?id={$row['id']}'\">Xem chi tiết</button>";
+        echo "<button class='view-details-btn' onclick=\"window.location.href='product-detail.php?id={$row['id']}'\">Xem chi tiết</button>";
         echo "<button class='add-to-cart-btn' onclick='addToCart({$row['id']})'>Thêm vào giỏ hàng</button>";
         echo "</div>";
         echo "</div>";

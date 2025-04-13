@@ -11,8 +11,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,7 +53,6 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                 </div>
 
-
                 <div class="mustbuy">
                     <div class="ega-container">
                         <div class="mustbuy-title">
@@ -67,7 +64,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=1">
+                                    <a href="product-detail.php?id=1&source=home">
                                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
                                             alt="Nike Air Max">
                                         <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
@@ -83,11 +80,8 @@ if (session_status() === PHP_SESSION_NONE) {
                                     </a>
                                 </div>
 
-
                                 <div class="mustbuy-item">
-                                    <!--  -->
-                                    <a href="product-detail.php?id=2">
-                                        <!--  -->
+                                    <a href="product-detail.php?id=2&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">-10%</span>
                                         <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
@@ -104,9 +98,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <!--  -->
-                                    <a href="product-detail.php?id=3">
-                                        <!--  -->
+                                    <a href="product-detail.php?id=3&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">-10%</span>
                                         <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
@@ -123,7 +115,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=4">
+                                    <a href="product-detail.php?id=4&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">-10%</span>
                                         <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
@@ -153,7 +145,6 @@ if (session_status() === PHP_SESSION_NONE) {
                                 <img src="" alt="">
                             </a>
                             <div class="mustbuy-product">
-
                                 <div class="mustbuy-item">
                                     <a href="">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/newcoll_1_img_large.jpg?v=2118"
@@ -356,7 +347,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=1&source=home">
                                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
                                             alt="Nike Air Max">
                                         <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
@@ -372,9 +363,8 @@ if (session_status() === PHP_SESSION_NONE) {
                                     </a>
                                 </div>
 
-
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=2&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
@@ -391,7 +381,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=3&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
@@ -408,7 +398,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=4&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
@@ -425,7 +415,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=1&source=home">
                                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
                                             alt="Nike Air Max">
                                         <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
@@ -441,9 +431,8 @@ if (session_status() === PHP_SESSION_NONE) {
                                     </a>
                                 </div>
 
-
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=2&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
@@ -460,7 +449,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=3&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
@@ -477,7 +466,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=4&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
@@ -509,7 +498,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=1&source=home">
                                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
                                             alt="Nike Air Max">
                                         <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
@@ -525,9 +514,8 @@ if (session_status() === PHP_SESSION_NONE) {
                                     </a>
                                 </div>
 
-
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=2&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
@@ -544,7 +532,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=3&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
@@ -561,7 +549,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=4&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
@@ -578,7 +566,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=1&source=home">
                                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
                                             alt="Nike Air Max">
                                         <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
@@ -594,9 +582,8 @@ if (session_status() === PHP_SESSION_NONE) {
                                     </a>
                                 </div>
 
-
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=2&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
@@ -613,7 +600,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=3&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
@@ -630,7 +617,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="product-detail.php?id=4&source=home">
                                         <span class="sale-tag">NEW</span>
                                         <span class="label-sale">10%</span>
                                         <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
@@ -666,7 +653,6 @@ if (session_status() === PHP_SESSION_NONE) {
     <button id="zaloChat" onclick="window.open('https://zalo.me/09xxxxxxxx', '_blank')">
         <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png" alt="Chat Zalo">
     </button>
-
 
     <script src="assets/js/scripts.js?v=1"></script>
 </body>
