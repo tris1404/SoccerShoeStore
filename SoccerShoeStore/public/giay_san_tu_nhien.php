@@ -136,9 +136,9 @@
                                 echo "<p>{$row['name']}</p>";
                                 echo "<span class='price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
 
-                                // Thêm biểu tượng "Xem chi tiết" & "Thêm vào giỏ hàng"
+                                // Thêm biểu tượng "Xem nhanh" & "Thêm vào giỏ hàng"
                                 echo "<div class='product-icons'>";
-                                echo "<a href='product-detail.php?id={$row['id']}&source=natural' title='Xem chi tiết'><i class='fas fa-eye'></i></a>";
+                                echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Xem nhanh'><i class='fas fa-eye'></i></a>";
                                 echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Thêm vào giỏ hàng'>";
                                 echo "<i class='fas fa-shopping-cart'></i>";
                                 echo "</a>";
@@ -165,7 +165,7 @@
         </div>
 
         <button id="scrollToTopBtn" onclick="scrollToTop()">
-            <i class="fa-solid fa-angles-up"></i>
+            ▲
         </button>
         <button id="zaloChat" onclick="window.open('https://zalo.me/09xxxxxxxx', '_blank')">
             <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png" alt="Chat Zalo">

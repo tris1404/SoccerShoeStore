@@ -85,7 +85,7 @@ $result = $conn->query($sql);
                             <input type="hidden" name="order_id" value="<?= $row['id'] ?>">
                             <select name="status" onchange="this.form.submit()">
                                 <?php
-                                $statuses = ['Processing', 'Confirmed', 'Shipping', 'Delivered', 'Cancelled'];
+                                $statuses = ['Đang xử lý', 'Đã xác nhận', ' Đang vận chuyển', 'Đã giao hàng', 'Đã hủy'];
                                 foreach ($statuses as $status) {
                                     $selected = $status == $row['status'] ? 'selected' : '';
                                     echo "<option value='$status' $selected>$status</option>";

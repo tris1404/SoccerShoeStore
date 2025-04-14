@@ -5,7 +5,7 @@
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <!-- Left -->
     <div class="me-5 d-none d-lg-block">
-      <span>Get connected with us on social networks:</span>
+      <span>Kết nối với chúng tôi trên mạng xã hội:</span>
     </div>
     <!-- Left -->
 
@@ -40,7 +40,7 @@
             <i class="fas fa-gem me-3"></i>Soccer Shoe Store
           </h6>
           <p>
-            Discover the best soccer shoes for all levels. Quality and performance guaranteed.
+          Khám phá những đôi giày đá bóng tốt nhất cho mọi cấp độ. Chất lượng và hiệu suất được đảm bảo.
           </p>
         </div>
         <!-- Grid column -->
@@ -49,16 +49,16 @@
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">
-            Products
+          Các sản phẩm
           </h6>
           <p>
             <a href="#!" class="text-reset">Soccer Shoes</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Accessories</a>
+            <a href="#!" class="text-reset">Phụ kiện</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Apparel</a>
+            <a href="#!" class="text-reset">Trang phục</a>
           </p>
           <p>
             <a href="#!" class="text-reset">Sale</a>
@@ -70,13 +70,13 @@
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">
-            Useful links
+          Liên kết hữu ích
           </h6>
           <p>
-            <a href="#!" class="text-reset">Pricing</a>
+            <a href="#!" class="text-reset">Định giá</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Settings</a>
+            <a href="#!" class="text-reset">Cài đặt</a>
           </p>
           <p>
             <a href="#!" class="text-reset">Orders</a>
@@ -90,8 +90,8 @@
         <!-- Grid column -->
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-          <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+          <h6 class="text-uppercase fw-bold mb-4">Liên hệ--</h6>
+          <p><i class="fas fa-home me-3"></i> Đại học Giao thông vận tải TP.HCM</p>
           <p>
             <i class="fas fa-envelope me-3"></i>info@soccershoestore.com
           </p>
