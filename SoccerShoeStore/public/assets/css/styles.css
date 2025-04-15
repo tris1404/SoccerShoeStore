@@ -570,7 +570,8 @@ footer p {
 .care-about,
 .list-brand,
 .list-sole,
-.hot {
+.hot,
+.list-product {
   min-width: 1200px; /* Đặt chiều rộng cố định */
   height: auto; /* Chiều cao tự động theo nội dung */
   background-color: #fff; /* Màu nền trắng */
@@ -582,7 +583,8 @@ footer p {
 .care-about-img img,
 .list-brand-img img,
 .list-sole-img,
-.hot-img img {
+.hot-img img,
+.list-product-img img {
   width: 100%; /* Ảnh sẽ tự động co dãn theo phần tử cha */
   height: auto; /* Giữ nguyên tỉ lệ ảnh */
   display: block; /* Tránh khoảng trắng dư thừa */
@@ -812,3 +814,99 @@ a {
   height: auto;
   border-radius: 50%;
 }
+
+/* Định dạng cho phần list-product */
+.list-product {
+  min-width: 1200px;
+  height: auto;
+  background-color: #fff;
+  padding: 20px 150px 0px;
+  margin: 0 auto;
+}
+
+.list-product-title h2 {
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-size: 35px;
+  margin: 20px 0px 20px;
+  text-underline-offset: 10px;
+}
+
+.list-product .mustbuy-product {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.list-product .mustbuy-item {
+  position: relative;
+  width: -webkit-fill-available;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.list-product .mustbuy-item h3 {
+  font-size: 18px;
+  margin: 10px 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.list-product .price-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-top: auto;
+}
+
+.list-product .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e60000;
+  margin-right: 5px;
+}
+
+.list-product .original-price {
+  font-size: 16px;
+  text-decoration: line-through;
+  color: gray;
+  margin-left: 5px;
+}
+
+.list-product .favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #000000;
+  margin-left: auto;
+}
+
+.list-product .favorite-btn.active i {
+  color: red;
+}
+
+#btn-xem-them {
+  display: block;
+  width: 150px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  border-color: black;
+}
+
+#btn-xem-them:hover {
+  background-color: black;
+  color: white;
+}
+

@@ -71,7 +71,8 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
 
         .form-group:nth-child(7), /* Số lượng */
         .form-group:nth-child(8), /* Giảm giá */
-        .form-group:nth-child(9) /* Hình ảnh */ {
+        .form-group:nth-child(9), /* Hình ảnh */
+        .form-group:nth-child(10) /* Loại sản phẩm */ {
             grid-column: 1 / span 2;
         }
 
@@ -229,6 +230,16 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
             <p>Hình ảnh hiện tại: <img src="<?= htmlspecialchars($product['image']) ?>" width="50"></p>
         </div>
 
+        <div class="form-group">
+            <label for="product_type">Loại sản phẩm:</label>
+            <select id="product_type" name="product_type" required>
+                <option value="normal" <?= $product['product_type'] == 'normal' ? 'selected' : '' ?>>Bình thường</option>
+                <option value="new" <?= $product['product_type'] == 'new' ? 'selected' : '' ?>>Mới</option>
+                <option value="sale" <?= $product['product_type'] == 'sale' ? 'selected' : '' ?>>Giảm giá</option>
+                <option value="hot" <?= $product['product_type'] == 'hot' ? 'selected' : '' ?>>Hot</option>
+            </select>
+        </div>
+
         <button type="submit">Cập nhật</button>
     </form>
 </body>
@@ -245,6 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $shoe_type = $conn->real_escape_string($_POST['shoe_type']);
     $quantity = $conn->real_escape_string($_POST['quantity']);
     $discount = isset($_POST['discount']) ? $conn->real_escape_string($_POST['discount']) : 0;
+    $product_type = $conn->real_escape_string($_POST['product_type']);
 
     // Kiểm tra nếu có URL hình ảnh mới
     if (!empty($_POST['image_url'])) {
@@ -268,14 +280,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql_admin = "UPDATE products_admin SET 
                   name='$name', size='$size', price='$price', 
                   category='$category', shoe_type='$shoe_type',
-                  quantity='$quantity', image='$image_name', discount='$discount' 
+                  quantity='$quantity', image='$image_name', discount='$discount', product_type='$product_type' 
                   WHERE id = $id";
 
     // Cập nhật bảng products (cho khách hàng)
     $sql_customer = "UPDATE products SET 
                      name='$name', size='$size', price='$price', 
                      brand='$category', shoe_type='$shoe_type',
-                     quantity='$quantity', image='$image_name', discount='$discount' 
+                     quantity='$quantity', image='$image_name', discount='$discount', product_type='$product_type' 
                      WHERE id = $id";
 
     if (mysqli_query($conn, $sql_admin) && mysqli_query($conn, $sql_customer)) {

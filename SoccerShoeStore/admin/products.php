@@ -97,13 +97,13 @@ if (
                     <label for="image">Link hình ảnh:</label>
                     <input type="text" id="image" name="image" placeholder="Nhập URL hình ảnh..." required>
 
-
-                    <label for="status">Trạng thái:</label>
-                    <select id="status" name="status" required>
-                        <option value="1">Còn hàng</option>
-                        <option value="0">Hết hàng</option>
+                    <label for="product_type">Loại sản phẩm:</label>
+                    <select id="product_type" name="product_type" required>
+                        <option value="normal">Bình thường</option>
+                        <option value="new">Mới</option>
+                        <option value="sale">Giảm giá</option>
+                        <option value="hot">Hot</option>
                     </select>
-
 
                     <button type="submit" class="submit-btn">Thêm</button>
                 </form>
@@ -134,6 +134,7 @@ if (
 
                     // Xây dựng câu truy vấn
                     $sql = "SELECT * FROM products_admin WHERE 1=1";
+                    
                     $params = [];
 
                     // Tìm kiếm
@@ -173,8 +174,26 @@ if (
                         $quantity_class = $row['quantity'] <= 5 ? 'low-stock' : '';
                         echo "<td class='$quantity_class'>" . $row['quantity'] . "</td>";
                         echo "<td>" . $row['discount'] . "</td>";
-                        $status = isset($row['status']) ? ($row['status'] == 1 ? 'Còn hàng' : 'Hết hàng') : 'Không xác định';
-                        echo "<td>" . $status . "</td>";
+                        $productTypeLabel = '';
+                        if (isset($row['product_type'])) {
+                            switch ($row['product_type']) {
+                                case 'new':
+                                    $productTypeLabel = 'NEW';
+                                    break;
+                                case 'sale':
+                                    $productTypeLabel = 'SALE';
+                                    break;
+                                case 'hot':
+                                    $productTypeLabel = 'HOT';
+                                    break;
+                                default:
+                                    $productTypeLabel = 'NORMAL';
+                                    break;
+                            }
+                        } else {
+                            $productTypeLabel = 'Không xác định';
+                        }
+                        echo "<td>" . $productTypeLabel . "</td>";
                         // Thao tác sửa/xóa
                         echo "<td>
                                 <a class='edit-btn' href='XuLy_Products/edit.php?id=" . $row['id'] . "'>Sửa</a>
