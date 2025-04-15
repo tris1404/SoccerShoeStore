@@ -9,9 +9,11 @@ if (isset($_SESSION['success'])) {
 
 
 // Kiểm tra nếu chưa đăng nhập hoặc không phải admin/staff
-if (!isset($_SESSION['user']) || !isset($_SESSION['role']) || 
-    ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'staff')) {
-    
+if (
+    !isset($_SESSION['user']) || !isset($_SESSION['role']) ||
+    ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'staff')
+) {
+
     // Chuyển về trang login
     header("Location: ../public/login.php");
     exit();
@@ -20,6 +22,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['role']) ||
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +31,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['role']) ||
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
     <div class="wrapper">
         <!-- menu -->
@@ -90,8 +94,16 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['role']) ||
                     <label for="discount">Giảm giá (%):</label>
                     <input type="number" id="discount" name="discount" min="0" max="100" value="0">
 
-                    <label for="image">Hình ảnh:</label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <label for="image">Link hình ảnh:</label>
+                    <input type="text" id="image" name="image" placeholder="Nhập URL hình ảnh..." required>
+
+
+                    <label for="status">Trạng thái:</label>
+                    <select id="status" name="status" required>
+                        <option value="1">Còn hàng</option>
+                        <option value="0">Hết hàng</option>
+                    </select>
+
 
                     <button type="submit" class="submit-btn">Thêm</button>
                 </form>
@@ -109,6 +121,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['role']) ||
                         <th>Size</th>
                         <th>Số lượng</th>
                         <th>Giảm giá (%)</th>
+                        <th>Trạng thái</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -151,13 +164,7 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['role']) ||
                         echo "<tr>";
                         echo "<td>" . $row['id'] . "</td>";
                         echo "<td>" . $row['name'] . "</td>";
-                        // Kiểm tra đường dẫn hình ảnh
-                        $image_path = 'uploads/' . $row['image'];
-                        if (file_exists($image_path)) {
-                            echo "<td><img src='$image_path' width='50'></td>";
-                        } else {
-                            echo "<td><p>Hình ảnh không tồn tại</p></td>";
-                        }
+                        echo "<td><img src='" . $row['image'] . "' width='50'></td>";
                         echo "<td>" . number_format($row['price'], 0, ',', '.') . " VND</td>";
                         echo "<td>" . $row['category'] . "</td>";
                         echo "<td>" . $row['shoe_type'] . "</td>";
@@ -166,6 +173,9 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['role']) ||
                         $quantity_class = $row['quantity'] <= 5 ? 'low-stock' : '';
                         echo "<td class='$quantity_class'>" . $row['quantity'] . "</td>";
                         echo "<td>" . $row['discount'] . "</td>";
+                        $status = isset($row['status']) ? ($row['status'] == 1 ? 'Còn hàng' : 'Hết hàng') : 'Không xác định';
+                        echo "<td>" . $status . "</td>";
+                        // Thao tác sửa/xóa
                         echo "<td>
                                 <a class='edit-btn' href='XuLy_Products/edit.php?id=" . $row['id'] . "'>Sửa</a>
                                 <a class='delete-btn' href='XuLy_Products/delete.php?id=" . $row['id'] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xóa?\")'>Xóa</a>
@@ -183,34 +193,35 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['role']) ||
         <!-- End Footer -->
     </div>
     <script>
-    function showForm() {
-        var form = document.getElementById('product-form');
-        if (form.classList.contains('hidden')) {
-            form.classList.remove('hidden');
-        } else {
-            form.classList.add('hidden');
+        function showForm() {
+            var form = document.getElementById('product-form');
+            if (form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+            } else {
+                form.classList.add('hidden');
+            }
         }
-    }
 
-    function applyFilter() {
-        const search = document.getElementById('search').value;
-        const category = document.getElementById('category-filter').value;
-        const sort = document.getElementById('sort').value;
-        let url = 'products.php?';
-        let params = [];
-        if (search) params.push('search=' + encodeURIComponent(search));
-        if (category) params.push('category=' + encodeURIComponent(category));
-        if (sort) params.push('sort=' + encodeURIComponent(sort));
-        url += params.join('&');
-        window.location.href = url;
-    }
-
-    // Tìm kiếm khi nhấn Enter
-    document.getElementById('search').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            applyFilter();
+        function applyFilter() {
+            const search = document.getElementById('search').value;
+            const category = document.getElementById('category-filter').value;
+            const sort = document.getElementById('sort').value;
+            let url = 'products.php?';
+            let params = [];
+            if (search) params.push('search=' + encodeURIComponent(search));
+            if (category) params.push('category=' + encodeURIComponent(category));
+            if (sort) params.push('sort=' + encodeURIComponent(sort));
+            url += params.join('&');
+            window.location.href = url;
         }
-    });
+
+        // Tìm kiếm khi nhấn Enter
+        document.getElementById('search').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                applyFilter();
+            }
+        });
     </script>
 </body>
+
 </html>

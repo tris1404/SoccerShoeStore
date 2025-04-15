@@ -59,7 +59,7 @@
 .buy-now-btn {
   background-color: #DD0000; /* Màu nền cho nút "Mua ngay" */
   color: white; /* Màu chữ cho nút "Mua ngay" */
-  width: 80%;
+  width: 100%;
   margin-top: 20px; /* Khoảng cách giữa nút "Thêm vào giỏ hàng" và "Mua ngay" */
 }
 

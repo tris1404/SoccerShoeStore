@@ -224,9 +224,9 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
         </div>
 
         <div class="form-group">
-            <label class="form-label">Hình ảnh mới (nếu muốn đổi):</label>
-            <input type="file" name="image">
-            <p>Hình ảnh hiện tại: <img src="../uploads/<?= $product['image'] ?>" width="50"></p>
+            <label class="form-label">Hình ảnh mới (URL hoặc tải lên):</label>
+            <input type="text" class="form-control" name="image_url" placeholder="Nhập URL hình ảnh mới...">
+            <p>Hình ảnh hiện tại: <img src="<?= htmlspecialchars($product['image']) ?>" width="50"></p>
         </div>
 
         <button type="submit">Cập nhật</button>
@@ -246,19 +246,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantity = $conn->real_escape_string($_POST['quantity']);
     $discount = isset($_POST['discount']) ? $conn->real_escape_string($_POST['discount']) : 0;
 
-    // Kiểm tra nếu có ảnh mới
-    $image_name = $product['image']; // Giữ nguyên hình ảnh cũ nếu không upload hình mới
-    if (!empty($_FILES['image']['name'])) {
+    // Kiểm tra nếu có URL hình ảnh mới
+    if (!empty($_POST['image_url'])) {
+        $image_name = $conn->real_escape_string($_POST['image_url']);
+    } elseif (!empty($_FILES['image_file']['name'])) {
         $target_dir = "../uploads/";
         if (!is_dir($target_dir)) {
             mkdir($target_dir, 0777, true);
         }
-        $image_name = basename($_FILES["image"]["name"]);
+        $image_name = basename($_FILES["image_file"]["name"]);
         $target_file = $target_dir . $image_name;
-        if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+        if (!move_uploaded_file($_FILES["image_file"]["tmp_name"], $target_file)) {
             echo "Lỗi khi tải ảnh lên.";
             exit();
         }
+    } else {
+        $image_name = $product['image']; // Giữ nguyên hình ảnh cũ nếu không upload hình mới
     }
 
     // Cập nhật bảng products_admin
@@ -276,6 +279,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      WHERE id = $id";
 
     if (mysqli_query($conn, $sql_admin) && mysqli_query($conn, $sql_customer)) {
+        echo "<script>alert('Cập nhật thành công!');</script>";
         header("Location: ../products.php");
         exit();
     } else {

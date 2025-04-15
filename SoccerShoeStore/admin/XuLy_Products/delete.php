@@ -17,11 +17,13 @@ if ($result->num_rows > 0) {
 
     // Xóa sản phẩm từ bảng products_admin
     $sql_admin = "DELETE FROM products_admin WHERE id = $id";
-    
-    // Xóa sản phẩm từ bảng products (cho khách hàng)
+
+    // Xóa sản phẩm từ bảng products (nếu tồn tại trong bảng này)
     $sql_customer = "DELETE FROM products WHERE id = $id";
 
-    if (mysqli_query($conn, $sql_admin) && mysqli_query($conn, $sql_customer)) {
+    if (mysqli_query($conn, $sql_admin)) {
+        mysqli_query($conn, $sql_customer); // Thực thi xóa trong bảng products nhưng không ảnh hưởng nếu không tồn tại
+
         // Xóa file hình ảnh (nếu tồn tại)
         if (file_exists($image_path)) {
             unlink($image_path);
@@ -29,7 +31,7 @@ if ($result->num_rows > 0) {
         header("Location: ../products.php");
         exit();
     } else {
-        echo "Lỗi SQL: " . mysqli_error($conn);
+        echo "Lỗi khi xóa sản phẩm từ bảng products_admin: " . mysqli_error($conn);
     }
 } else {
     echo "Không tìm thấy sản phẩm!";

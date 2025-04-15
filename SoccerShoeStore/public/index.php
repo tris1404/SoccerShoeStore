@@ -1,4 +1,7 @@
 <?php
+// Include the database connection file
+require_once("../config/database.php");
+
 session_start();
 if (isset($_SESSION['success'])) {
     $message = $_SESSION['success'];
@@ -62,75 +65,45 @@ if (session_status() === PHP_SESSION_NONE) {
                             <a href="">
                                 <img src="assets/img/banner-title/nike.jpg" alt="Bộ sưu tập mới">
                             </a>
-                            <div class="mustbuy-product">
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=1&source=home">
-                                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
-                                            alt="Nike Air Max">
-                                        <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
-                                        <span class="label-sale">-10%</span>
-                                        <span class="sale-tag">NEW</span>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
+                            <?php
+                            // Kết nối cơ sở dữ liệu
+                            require_once("../config/database.php");
 
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=2&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">-10%</span>
-                                        <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
-                                            alt="Nike ZoomX">
-                                        <h3>PUMA ULTRA 5 MATCH VOL. UP TT</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
+                            // Câu lệnh SQL để lấy dữ liệu
+                            $sql = "SELECT * FROM products WHERE status = 1 ORDER BY created_at DESC LIMIT 4";
 
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=3&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">-10%</span>
-                                        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>ADIDAS F50 PRO TF - IE1220 - TRẮNG/ĐỎ</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
+                            // Thực thi truy vấn
+                            $result = mysqli_query($conn, $sql);
 
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=4&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">-10%</span>
-                                        <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>MIZUNO A JAPAN</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
+                            // Kiểm tra nếu có dữ liệu trả về
+                            if ($result && $result->num_rows > 0): ?>
+                                <div class="mustbuy-product">
+                                    <?php while ($row = $result->fetch_assoc()): ?>
+                                        <div class="mustbuy-item">
+                                            <a href="product-detail.php?id=<?= $row['id'] ?>&source=home">
+                                                <img src="<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
+                                                <h3><?= htmlspecialchars($row['name']) ?></h3>
+                                                <?php if ($row['discount'] > 0): ?>
+                                                    <span class="label-sale">-<?= $row['discount'] ?>%</span>
+                                                <?php endif; ?>
+                                                <span class="sale-tag">HOT</span>
+                                                <div class="price-container">
+                                                    <span class="price">
+                                                        <?= number_format($row['price'] * (1 - $row['discount'] / 100), 0, ',', '.') ?>
+                                                    </span>
+                                                    <span class="original-price">
+                                                        <?= number_format($row['price'], 0, ',', '.') ?>đ
+                                                    </span>
+                                                    <button class="favorite-btn">
+                                                        <i class="fa-regular fa-heart"></i>
+                                                    </button>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    <?php endwhile; ?>
                                 </div>
-                            </div>
+                            <?php endif; ?>
+
                         </div>
                     </div>
                 </div>
@@ -346,141 +319,30 @@ if (session_status() === PHP_SESSION_NONE) {
                                 <img src="" alt="">
                             </a>
                             <div class="mustbuy-product">
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=1&source=home">
-                                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
-                                            alt="Nike Air Max">
-                                        <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
-                                        <span class="label-sale">10%</span>
-                                        <span class="sale-tag">HOT</span>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
+                                <?php
+                                // Kết nối cơ sở dữ liệu
+                                require_once("../config/database.php");
 
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=2&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
-                                        <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
-                                            alt="Nike ZoomX">
-                                        <h3>PUMA ULTRA 5 MATCH VOL. UP TT</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
+                                // Câu lệnh SQL để lấy dữ liệu
+                                $sql = "SELECT * FROM products WHERE status = 1 ORDER BY created_at DESC LIMIT 4";
 
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=3&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
-                                        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>ADIDAS F50 PRO TF - IE1220 - TRẮNG/Ỏ</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=4&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
-                                        <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>MIZUNO A JAPAN</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=1&source=home">
-                                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
-                                            alt="Nike Air Max">
-                                        <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
-                                        <span class="label-sale">10%</span>
-                                        <span class="sale-tag">HOT</span>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=2&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
-                                        <img src="https://product.hstatic.net/200000740801/product/lux_galaxy01015_ac8ffab58496489c889b55161689e6e6_master.jpg"
-                                            alt="Nike ZoomX">
-                                        <h3>PUMA ULTRA 5 MATCH VOL. UP TT</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=3&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
-                                        <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/74600fef74e8434ba613699779d2f806_9366/Giay_DJa_Bong_Turf_F50_League_trang_IE1231_22_model.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>ADIDAS F50 PRO TF - IE1220 - TRẮNG/Ỏ</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="product-detail.php?id=4&source=home">
-                                        <span class="sale-tag">NEW</span>
-                                        <span class="label-sale">10%</span>
-                                        <img src="https://product.hstatic.net/1000313927/product/sh_p1ga236009_06_d1246c9c1033489ab7787adc851cc503_large.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>MIZUNO A JAPAN</h3>
-                                        <div class="price-container">
-                                            <span class="price">2.500.000</span>
-                                            <span class="original-price">3.125.000đ</span>
-                                            <button class="favorite-btn">
-                                                <i class="fa-regular fa-heart"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                </div>
+                                // <div class="mustbuy-item">
+                                //     <a href="product-detail.php?id=1&source=home">
+                                //         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png"
+                                //             alt="Nike Air Max">
+                                //         <h3>Nike Zoom Mercurial Superfly 9 Elite 'Marcus Rashford'</h3>
+                                //         <span class="label-sale">10%</span>
+                                //         <span class="sale-tag">HOT</span>
+                                //         <div class="price-container">
+                                //             <span class="price">2.500.000</span>
+                                //             <span class="original-price">3.125.000đ</span>
+                                //             <button class="favorite-btn">
+                                //                 <i class="fa-regular fa-heart"></i>
+                                //             </button>
+                                //         </div>
+                                //     </a>
+                                // </div>
+                                ?>
                             </div>
                         </div>
                         <button id="btn-xem-them">Xem thêm</button>
