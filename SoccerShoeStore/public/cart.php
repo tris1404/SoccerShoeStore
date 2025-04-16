@@ -11,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     $productId = $_POST['product_id'];
     $productName = $_POST['product_name'];
     $productPrice = $_POST['product_price'];
+    $productImage = $_POST['product_image'];
     $productQuantity = (int)$_POST['product_quantity'];
+     $productSize = $_POST['product_size']; // Lấy size từ form
 
     // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
     if (isset($_SESSION['cart'][$productId])) {
@@ -20,11 +22,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         $_SESSION['cart'][$productId] = [
             'name' => $productName,
             'price' => $productPrice,
-            'quantity' => $productQuantity
+            'image' => $productImage,
+            'quantity' => $productQuantity,
+            'size' => $productSize // Lưu size vào session
         ];
     }
 
     header('Location: cart.php');
+    exit();
+}
+
+// Xử lý xóa sản phẩm khỏi giỏ hàng
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id'])) {
+    $productId = $_POST['remove_product_id'];
+    unset($_SESSION['cart'][$productId]);
+
+    // Chuyển hướng về trang giỏ hàng
+    header('Location: cart.php');
+    exit();
+}
+
+// Xử lý cập nhật số lượng sản phẩm trong giỏ hàng
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_quantity'])) {
+    $productId = $_POST['product_id'];
+    $newQuantity = (int)$_POST['quantity'];
+
+    if (isset($_SESSION['cart'][$productId]) && $newQuantity > 0) {
+        $_SESSION['cart'][$productId]['quantity'] = $newQuantity;
+    }
+
+    // Trả về phản hồi (nếu cần)
+    echo 'Cập nhật số lượng thành công';
     exit();
 }
 
@@ -343,7 +371,7 @@ $cartItems = $_SESSION['cart'];
                             <div class="title">
                                 <h4>Giỏ hàng</h4>
                             </div>
-                            <div class="numbers-product">Tổng sản phẩm: 2</div>
+                            <div class="numbers-product">Tổng sản phẩm: </div>
 
                         </div>
                         <div class="product-container">
@@ -360,33 +388,37 @@ $cartItems = $_SESSION['cart'];
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if (empty($cartItems)): ?>
-                                            <tr>
-                                                <td colspan="5">Giỏ hàng của bạn đang trống.</td>
-                                            </tr>
-                                        <?php else: ?>
-                                            <?php foreach ($cartItems as $productId => $item): ?>
-                                                <tr>
-                                                    <td>
-                                                        <img src="https://assets.adidas.com/images/w_766,h_766,f_auto,q_auto,fl_lossy,c_fill,g_auto/bbf580a0ef4e486ca861c49260565ade_9366/giay-da-bong-turf-predator-club.jpg" alt="">
-                                                        <h3><?php echo htmlspecialchars($item['name']); ?></h3>
-                                                    </td>
-                                                    <td><?php echo htmlspecialchars($item['price']); ?></td>
-                                                    <td>
-                                                        <div class="quantity-container">
-                                                            <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity<?php echo $productId; ?>')">-</button>
-                                                            <input type="text" id="quantity<?php echo $productId; ?>" class="quantity-input" value="<?php echo htmlspecialchars($item['quantity']); ?>" readonly>
-                                                            <button class="quantity-btn" onclick="changeQuantity(1, 'quantity<?php echo $productId; ?>')">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td><?php echo htmlspecialchars($item['quantity'] * $item['price']); ?></td>
-                                                    <td>
-                                                        <button class="delete-btn" onclick="deleteProduct(this)">Xóa</button>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    </tbody>
+    <?php if (empty($cartItems)): ?>
+        <tr>
+            <td colspan="5">Giỏ hàng của bạn đang trống.</td>
+        </tr>
+    <?php else: ?>
+        <?php foreach ($cartItems as $productId => $item): ?>
+            <tr>
+                <td>
+                    <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" width="100">
+                    <h3><?= htmlspecialchars($item['name']) ?></h3>
+                    
+                </td>
+                <td><?= number_format($item['price'], 0, ',', '.') ?>đ</td>
+                <td>
+                    <div class="quantity-container">
+                        <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity<?= $productId; ?>', <?= $productId; ?>)">-</button>
+                        <input type="text" id="quantity<?= $productId; ?>" class="quantity-input" value="<?= htmlspecialchars($item['quantity']); ?>" readonly>
+                        <button class="quantity-btn" onclick="changeQuantity(1, 'quantity<?= $productId; ?>', <?= $productId; ?>)">+</button>
+                    </div>
+                </td>
+                <td><?= number_format($item['quantity'] * $item['price'], 0, ',', '.') ?>đ</td>
+                <td>
+                    <form action="cart.php" method="POST">
+                        <input type="hidden" name="remove_product_id" value="<?= $productId ?>">
+                        <button type="submit" class="delete-btn">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="3" style="text-align: left; font-weight: bold;">Tổng tiền:</td>
@@ -462,12 +494,30 @@ $cartItems = $_SESSION['cart'];
     <script src="assets/js/scripts.js?v=1"></script>
     <script>
         // Thêm bớt sô lương sản phẩm
-        function changeQuantity(amount, id) {
+        function changeQuantity(amount, id, productId) {
             let quantityInput = document.getElementById(id);
             let currentQuantity = parseInt(quantityInput.value);
             let newQuantity = currentQuantity + amount;
+
             if (newQuantity >= 1) {
                 quantityInput.value = newQuantity;
+
+                // Gửi yêu cầu cập nhật số lượng đến server
+                fetch('cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `update_quantity=1&product_id=${productId}&quantity=${newQuantity}`,
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Cập nhật số lượng thành công:', data);
+                    location.reload(); // Tải lại trang để đồng bộ dữ liệu
+                })
+                .catch(error => {
+                    console.error('Lỗi khi cập nhật số lượng:', error);
+                });
             }
         }
         // Xóa sản phẩm

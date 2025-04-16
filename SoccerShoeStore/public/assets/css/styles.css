@@ -693,7 +693,6 @@ a {
 .price-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Đẩy nút trái tim sang phải */
   position: relative;
   margin-top: auto;
 }
@@ -910,3 +909,9 @@ a {
   color: white;
 }
 
+
+.mustbuy-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ khi hover */
+  transform: scale(1.02); /* Tăng kích thước nhẹ khi hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển động mượt mà */
+}

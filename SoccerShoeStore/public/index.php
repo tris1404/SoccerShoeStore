@@ -88,9 +88,7 @@ if (session_status() === PHP_SESSION_NONE) {
                                                 <?php endif; ?>
                                                 <span class="sale-tag" style="display: <?= htmlspecialchars($row['product_type']) === 'normal' ? 'none' : 'inline-block' ?>;">
                                                     <?= htmlspecialchars($row['product_type']) === 'hot' ? 'HOT' : (htmlspecialchars($row['product_type']) === 'new' ? 'NEW' : (htmlspecialchars($row['product_type']) === 'sale' ? 'SALE' : '')) ?>
-                                                </span>
-
-                                                    
+                                                </span> 
                                                    
                                                 <div class="price-container">
                                                     <span class="price">

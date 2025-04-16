@@ -126,12 +126,12 @@
                                 if ($row['discount'] > 0) {
                                     echo "<span class='discount'>-{$row['discount']}%</span>";
                                 }
-                                // Kiểm tra đường dẫn hình ảnh
-                                $image_path = '../admin/uploads/' . $row['image'];
-                                if (file_exists($image_path)) {
-                                    echo "<img src='$image_path' alt='{$row['name']}'>";
+                                // Hiển thị hình ảnh từ URL
+                                if (!empty($row['image'])) {
+                                    echo "<img src='" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
                                 } else {
-                                    echo "<p>Hình ảnh không tồn tại: $image_path</p>";
+                                    // Hiển thị hình ảnh mặc định nếu không có URL
+                                    echo "<img src='assets/img/default-product.png' alt='Hình ảnh không tồn tại'>";
                                 }
                                 echo "<p>{$row['name']}</p>";
                                 echo "<span class='price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
