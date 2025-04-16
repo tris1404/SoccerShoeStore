@@ -199,6 +199,10 @@
         padding: 10px;
 
     }
+    .list-product {
+        min-width: 0;
+        padding: 0;
+    }
 </style>
 
 <body>

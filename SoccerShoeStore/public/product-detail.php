@@ -26,6 +26,7 @@ if ($result->num_rows > 0) {
         'description' => $product_from_db['description'] ?? 'Không có mô tả',
         'size' => $product_from_db['size'] ?? ''
     ];
+    $discounted_price = $product_from_db['price'] * (1 - $product_from_db['discount'] / 100);
 } else {
     die('Sản phẩm không tồn tại trong cơ sở dữ liệu!');
 }
@@ -84,10 +85,10 @@ $conn->close();
                         <h1><?= htmlspecialchars($product['name']) ?></h1>
                         <div class="price-container">
                             <span class="price">
-                                <?= number_format($product_from_db['price'] * (1 - $product_from_db['discount'] / 100), 0, ',', '.') ?>
+                                <?= number_format($discounted_price, 0, ',', '.') ?>
                             </span>
                             <?php if ($product_from_db['discount'] > 0): ?>
-                                <span class="original-price">
+                                <span class="original-price" style="text-decoration: line-through; color: gray;">
                                     <?= number_format($product_from_db['price'], 0, ',', '.') ?>đ
                                 </span>
                             <?php endif; ?>
@@ -120,10 +121,11 @@ $conn->close();
                             <form action="cart.php" method="POST">
                                 <input type="hidden" name="product_id" value="<?= $id ?>">
                                 <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['name']) ?>">
-                                <input type="hidden" name="product_price" value="<?= $product_from_db['price'] ?>">
+                                <input type="hidden" name="product_price" value="<?= $product_from_db['price'] ?>"> <!-- Giá gốc -->
+                                <input type="hidden" name="discount_price" value="<?= $discounted_price ?>"> <!-- Giá đã giảm -->
                                 <input type="hidden" name="product_image" value="<?= htmlspecialchars($product['image']) ?>">
                                 <input type="hidden" name="product_quantity" id="hidden-quantity" value="1">
-                                <input type="hidden" name="product_size" id="selected-size" value=""> <!-- Input ẩn để lưu size -->
+                                <input type="hidden" id="hidden-selected-size" name="product_size" value="">
                                 <button type="submit" name="add_to_cart" class="add-to-cart-btn">Thêm vào giỏ hàng</button>
                             </form>
                             <button class="add-favorite-btn">Thêm vào yêu thích
@@ -164,7 +166,11 @@ $conn->close();
 
         function selectSize(size) {
             const selectedSizeInput = document.getElementById('selected-size');
+            const hiddenSelectedSizeInput = document.getElementById('hidden-selected-size');
+            
+            // Gán giá trị size đã chọn vào các input ẩn
             selectedSizeInput.value = size;
+            hiddenSelectedSizeInput.value = size;
 
             // Thêm hiệu ứng chọn size
             const sizeButtons = document.querySelectorAll('.size-btn');

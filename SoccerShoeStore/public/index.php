@@ -319,7 +319,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <div class="hot-img">
                             <a href="">
-                                <img src="" alt="">
                             </a>
 
                             <?php
@@ -375,7 +374,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <div class="list-product-img">
                             <a href="">
-                                <img src="" alt="">
                             </a>
                             <?php
                             // Kết nối cơ sở dữ liệu

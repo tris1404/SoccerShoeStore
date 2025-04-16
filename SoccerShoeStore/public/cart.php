@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     $productPrice = $_POST['product_price'];
     $productImage = $_POST['product_image'];
     $productQuantity = (int)$_POST['product_quantity'];
-     $productSize = $_POST['product_size']; // Lấy size từ form
+    $productSize = $_POST['product_size']; // Lấy size từ form
+    $discountPrice = isset($_POST['discount_price']) ? $_POST['discount_price'] : null; // Giá giảm (nếu có)
 
     // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
     if (isset($_SESSION['cart'][$productId])) {
@@ -22,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
         $_SESSION['cart'][$productId] = [
             'name' => $productName,
             'price' => $productPrice,
+            'discount_price' => $discountPrice, // Lưu giá giảm vào session
             'image' => $productImage,
             'quantity' => $productQuantity,
             'size' => $productSize // Lưu size vào session
@@ -331,28 +333,30 @@ $cartItems = $_SESSION['cart'];
         border-radius: 10px;
     }
 
-    .product-table td img, .favorite-table td img {
+    .product-table td img,
+    .favorite-table td img {
         display: inline-block;
         vertical-align: middle;
         margin: 0px 15px;
     }
 
-    .product-table td h3, .favorite-table td h3 {
+    .product-table td h3,
+    .favorite-table td h3 {
         display: inline-block;
         vertical-align: middle;
         margin: 0;
         text-align: left;
     }
 
-    .product-table td:first-child, .favorite-table td:first-child {
+    .product-table td:first-child,
+    .favorite-table td:first-child {
         text-align: left;
     }
 
-    .product-table td:not(:first-child), .favorite-table td:not(:first-child) {
+    .product-table td:not(:first-child),
+    .favorite-table td:not(:first-child) {
         text-align: center;
     }
-    
-    
 </style>
 
 <body>
@@ -388,37 +392,46 @@ $cartItems = $_SESSION['cart'];
                                         </tr>
                                     </thead>
                                     <tbody>
-    <?php if (empty($cartItems)): ?>
-        <tr>
-            <td colspan="5">Giỏ hàng của bạn đang trống.</td>
-        </tr>
-    <?php else: ?>
-        <?php foreach ($cartItems as $productId => $item): ?>
-            <tr>
-                <td>
-                    <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" width="100">
-                    <h3><?= htmlspecialchars($item['name']) ?></h3>
-                    
-                </td>
-                <td><?= number_format($item['price'], 0, ',', '.') ?>đ</td>
-                <td>
-                    <div class="quantity-container">
-                        <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity<?= $productId; ?>', <?= $productId; ?>)">-</button>
-                        <input type="text" id="quantity<?= $productId; ?>" class="quantity-input" value="<?= htmlspecialchars($item['quantity']); ?>" readonly>
-                        <button class="quantity-btn" onclick="changeQuantity(1, 'quantity<?= $productId; ?>', <?= $productId; ?>)">+</button>
-                    </div>
-                </td>
-                <td><?= number_format($item['quantity'] * $item['price'], 0, ',', '.') ?>đ</td>
-                <td>
-                    <form action="cart.php" method="POST">
-                        <input type="hidden" name="remove_product_id" value="<?= $productId ?>">
-                        <button type="submit" class="delete-btn">Xóa</button>
-                    </form>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</tbody>
+                                        <?php if (!empty($cartItems)): ?>
+                                            <?php foreach ($cartItems as $productId => $item): ?>
+                                                <tr>
+                                                    <td>
+                                                        <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" width="100">
+                                                        <h3><?= htmlspecialchars($item['name']) ?></h3>
+                                                        <p>Size: <?= isset($item['size']) ? htmlspecialchars($item['size']) : 'Không có thông tin size' ?></p>
+                                                    </td>
+                                                    <td>
+                                                        <span  <?= !empty($item['discount_price'])  ?>>
+                                                            <?= number_format(!empty($item['discount_price']) ? $item['discount_price'] : $item['price'], 0, ',', '.') ?>đ
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="quantity-container">
+                                                            <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity<?= $productId; ?>', <?= $productId; ?>)">-</button>
+                                                            <input type="text" id="quantity<?= $productId; ?>" class="quantity-input" value="<?= htmlspecialchars($item['quantity']); ?>" readonly>
+                                                            <button class="quantity-btn" onclick="changeQuantity(1, 'quantity<?= $productId; ?>', <?= $productId; ?>)">+</button>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        $priceToUse = !empty($item['discount_price']) ? $item['discount_price'] : $item['price'];
+                                                        echo number_format($item['quantity'] * $priceToUse, 0, ',', '.') . 'đ';
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <form action="cart.php" method="POST">
+                                                            <input type="hidden" name="remove_product_id" value="<?= $productId ?>">
+                                                            <button type="submit" class="delete-btn">Xóa</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="5">Giỏ hàng của bạn đang trống.</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="3" style="text-align: left; font-weight: bold;">Tổng tiền:</td>
@@ -426,9 +439,10 @@ $cartItems = $_SESSION['cart'];
                                                 <?php
                                                 $total = 0;
                                                 foreach ($cartItems as $item) {
-                                                    $total += $item['quantity'] * $item['price'];
+                                                    $priceToUse = !empty($item['discount_price']) ? $item['discount_price'] : $item['price'];
+                                                    $total += $item['quantity'] * $priceToUse;
                                                 }
-                                                echo htmlspecialchars($total) . ' VNĐ';
+                                                echo number_format($total, 0, ',', '.') . ' VNĐ';
                                                 ?>
                                             </td>
                                         </tr>
@@ -460,7 +474,7 @@ $cartItems = $_SESSION['cart'];
                                                 </td>
                                             </tr>
                                              Add more rows as needed
-                                        </tbody>
+                                        </tbody>s
                                     </table>
                                 </div>
                             </div> -->
@@ -504,20 +518,20 @@ $cartItems = $_SESSION['cart'];
 
                 // Gửi yêu cầu cập nhật số lượng đến server
                 fetch('cart.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `update_quantity=1&product_id=${productId}&quantity=${newQuantity}`,
-                })
-                .then(response => response.text())
-                .then(data => {
-                    console.log('Cập nhật số lượng thành công:', data);
-                    location.reload(); // Tải lại trang để đồng bộ dữ liệu
-                })
-                .catch(error => {
-                    console.error('Lỗi khi cập nhật số lượng:', error);
-                });
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `update_quantity=1&product_id=${productId}&quantity=${newQuantity}`,
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log('Cập nhật số lượng thành công:', data);
+                        location.reload(); // Tải lại trang để đồng bộ dữ liệu
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi cập nhật số lượng:', error);
+                    });
             }
         }
         // Xóa sản phẩm
