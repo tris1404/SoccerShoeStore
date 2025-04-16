@@ -65,18 +65,16 @@
                         <li><a href="#" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                        <li><a href="#" class="sub-navigation__link">Kamito</a></li>
                     </ul>
                 </li>
                 <li class="main-navigation__item">
                     <a href="#" class="main-navigation__link">Giày cỏ nhân tạo</a>
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
-                        <li><a href="nike_tf.php" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="adidas_tf.php" class="sub-navigation__link">Adidas</a></li>
+                        <li><a href="#" class="sub-navigation__link">Nike</a></li>
+                        <li><a href="#" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                        <li><a href="#" class="sub-navigation__link">Kamito</a></li>
                     </ul>
                 </li>
                 <li class="main-navigation__item">
@@ -87,10 +85,6 @@
                         <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                        <li><a href="#" class="sub-navigation__link">Kamito</a></li>
-                        <li><a href="#" class="sub-navigation__link">Joma</a></li>
-                        <li><a href="#" class="sub-navigation__link">ASICS</a></li>
-                        <li><a href="#" class="sub-navigation__link">Desporte</a></li>
                     </ul>
                 </li>
                 <li class="main-navigation__item">
@@ -148,62 +142,6 @@
                                 <li><a href="#" class="sub-navigation__link">MIZUNO MONARCIDA</a></li>
                                 <li><a href="#" class="sub-navigation__link">MIZUNO ALPHA</a></li>
                                 <li><a href="#" class="sub-navigation__link">MIZUNO MORELIA</a></li>
-                            </ul>
-                        </li>
-                        <!-- KAMITO -->
-                        <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">KAMITO
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">KAMITO TA11</a></li>
-                                <li><a href="#" class="sub-navigation__link">KAMITO VELOCIDAD</a></li>
-                            </ul>
-                        </li>
-                        <!-- JOMA -->
-                        <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">JOMA
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">JOMA TOP FLEX</a></li>
-                                <li><a href="#" class="sub-navigation__link">JOMA REGATE</a></li>
-                                <li><a href="#" class="sub-navigation__link">JOMA CANCHA</a></li>
-                                <li><a href="#" class="sub-navigation__link">JOMA MUNDIAL</a></li>
-                            </ul>
-                        </li>
-                        <!-- ASICS -->
-                        <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">ASICS
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">ASICS DESTAQUE</a></li>
-                                <li><a href="#" class="sub-navigation__link">ASICS CALETTO</a></li>
-                                <li><a href="#" class="sub-navigation__link">ASICS DS LIGHT</a></li>
-                            </ul>
-                        </li>
-                        <!-- DESPORTE -->
-                        <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">DESPORTE
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">DESPORTE CAMPINAS</a></li>
-                                <li><a href="#" class="sub-navigation__link">DESPORTE TESSA LIGHT</a></li>
-                                <li><a href="#" class="sub-navigation__link">DESPORTE BOA VISTRA</a></li>
-                                <li><a href="#" class="sub-navigation__link">DESPORTE SAO LUIS</a></li>
-                            </ul>
-                        </li>
-                        <!-- ZOCKER -->
-                        <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">ZOCKER
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">ZOCKER WINNER ENERGY</a></li>
-                                <li><a href="#" class="sub-navigation__link">ZOCKER INSPIRE PRO</a></li>
-                                <li><a href="#" class="sub-navigation__link">ZOCKER INSPIRE</a></li>
                             </ul>
                         </li>
                     </ul>
