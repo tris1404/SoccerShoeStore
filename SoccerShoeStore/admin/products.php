@@ -5,16 +5,11 @@ if (isset($_SESSION['success'])) {
     echo "<script>alert('$message');</script>";
     unset($_SESSION['success']);
 }
-// Xóa session khi người dùng vào trang admin.php
 
-
-// Kiểm tra nếu chưa đăng nhập hoặc không phải admin/staff
 if (
     !isset($_SESSION['user']) || !isset($_SESSION['role']) ||
     ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'staff')
 ) {
-
-    // Chuyển về trang login
     header("Location: ../public/login.php");
     exit();
 }
@@ -22,7 +17,6 @@ if (
 
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,20 +25,13 @@ if (
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-
 <body>
     <div class="wrapper">
-        <!-- menu -->
         <?php include 'template/sidebar.php'; ?>
-        <!-- End menu -->
-        <!-- header -->
         <?php include 'template/header.php'; ?>
-        <!-- end header -->
-        <!-- Nội dung chính -->
         <main class="main-content">
             <h2>Quản lý Sản phẩm</h2>
 
-            <!-- Tìm kiếm và lọc -->
             <div class="filter-section">
                 <input type="text" id="search" placeholder="Tìm kiếm sản phẩm..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                 <select id="category-filter" name="category">
@@ -116,6 +103,7 @@ if (
                         <th>Tên Sản phẩm</th>
                         <th>Hình ảnh</th>
                         <th>Giá</th>
+                        <th>Giá sau giảm</th>
                         <th>Danh mục</th>
                         <th>Loại Giày</th>
                         <th>Size</th>
@@ -132,24 +120,19 @@ if (
                         die("Kết nối thất bại: " . $conn->connect_error);
                     }
 
-                    // Xây dựng câu truy vấn
                     $sql = "SELECT * FROM products_admin WHERE 1=1";
-                    
                     $params = [];
 
-                    // Tìm kiếm
                     if (isset($_GET['search']) && !empty($_GET['search'])) {
                         $search = $conn->real_escape_string($_GET['search']);
                         $sql .= " AND name LIKE '%$search%'";
                     }
 
-                    // Lọc theo danh mục
                     if (isset($_GET['category']) && !empty($_GET['category'])) {
                         $category = $conn->real_escape_string($_GET['category']);
                         $sql .= " AND category = '$category'";
                     }
 
-                    // Sắp xếp
                     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id-desc';
                     if ($sort == 'price-asc') {
                         $sql .= " ORDER BY price ASC";
@@ -167,10 +150,10 @@ if (
                         echo "<td>" . $row['name'] . "</td>";
                         echo "<td><img src='" . $row['image'] . "' width='50'></td>";
                         echo "<td>" . number_format($row['price'], 0, ',', '.') . " VND</td>";
+                        echo "<td>" . ($row['discount_price'] ? number_format($row['discount_price'], 0, ',', '.') . " VND" : '-') . "</td>";
                         echo "<td>" . $row['category'] . "</td>";
                         echo "<td>" . $row['shoe_type'] . "</td>";
                         echo "<td>" . $row['size'] . "</td>";
-                        // Cảnh báo số lượng thấp
                         $quantity_class = $row['quantity'] <= 5 ? 'low-stock' : '';
                         echo "<td class='$quantity_class'>" . $row['quantity'] . "</td>";
                         echo "<td>" . $row['discount'] . "</td>";
@@ -194,7 +177,6 @@ if (
                             $productTypeLabel = 'Không xác định';
                         }
                         echo "<td>" . $productTypeLabel . "</td>";
-                        // Thao tác sửa/xóa
                         echo "<td>
                                 <a class='edit-btn' href='XuLy_Products/edit.php?id=" . $row['id'] . "'>Sửa</a>
                                 <a class='delete-btn' href='XuLy_Products/delete.php?id=" . $row['id'] . "' onclick='return confirm(\"Bạn có chắc chắn muốn xóa?\")'>Xóa</a>
@@ -206,10 +188,7 @@ if (
                 </tbody>
             </table>
         </main>
-        <!-- end Nội dung chính -->
-        <!-- Footer -->
         <?php include 'template/footer.php'; ?>
-        <!-- End Footer -->
     </div>
     <script>
         function showForm() {
@@ -234,7 +213,6 @@ if (
             window.location.href = url;
         }
 
-        // Tìm kiếm khi nhấn Enter
         document.getElementById('search').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 applyFilter();
@@ -242,5 +220,4 @@ if (
         });
     </script>
 </body>
-
 </html>

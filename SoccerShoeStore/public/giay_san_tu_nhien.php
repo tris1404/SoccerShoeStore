@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giày Cỏ Tự Nhiên</title>
-    <link rel="stylesheet" href="assets/css/giay_san_tu_nhien.css?v=1" >
+    <link rel="stylesheet" href="assets/css/giay_san_tu_nhien.css?v=1">
     <link rel="stylesheet" href="assets/css/styles.css?v=3" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="assets/js/scripts.js?v=1"></script>
 </head>
-
 <body>
     <div id="wrapper">
-        <!-- Header -->
         <?php include 'includes/header.php'; ?>
-
-        <!-- End header -->
         <div id="wrapper-container">
-            <!-- Content -->
             <div class="container">
                 <aside class="sidebar">
                     <h3>Tìm Theo</h3>
@@ -65,7 +59,6 @@
                 </aside>
 
                 <main class="main-content">
-                    <!-- Banner -->
                     <div class="banner">
                         <img src="assets/img/San_TuNhien/adidas_banner.webp" alt="Banner Giày Cỏ Tự Nhiên">
                     </div>
@@ -96,16 +89,14 @@
                             die("Kết nối thất bại: " . $conn->connect_error);
                         }
 
-                        // Chỉ lấy sản phẩm có shoe_type là "Sân tự nhiên"
                         $sql = "SELECT * FROM products WHERE shoe_type = 'Sân tự nhiên'";
 
-                        // Lọc theo thương hiệu
                         if (!empty($_GET['brand'])) {
                             $brands = array_map([$conn, 'real_escape_string'], $_GET['brand']);
                             $brands_placeholder = "'" . implode("','", $brands) . "'";
                             $sql .= " AND brand IN ($brands_placeholder)";
                         }
-                        // Lọc theo khoảng giá
+
                         if (!empty($_GET['price'])) {
                             $priceConditions = [];
                             foreach ($_GET['price'] as $range) {
@@ -115,30 +106,35 @@
                             $sql .= " AND (" . implode(" OR ", $priceConditions) . ")";
                         }
 
-                        // Sắp xếp mặc định theo sản phẩm mới nhất
                         $sql .= " ORDER BY id DESC";
 
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<div class='product' data-price='{$row['price']}'>";
+                                echo "<div class='product' data-price='{$row['price']}' data-product-type='{$row['product_type']}'>";
                                 
                                 if ($row['discount'] > 0) {
                                     echo "<span class='discount'>-{$row['discount']}%</span>";
                                 }
-                                // Hiển thị hình ảnh từ URL
+
                                 if (!empty($row['image'])) {
                                     echo "<img src='" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
                                 } else {
-                                    // Hiển thị hình ảnh mặc định nếu không có URL
                                     echo "<img src='assets/img/default-product.png' alt='Hình ảnh không tồn tại'>";
                                 }
-                                echo "<p>{$row['name']}</p>";
-                                echo "<span class='price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
 
-                                // Thêm biểu tượng "Xem nhanh" & "Thêm vào giỏ hàng"
+                                echo "<p>" . htmlspecialchars($row['name']) . "</p>";
+                                echo "<div class='price-container'>";
+                                if ($row['discount'] > 0 && $row['discount_price']) {
+                                    echo "<span class='original-price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
+                                    echo "<span class='discount-price'>" . number_format($row['discount_price'], 0, ',', '.') . "</span>";
+                                } else {
+                                    echo "<span class='discount-price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
+                                }
+                                echo "</div>";
+
                                 echo "<div class='product-icons'>";
-                                echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Xem nhanh'><i class='fas fa-eye'></i></a>";
+                                echo "<a href='product-detail.php?id={$row['id']}&source=natural' title='Xem chi tiết'><i class='fas fa-eye'></i></a>";
                                 echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Thêm vào giỏ hàng'>";
                                 echo "<i class='fas fa-shopping-cart'></i>";
                                 echo "</a>";
@@ -157,11 +153,8 @@
             </div>
         </div>
 
-        <!-- Popup sản phẩm -->
         <div id="productPopup" class="cart-popup" style="display: none;">
-            <div id="popupDetails">
-                <!-- Nội dung chi tiết sản phẩm sẽ được tải bằng AJAX -->
-            </div>
+            <div id="popupDetails"></div>
         </div>
 
         <button id="scrollToTopBtn" onclick="scrollToTop()">
@@ -171,83 +164,96 @@
             <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png" alt="Chat Zalo">
         </button>
 
-        <!-- Footer -->
         <?php include 'includes/footer.php'; ?>
-        <!-- End footer -->
     </div>
-    
 </body>
-
-
 <script>
-        function openPopup(productId) {
-            fetch("get_product_details.php?id=" + productId)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("popupDetails").innerHTML = data;
-                    document.getElementById("productPopup").style.display = "flex";
-                })
-                .catch(error => {
-                    console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
-                    document.getElementById("popupDetails").innerHTML = "<p>Đã xảy ra lỗi khi tải chi tiết sản phẩm.</p>";
-                });
-        }
-
-        function closePopup() {
-            document.getElementById("productPopup").style.display = "none";
-        }
-
-        function addToCart(productId) {
-            const quantity = document.getElementById(`popup-quantity-${productId}`).value;
-            const size = document.getElementById(`popup-size-${productId}`).value;
-            alert(`Đã thêm sản phẩm ID ${productId} vào giỏ hàng với số lượng ${quantity} và kích cỡ ${size}`);
-            closePopup();
-        }
-
-        function sortProducts() {
-            let sortType = document.getElementById("sort").value;
-            let productList = document.getElementById("product-list");
-            let products = Array.from(productList.getElementsByClassName("product"));
-
-            products.sort((a, b) => {
-                let priceA = parseInt(a.getAttribute("data-price"));
-                let priceB = parseInt(b.getAttribute("data-price"));
-                if (sortType === "asc") return priceA - priceB;
-                if (sortType === "desc") return priceB - priceA;
-                return 0;
-            });
-
-            productList.innerHTML = "";
-            products.forEach(product => productList.appendChild(product));
-        }
-
-        // Nút cuộn lên đầu trang
-        window.onscroll = function() {
-            let button = document.getElementById("scrollToTopBtn");
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                button.style.display = "block";
-            } else {
-                button.style.display = "none";
-            }
-        };
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-
-        $(document).ready(function() {
-            $(".brand-toggle").click(function() {
-                $(this).next(".brand-options").stop(true, true).slideToggle();
-                $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
-            });
-
-            $(".price-toggle").click(function() {
-                $(this).next(".price-options").stop(true, true).slideToggle();
-                $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
-            });
+function openPopup(productId) {
+    fetch("get_product_details.php?id=" + productId)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("popupDetails").innerHTML = data;
+            document.getElementById("productPopup").style.display = "flex";
+        })
+        .catch(error => {
+            console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+            document.getElementById("popupDetails").innerHTML = "<p>Đã xảy ra lỗi khi tải chi tiết sản phẩm.</p>";
         });
-    </script>
+}
+
+function closePopup() {
+    document.getElementById("productPopup").style.display = "none";
+}
+
+function addToCart(productId, productName, productPrice, productImage, discount) {
+    const quantity = document.getElementById(`popup-quantity-${productId}`).value;
+    const size = document.getElementById(`popup-size-${productId}`).value;
+
+    fetch('get_product_details.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=add_to_cart&product_id=${productId}&product_name=${encodeURIComponent(productName)}&product_price=${productPrice}&product_image=${encodeURIComponent(productImage)}&product_quantity=${quantity}&product_size=${size}&discount=${discount}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert(data.message);
+            closePopup();
+        } else {
+            alert('Có lỗi xảy ra khi thêm vào giỏ hàng!');
+        }
+    })
+    .catch(error => {
+        console.error('Lỗi khi thêm vào giỏ hàng:', error);
+        alert('Đã xảy ra lỗi khi thêm vào giỏ hàng!');
+    });
+}
+
+function sortProducts() {
+    let sortType = document.getElementById("sort").value;
+    let productList = document.getElementById("product-list");
+    let products = Array.from(productList.getElementsByClassName("product"));
+
+    products.sort((a, b) => {
+        let priceA = parseInt(a.getAttribute("data-price"));
+        let priceB = parseInt(b.getAttribute("data-price"));
+        if (sortType === "asc") return priceA - priceB;
+        if (sortType === "desc") return priceB - priceA;
+        return 0;
+    });
+
+    productList.innerHTML = "";
+    products.forEach(product => productList.appendChild(product));
+}
+
+window.onscroll = function() {
+    let button = document.getElementById("scrollToTopBtn");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        button.style.display = "block";
+    } else {
+        button.style.display = "none";
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+$(document).ready(function() {
+    $(".brand-toggle").click(function() {
+        $(this).next(".brand-options").stop(true, true).slideToggle();
+        $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
+    });
+
+    $(".price-toggle").click(function() {
+        $(this).next(".price-options").stop(true, true).slideToggle();
+        $(this).find("i").toggleClass("fa-chevron-down fa-chevron-up");
+    });
+});
+</script>
 </html>

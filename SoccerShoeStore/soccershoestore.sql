@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 16, 2025 lúc 08:43 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 16, 2025 at 09:58 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `soccershoestore`
+-- Database: `soccershoestore`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admins`
+-- Table structure for table `admins`
 --
 
 CREATE TABLE `admins` (
@@ -43,7 +43,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `admins`
+-- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `phone`, `address`, `status`, `role`, `created_at`, `updated_at`) VALUES
@@ -53,7 +53,7 @@ INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `r
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `brands`
+-- Table structure for table `brands`
 --
 
 CREATE TABLE `brands` (
@@ -66,7 +66,7 @@ CREATE TABLE `brands` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `brands`
+-- Dumping data for table `brands`
 --
 
 INSERT INTO `brands` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
@@ -77,7 +77,7 @@ INSERT INTO `brands` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -91,7 +91,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`, `parent_id`) VALUES
@@ -166,7 +166,7 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `created_at`, `updated
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -182,7 +182,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -192,7 +192,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -211,7 +211,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -223,7 +223,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `orders`
+-- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
@@ -232,7 +232,7 @@ INSERT INTO `orders` (`id`, `user_id`, `status`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_details`
+-- Table structure for table `order_details`
 --
 
 CREATE TABLE `order_details` (
@@ -249,7 +249,7 @@ CREATE TABLE `order_details` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -261,7 +261,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `personal_access_tokens`
+-- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -279,7 +279,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -295,31 +295,32 @@ CREATE TABLE `products` (
   `status` tinyint(1) DEFAULT 1,
   `created_at` datetime DEFAULT current_timestamp(),
   `product_type` enum('normal','new','sale','hot') DEFAULT 'normal',
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount_price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `size`, `price`, `brand`, `shoe_type`, `quantity`, `image`, `discount`, `status`, `created_at`, `product_type`, `description`) VALUES
-(1, 'Nike Zoom Mercurial Superfly 9 Elite \"Marcus Rashford\"', '38,39,40,41,42', 8649000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png', 10, 1, '2025-04-15 10:22:09', 'normal', 'Giày đá bóng Nike Zoom Mercurial Superfly 9 Elite là phiên bản cao cấp, được thiết kế đặc biệt cho Marcus Rashford với công nghệ Zoom Air mới giúp tăng tốc độ và phản xạ trên sân cỏ tự nhiên.'),
-(2, 'F50 Elite Firm Ground Boots', '38,39,40,41,42', 5799999, 'Adidas', 'Sân tự nhiên', 13, 'https://thumblr.uniid.it/product/376821/4d93fadfee06.jpg?width=3840&format=webp&q=75', 11, 1, '2025-04-15 10:23:45', 'normal', 'F50 Elite Firm Ground Boots là mẫu giày bóng đá chuyên dụng cho sân cỏ tự nhiên, nổi bật với trọng lượng nhẹ, thiết kế khí động học và phần đế hỗ trợ tăng tốc tối đa cho các pha bứt tốc.'),
-(3, 'PUMA FUTURE 7 PRO FG/AG', '38,39,40,41,42', 3600000, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107707/01/sv01/fnd/THA/fmt/png/FUTURE-7-PRO-FG/AG-Football-Boots', 8, 1, '2025-04-15 10:30:10', 'normal', 'PUMA FUTURE 7 PRO FG/AG là mẫu giày linh hoạt dùng được cho cả sân cỏ tự nhiên và nhân tạo, thiết kế cổ thun ôm chân, hỗ trợ kiểm soát bóng và di chuyển linh hoạt trong mọi tình huống.'),
-(4, 'Nike United Mercurial Superfly 10 Elite', '38,39,40,41,42', 8350000, 'Nike', 'Sân tự nhiên', 8, 'https://static.nike.com/a/images/t_default/d04f3004-bc36-4c38-b7ff-ed01479e39a9/ZM+SUPERFLY+10+ELITE+FG+NU1.png', 7, 1, '2025-04-15 10:34:42', 'sale', 'Nike United Mercurial Superfly 10 Elite thuộc dòng giày cao cấp của Nike, thiết kế dành cho các cầu thủ tấn công với phần upper siêu nhẹ và công nghệ Flyknit giúp tối ưu tốc độ và cảm giác bóng.'),
-(5, 'Nike Superfly 10 Academy Mercurial Dream Speed', '38,39,40,41,42', 3060000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/acf1c7f9-bebd-41fc-b81f-9af24b7e2ddb/ZM+SUPERFLY+10+ACAD+MDS+FG%2FMG.png', 4, 1, '2025-04-15 13:13:53', 'hot', 'Nike Superfly 10 Academy Mercurial Dream Speed là lựa chọn lý tưởng cho các cầu thủ trẻ yêu thích tốc độ, thiết kế theo cảm hứng từ những cầu thủ hàng đầu như Cristiano Ronaldo.'),
-(6, 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF - DO9347-400', '38,39,40,41,42', 3050000, 'Nike', 'Sân nhân tạo', 4, 'https://cdn.chiaki.vn/unsafe/0x480/left/top/smart/filters:quality(75)/https://chiaki.vn/upload/product/2024/03/giay-da-bong-nike-zoom-mercurial-superfly-9-academy-km-tf-do9347-400-65e6c7b166cef-05032024142017.png', 20, 1, '2025-04-15 13:17:15', 'hot', 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF là phiên bản sân cỏ nhân tạo với thiết kế lấy cảm hứng từ Kylian Mbappé, mang lại cảm giác thoải mái, linh hoạt và kiểm soát bóng tối ưu.'),
-(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Futsal', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, '2025-04-15 13:21:23', 'hot', 'Adidas Predator League Fold-over Tongue TF mang phong cách cổ điển với lưỡi gà gập, phù hợp cho sân cỏ nhân tạo. Giày hỗ trợ kiểm soát bóng chính xác và tăng độ bám sân trong từng pha xử lý.'),
-(8, 'PUMA ULTRA 5 PRO CAGE', '38,39,40,41,42', 2990000, 'Puma', 'Futsal', 9, 'https://product.hstatic.net/200000740801/product/untitled-1-01_4f268638fff14ab18cbfda5b37b0f026_master.jpg', 24, 1, '2025-04-15 13:25:34', 'hot', 'PUMA ULTRA 5 PRO CAGE là mẫu giày sân bóng mini (sân phủi) với thiết kế nhẹ, đế cao su chống trượt giúp di chuyển linh hoạt và chắc chắn trong các trận đấu tốc độ cao.'),
-(9, 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG', '38,39,40,41,42', 2899999, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107839/01/sv01/fnd/THA/fmt/png/PUMA-x-NEYMAR-JR-FUTURE-7-ULTIMATE-FG/AG-Football-Boots', 10, 1, '2025-04-15 13:30:30', 'new', 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG là phiên bản đặc biệt kết hợp giữa PUMA và Neymar Jr, tích hợp công nghệ tiên tiến hỗ trợ kiểm soát bóng và dứt điểm với độ chính xác cao.'),
-(10, 'Adidas Predator Freak+ FG Meteorite Pack', '38,39,40,41,42', 2400000, 'Adidas', 'Sân tự nhiên', 3, 'https://venifutebol.com.br/cdn/shop/products/Chuteira-Predator-Freak-FG-Meteorite-Pack-1.jpg?v=1670451646', 30, 1, '2025-04-15 13:33:39', 'new', 'Adidas Predator Freak+ FG Meteorite Pack là đôi giày sân cỏ tự nhiên không dây, nổi bật với công nghệ Demonskin giúp tăng khả năng xoáy bóng và kiểm soát bóng hoàn hảo trong mọi điều kiện thi đấu.'),
-(11, 'Adidas X Crazyfast.1 IC Messi Spark Gen10s ​​Pack Futsal Shoes', '38,39,40,41,42', 2299998, 'Adidas', 'Futsal', 19, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraFutsalAdidasXCrazyfast1.MessiSparkGen10sPack1.png?v=1712946425', 10, 1, '2025-04-15 13:39:01', 'new', 'Adidas X Crazyfast.1 IC Messi Spark Gen10s Pack là mẫu giày futsal trong nhà dành riêng cho fan của Lionel Messi, mang thiết kế năng động, đế chống trượt và trọng lượng siêu nhẹ để tăng tốc tối đa.'),
-(12, ' Puma Ultra 5 Carbon TF Ayrton Senna Pack Soccer Cleats', '38,39,40,41,42', 2500000, 'Puma', 'Sân nhân tạo', 8, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraCampoeSocietyPumaUltra5CarbonMGVolumeUpPack1.png?v=1733938699', 25, 1, '2025-04-15 13:42:23', 'new', 'Puma Ultra 5 Carbon TF Ayrton Senna Pack là phiên bản giới hạn lấy cảm hứng từ tay đua huyền thoại Ayrton Senna, với đế TF chuyên dụng cho sân cỏ nhân tạo, nhẹ, bám sân tốt và thiết kế độc đáo, đậm chất tốc độ.');
+INSERT INTO `products` (`id`, `name`, `size`, `price`, `brand`, `shoe_type`, `quantity`, `image`, `discount`, `status`, `created_at`, `product_type`, `description`, `discount_price`) VALUES
+(1, 'Nike Zoom Mercurial Superfly 9 Elite \"Marcus Rashford\"', '38,39,40,41,42', 8649000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png', 10, 1, '2025-04-15 10:22:09', 'normal', 'Giày đá bóng Nike Zoom Mercurial Superfly 9 Elite là phiên bản cao cấp, được thiết kế đặc biệt cho Marcus Rashford với công nghệ Zoom Air mới giúp tăng tốc độ và phản xạ trên sân cỏ tự nhiên.', 7784100.00),
+(2, 'F50 Elite Firm Ground Boots', '38,39,40,41,42', 5799999, 'Adidas', 'Sân tự nhiên', 13, 'https://thumblr.uniid.it/product/376821/4d93fadfee06.jpg?width=3840&format=webp&q=75', 11, 1, '2025-04-15 10:23:45', 'normal', 'F50 Elite Firm Ground Boots là mẫu giày bóng đá chuyên dụng cho sân cỏ tự nhiên, nổi bật với trọng lượng nhẹ, thiết kế khí động học và phần đế hỗ trợ tăng tốc tối đa cho các pha bứt tốc.', 5161999.11),
+(3, 'PUMA FUTURE 7 PRO FG/AG', '38,39,40,41,42', 3600000, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107707/01/sv01/fnd/THA/fmt/png/FUTURE-7-PRO-FG/AG-Football-Boots', 8, 1, '2025-04-15 10:30:10', 'normal', 'PUMA FUTURE 7 PRO FG/AG là mẫu giày linh hoạt dùng được cho cả sân cỏ tự nhiên và nhân tạo, thiết kế cổ thun ôm chân, hỗ trợ kiểm soát bóng và di chuyển linh hoạt trong mọi tình huống.', 3312000.00),
+(4, 'Nike United Mercurial Superfly 10 Elite', '38,39,40,41,42', 8350000, 'Nike', 'Sân tự nhiên', 8, 'https://static.nike.com/a/images/t_default/d04f3004-bc36-4c38-b7ff-ed01479e39a9/ZM+SUPERFLY+10+ELITE+FG+NU1.png', 7, 1, '2025-04-15 10:34:42', 'sale', 'Nike United Mercurial Superfly 10 Elite thuộc dòng giày cao cấp của Nike, thiết kế dành cho các cầu thủ tấn công với phần upper siêu nhẹ và công nghệ Flyknit giúp tối ưu tốc độ và cảm giác bóng.', 7765500.00),
+(5, 'Nike Superfly 10 Academy Mercurial Dream Speed', '38,39,40,41,42', 3060000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/acf1c7f9-bebd-41fc-b81f-9af24b7e2ddb/ZM+SUPERFLY+10+ACAD+MDS+FG%2FMG.png', 4, 1, '2025-04-15 13:13:53', 'hot', 'Nike Superfly 10 Academy Mercurial Dream Speed là lựa chọn lý tưởng cho các cầu thủ trẻ yêu thích tốc độ, thiết kế theo cảm hứng từ những cầu thủ hàng đầu như Cristiano Ronaldo.', 2937600.00),
+(6, 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF - DO9347-400', '38,39,40,41,42', 3050000, 'Nike', 'Sân nhân tạo', 4, 'https://cdn.chiaki.vn/unsafe/0x480/left/top/smart/filters:quality(75)/https://chiaki.vn/upload/product/2024/03/giay-da-bong-nike-zoom-mercurial-superfly-9-academy-km-tf-do9347-400-65e6c7b166cef-05032024142017.png', 20, 1, '2025-04-15 13:17:15', 'hot', 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF là phiên bản sân cỏ nhân tạo với thiết kế lấy cảm hứng từ Kylian Mbappé, mang lại cảm giác thoải mái, linh hoạt và kiểm soát bóng tối ưu.', 2440000.00),
+(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Futsal', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, '2025-04-15 13:21:23', 'hot', 'Adidas Predator League Fold-over Tongue TF mang phong cách cổ điển với lưỡi gà gập, phù hợp cho sân cỏ nhân tạo. Giày hỗ trợ kiểm soát bóng chính xác và tăng độ bám sân trong từng pha xử lý.', 2590000.00),
+(8, 'PUMA ULTRA 5 PRO CAGE', '38,39,40,41,42', 2990000, 'Puma', 'Futsal', 9, 'https://product.hstatic.net/200000740801/product/untitled-1-01_4f268638fff14ab18cbfda5b37b0f026_master.jpg', 24, 1, '2025-04-15 13:25:34', 'hot', 'PUMA ULTRA 5 PRO CAGE là mẫu giày sân bóng mini (sân phủi) với thiết kế nhẹ, đế cao su chống trượt giúp di chuyển linh hoạt và chắc chắn trong các trận đấu tốc độ cao.', 2272400.00),
+(9, 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG', '38,39,40,41,42', 2899999, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107839/01/sv01/fnd/THA/fmt/png/PUMA-x-NEYMAR-JR-FUTURE-7-ULTIMATE-FG/AG-Football-Boots', 10, 1, '2025-04-15 13:30:30', 'new', 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG là phiên bản đặc biệt kết hợp giữa PUMA và Neymar Jr, tích hợp công nghệ tiên tiến hỗ trợ kiểm soát bóng và dứt điểm với độ chính xác cao.', 2609999.10),
+(10, 'Adidas Predator Freak+ FG Meteorite Pack', '38,39,40,41,42', 2400000, 'Adidas', 'Sân tự nhiên', 3, 'https://venifutebol.com.br/cdn/shop/products/Chuteira-Predator-Freak-FG-Meteorite-Pack-1.jpg?v=1670451646', 30, 1, '2025-04-15 13:33:39', 'new', 'Adidas Predator Freak+ FG Meteorite Pack là đôi giày sân cỏ tự nhiên không dây, nổi bật với công nghệ Demonskin giúp tăng khả năng xoáy bóng và kiểm soát bóng hoàn hảo trong mọi điều kiện thi đấu.', 1680000.00),
+(11, 'Adidas X Crazyfast.1 IC Messi Spark Gen10s ​​Pack Futsal Shoes', '38,39,40,41,42', 2299998, 'Adidas', 'Futsal', 19, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraFutsalAdidasXCrazyfast1.MessiSparkGen10sPack1.png?v=1712946425', 10, 1, '2025-04-15 13:39:01', 'new', 'Adidas X Crazyfast.1 IC Messi Spark Gen10s Pack là mẫu giày futsal trong nhà dành riêng cho fan của Lionel Messi, mang thiết kế năng động, đế chống trượt và trọng lượng siêu nhẹ để tăng tốc tối đa.', 2069998.20),
+(12, ' Puma Ultra 5 Carbon TF Ayrton Senna Pack Soccer Cleats', '38,39,40,41,42', 2500000, 'Puma', 'Sân nhân tạo', 8, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraCampoeSocietyPumaUltra5CarbonMGVolumeUpPack1.png?v=1733938699', 25, 1, '2025-04-15 13:42:23', 'new', 'Puma Ultra 5 Carbon TF Ayrton Senna Pack là phiên bản giới hạn lấy cảm hứng từ tay đua huyền thoại Ayrton Senna, với đế TF chuyên dụng cho sân cỏ nhân tạo, nhẹ, bám sân tốt và thiết kế độc đáo, đậm chất tốc độ.', 1875000.00);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products_admin`
+-- Table structure for table `products_admin`
 --
 
 CREATE TABLE `products_admin` (
@@ -333,31 +334,32 @@ CREATE TABLE `products_admin` (
   `image` varchar(255) NOT NULL,
   `discount` int(11) DEFAULT 0,
   `status` tinyint(1) DEFAULT 1,
-  `product_type` enum('normal','new','sale','hot') DEFAULT 'normal'
+  `product_type` enum('normal','new','sale','hot') DEFAULT 'normal',
+  `discount_price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products_admin`
+-- Dumping data for table `products_admin`
 --
 
-INSERT INTO `products_admin` (`id`, `name`, `size`, `price`, `category`, `shoe_type`, `quantity`, `image`, `discount`, `status`, `product_type`) VALUES
-(1, 'Nike Zoom Mercurial Superfly 9 Elite \"Marcus Rashford\"', '38,39,40,41,42', 8649000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png', 10, 1, 'normal'),
-(2, 'F50 Elite Firm Ground Boots', '38,39,40,41,42', 5799999, 'Adidas', 'Sân tự nhiên', 13, 'https://thumblr.uniid.it/product/376821/4d93fadfee06.jpg?width=3840&format=webp&q=75', 11, 1, 'normal'),
-(3, 'PUMA FUTURE 7 PRO FG/AG', '38,39,40,41,42', 3600000, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107707/01/sv01/fnd/THA/fmt/png/FUTURE-7-PRO-FG/AG-Football-Boots', 8, 1, 'normal'),
-(4, 'Nike United Mercurial Superfly 10 Elite', '38,39,40,41,42', 8350000, 'Nike', 'Sân tự nhiên', 8, 'https://static.nike.com/a/images/t_default/d04f3004-bc36-4c38-b7ff-ed01479e39a9/ZM+SUPERFLY+10+ELITE+FG+NU1.png', 7, 1, 'sale'),
-(5, 'Nike Superfly 10 Academy Mercurial Dream Speed', '38,39,40,41,42', 3060000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/acf1c7f9-bebd-41fc-b81f-9af24b7e2ddb/ZM+SUPERFLY+10+ACAD+MDS+FG%2FMG.png', 4, 1, 'hot'),
-(6, 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF - DO9347-400', '38,39,40,41,42', 3050000, 'Nike', 'Sân nhân tạo', 4, 'https://cdn.chiaki.vn/unsafe/0x480/left/top/smart/filters:quality(75)/https://chiaki.vn/upload/product/2024/03/giay-da-bong-nike-zoom-mercurial-superfly-9-academy-km-tf-do9347-400-65e6c7b166cef-05032024142017.png', 20, 1, 'hot'),
-(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Futsal', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, 'hot'),
-(8, 'PUMA ULTRA 5 PRO CAGE', '38,39,40,41,42', 2990000, 'Puma', 'Futsal', 9, 'https://product.hstatic.net/200000740801/product/untitled-1-01_4f268638fff14ab18cbfda5b37b0f026_master.jpg', 24, 1, 'hot'),
-(9, 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG', '38,39,40,41,42', 2899999, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107839/01/sv01/fnd/THA/fmt/png/PUMA-x-NEYMAR-JR-FUTURE-7-ULTIMATE-FG/AG-Football-Boots', 10, 1, 'new'),
-(10, 'Adidas Predator Freak+ FG Meteorite Pack', '38,39,40,41,42', 2400000, 'Adidas', 'Sân tự nhiên', 3, 'https://venifutebol.com.br/cdn/shop/products/Chuteira-Predator-Freak-FG-Meteorite-Pack-1.jpg?v=1670451646', 30, 1, 'new'),
-(11, 'Adidas X Crazyfast.1 IC Messi Spark Gen10s ​​Pack Futsal Shoes', '38,39,40,41,42', 2299998, 'Adidas', 'Futsal', 19, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraFutsalAdidasXCrazyfast1.MessiSparkGen10sPack1.png?v=1712946425', 10, 1, 'new'),
-(12, ' Puma Ultra 5 Carbon TF Ayrton Senna Pack Soccer Cleats', '38,39,40,41,42', 2500000, 'Puma', 'Sân nhân tạo', 8, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraCampoeSocietyPumaUltra5CarbonMGVolumeUpPack1.png?v=1733938699', 25, 1, 'new');
+INSERT INTO `products_admin` (`id`, `name`, `size`, `price`, `category`, `shoe_type`, `quantity`, `image`, `discount`, `status`, `product_type`, `discount_price`) VALUES
+(1, 'Nike Zoom Mercurial Superfly 9 Elite \"Marcus Rashford\"', '38,39,40,41,42', 8649000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/8e644f9b-4db8-4d24-91d3-1edf45ae1e3c/ZOOM+SUPERFLY+9+ELITE+MR+FG.png', 10, 1, 'normal', 7784100.00),
+(2, 'F50 Elite Firm Ground Boots', '38,39,40,41,42', 5799999, 'Adidas', 'Sân tự nhiên', 13, 'https://thumblr.uniid.it/product/376821/4d93fadfee06.jpg?width=3840&format=webp&q=75', 11, 1, 'normal', 5161999.11),
+(3, 'PUMA FUTURE 7 PRO FG/AG', '38,39,40,41,42', 3600000, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107707/01/sv01/fnd/THA/fmt/png/FUTURE-7-PRO-FG/AG-Football-Boots', 8, 1, 'normal', 3312000.00),
+(4, 'Nike United Mercurial Superfly 10 Elite', '38,39,40,41,42', 8350000, 'Nike', 'Sân tự nhiên', 8, 'https://static.nike.com/a/images/t_default/d04f3004-bc36-4c38-b7ff-ed01479e39a9/ZM+SUPERFLY+10+ELITE+FG+NU1.png', 7, 1, 'sale', 7765500.00),
+(5, 'Nike Superfly 10 Academy Mercurial Dream Speed', '38,39,40,41,42', 3060000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/acf1c7f9-bebd-41fc-b81f-9af24b7e2ddb/ZM+SUPERFLY+10+ACAD+MDS+FG%2FMG.png', 4, 1, 'hot', 2937600.00),
+(6, 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF - DO9347-400', '38,39,40,41,42', 3050000, 'Nike', 'Sân nhân tạo', 4, 'https://cdn.chiaki.vn/unsafe/0x480/left/top/smart/filters:quality(75)/https://chiaki.vn/upload/product/2024/03/giay-da-bong-nike-zoom-mercurial-superfly-9-academy-km-tf-do9347-400-65e6c7b166cef-05032024142017.png', 20, 1, 'hot', 2440000.00),
+(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Futsal', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, 'hot', 2590000.00),
+(8, 'PUMA ULTRA 5 PRO CAGE', '38,39,40,41,42', 2990000, 'Puma', 'Futsal', 9, 'https://product.hstatic.net/200000740801/product/untitled-1-01_4f268638fff14ab18cbfda5b37b0f026_master.jpg', 24, 1, 'hot', 2272400.00),
+(9, 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG', '38,39,40,41,42', 2899999, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107839/01/sv01/fnd/THA/fmt/png/PUMA-x-NEYMAR-JR-FUTURE-7-ULTIMATE-FG/AG-Football-Boots', 10, 1, 'new', 2609999.10),
+(10, 'Adidas Predator Freak+ FG Meteorite Pack', '38,39,40,41,42', 2400000, 'Adidas', 'Sân tự nhiên', 3, 'https://venifutebol.com.br/cdn/shop/products/Chuteira-Predator-Freak-FG-Meteorite-Pack-1.jpg?v=1670451646', 30, 1, 'new', 1680000.00),
+(11, 'Adidas X Crazyfast.1 IC Messi Spark Gen10s ​​Pack Futsal Shoes', '38,39,40,41,42', 2299998, 'Adidas', 'Futsal', 19, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraFutsalAdidasXCrazyfast1.MessiSparkGen10sPack1.png?v=1712946425', 10, 1, 'new', 2069998.20),
+(12, ' Puma Ultra 5 Carbon TF Ayrton Senna Pack Soccer Cleats', '38,39,40,41,42', 2500000, 'Puma', 'Sân nhân tạo', 8, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraCampoeSocietyPumaUltra5CarbonMGVolumeUpPack1.png?v=1733938699', 25, 1, 'new', 1875000.00);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `reviews`
+-- Table structure for table `reviews`
 --
 
 CREATE TABLE `reviews` (
@@ -373,7 +375,7 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -392,7 +394,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `phone`, `address`, `status`, `created_at`, `updated_at`, `role`) VALUES
@@ -400,25 +402,25 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (18, 'user2', 'user2@gmail.com', NULL, 'User2@123', NULL, '', '', 'Active', NULL, NULL, 'User');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `admins`
+-- Indexes for table `admins`
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `admins_email_unique` (`email`);
 
 --
--- Chỉ mục cho bảng `brands`
+-- Indexes for table `brands`
 --
 ALTER TABLE `brands`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `brands_slug_unique` (`slug`);
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
@@ -426,27 +428,27 @@ ALTER TABLE `categories`
   ADD KEY `fk_categories_parent` (`parent_id`);
 
 --
--- Chỉ mục cho bảng `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Chỉ mục cho bảng `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `orders_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `order_details`
+-- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`id`),
@@ -454,13 +456,13 @@ ALTER TABLE `order_details`
   ADD KEY `order_details_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Chỉ mục cho bảng `personal_access_tokens`
+-- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -468,19 +470,19 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `products_admin`
+-- Indexes for table `products_admin`
 --
 ALTER TABLE `products_admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `reviews`
+-- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`),
@@ -488,106 +490,106 @@ ALTER TABLE `reviews`
   ADD KEY `reviews_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `admins`
+-- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `brands`
+-- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
--- AUTO_INCREMENT cho bảng `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT cho bảng `order_details`
+-- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `personal_access_tokens`
+-- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT cho bảng `products_admin`
+-- AUTO_INCREMENT for table `products_admin`
 --
 ALTER TABLE `products_admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT cho bảng `reviews`
+-- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `categories`
+-- Constraints for table `categories`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `fk_categories_parent` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Các ràng buộc cho bảng `order_details`
+-- Constraints for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);

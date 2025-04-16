@@ -24,7 +24,6 @@ if (isset($_GET['id'])) {
     exit();
 }
 
-// Lấy thông tin discount từ bảng products_admin (sau khi đã thêm cột discount)
 $discount = isset($product['discount']) ? $product['discount'] : 0;
 ?>
 
@@ -176,7 +175,6 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
     <form method="POST" action="edit.php?id=<?= $product['id'] ?>" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $product['id'] ?>">
 
-        <!-- Tiêu đề "Sửa sản phẩm" được đưa vào bên trong form -->
         <div class="form-group form-title">
             <h2>Sửa sản phẩm</h2>
         </div>
@@ -193,7 +191,7 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
 
         <div class="form-group">
             <label class="form-label">Giá:</label>
-            <input type="number" class="form-control" name="price" value="<?= $product['price'] ?>" required>
+            <input type="number" class="form-control" name="price" id="price" value="<?= $product['price'] ?>" required oninput="calculateDiscountPrice()">
         </div>
 
         <div class="form-group">
@@ -221,7 +219,13 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
 
         <div class="form-group">
             <label class="form-label">Giảm giá (%):</label>
-            <input type="number" class="form-control" name="discount" min="0" max="100" value="<?= $discount ?>">
+            <input type="number" class="form-control" name="discount" id="discount" min="0" max="100" value="<?= $discount ?>" oninput="calculateDiscountPrice()">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Giá sau khi giảm:</label>
+            <input type="text" class="form-control" id="discount_price_display" value="<?= $product['discount_price'] ? number_format($product['discount_price'], 0, ',', '.') : '' ?>" readonly>
+            <input type="hidden" name="discount_price" id="discount_price" value="<?= $product['discount_price'] ?>">
         </div>
 
         <div class="form-group">
@@ -242,6 +246,25 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
 
         <button type="submit">Cập nhật</button>
     </form>
+
+    <script>
+        function calculateDiscountPrice() {
+            const price = parseFloat(document.getElementById('price').value) || 0;
+            const discount = parseFloat(document.getElementById('discount').value) || 0;
+            let discountPrice = discount > 0 ? price * (1 - discount / 100) : 0;
+
+            // Hiển thị giá sau khi giảm
+            const discountPriceDisplay = document.getElementById('discount_price_display');
+            const discountPriceInput = document.getElementById('discount_price');
+            if (discountPrice > 0) {
+                discountPriceDisplay.value = discountPrice.toLocaleString('vi-VN');
+                discountPriceInput.value = discountPrice;
+            } else {
+                discountPriceDisplay.value = '';
+                discountPriceInput.value = '';
+            }
+        }
+    </script>
 </body>
 </html>
 
@@ -251,11 +274,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $conn->real_escape_string($_POST['id']);
     $name = $conn->real_escape_string($_POST['product_name']);
     $size = $conn->real_escape_string($_POST['size']);
-    $price = $conn->real_escape_string($_POST['price']);
+    $price = floatval($conn->real_escape_string($_POST['price']));
     $category = $conn->real_escape_string($_POST['category']);
     $shoe_type = $conn->real_escape_string($_POST['shoe_type']);
     $quantity = $conn->real_escape_string($_POST['quantity']);
-    $discount = isset($_POST['discount']) ? $conn->real_escape_string($_POST['discount']) : 0;
+    $discount = isset($_POST['discount']) ? floatval($conn->real_escape_string($_POST['discount'])) : 0;
+    $discount_price = isset($_POST['discount_price']) && !empty($_POST['discount_price']) ? floatval($_POST['discount_price']) : NULL;
     $product_type = $conn->real_escape_string($_POST['product_type']);
 
     // Kiểm tra nếu có URL hình ảnh mới
@@ -273,21 +297,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     } else {
-        $image_name = $product['image']; // Giữ nguyên hình ảnh cũ nếu không upload hình mới
+        $image_name = $product['image'];
     }
 
     // Cập nhật bảng products_admin
     $sql_admin = "UPDATE products_admin SET 
                   name='$name', size='$size', price='$price', 
                   category='$category', shoe_type='$shoe_type',
-                  quantity='$quantity', image='$image_name', discount='$discount', product_type='$product_type' 
+                  quantity='$quantity', image='$image_name', 
+                  discount='$discount', discount_price=" . ($discount_price ? "'$discount_price'" : "NULL") . ", 
+                  product_type='$product_type' 
                   WHERE id = $id";
 
     // Cập nhật bảng products (cho khách hàng)
     $sql_customer = "UPDATE products SET 
                      name='$name', size='$size', price='$price', 
                      brand='$category', shoe_type='$shoe_type',
-                     quantity='$quantity', image='$image_name', discount='$discount', product_type='$product_type' 
+                     quantity='$quantity', image='$image_name', 
+                     discount='$discount', discount_price=" . ($discount_price ? "'$discount_price'" : "NULL") . ", 
+                     product_type='$product_type' 
                      WHERE id = $id";
 
     if (mysqli_query($conn, $sql_admin) && mysqli_query($conn, $sql_customer)) {
@@ -300,5 +328,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
-ob_end_flush(); // Gửi output sau khi đã xử lý
+ob_end_flush();
 ?>

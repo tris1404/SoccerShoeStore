@@ -379,3 +379,93 @@ body {
 .price-toggle:hover {
     background: #ede5e5;
 }
+
+/* CSS cho giá giảm */
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Giảm khoảng cách giữa giá gốc và giá giảm để giống hình */
+    justify-content: center; /* Căn giữa giá trong container */
+    margin-top: 10px; /* Khoảng cách phía trên */
+}
+
+.original-price {
+    font-size: 16px; /* Kích thước chữ của giá gốc */
+    text-decoration: line-through; /* Gạch ngang giá gốc */
+    color: #999; /* Màu xám cho giá gốc */
+    font-weight: normal; /* Không in đậm giá gốc */
+}
+
+.discount-price {
+    font-size: 18px; /* Kích thước chữ của giá giảm, lớn hơn một chút */
+    color: #e60000; /* Màu đỏ giống như trong hình */
+    font-weight: bold; /* In đậm giá giảm để nổi bật */
+}
+
+/* Thêm ký hiệu "đ" sau giá */
+.discount-price::after,
+.original-price::after {
+    content: "đ"; /* Thêm ký hiệu "đ" */
+    text-decoration: underline; /* Gạch chân ký hiệu "đ" */
+    font-size: 14px; /* Kích thước nhỏ hơn một chút cho ký hiệu "đ" */
+    margin-left: 2px; /* Khoảng cách nhỏ giữa giá và "đ" */
+}
+
+/* Đảm bảo sản phẩm căn giữa và có khoảng cách đều */
+.product {
+    width: calc(25% - 20px);
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background-color: #fff; /* Đảm bảo nền trắng */
+}
+
+.product p {
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+    min-height: 40px; /* Đảm bảo tiêu đề sản phẩm có chiều cao cố định để căn chỉnh đều */
+}
+
+/* Định dạng tag giảm giá (sale) */
+.discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+/* Định dạng tag "NEW" */
+.product::before {
+    content: "NEW";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    display: none; /* Ẩn mặc định, chỉ hiển thị khi có điều kiện */
+}
+
+/* Hiển thị tag "NEW" nếu sản phẩm có product_type = "new" */
+.product[data-product-type="new"]::before {
+    display: block;
+}
+
+/* Đảm bảo khoảng cách và căn chỉnh cho product-list */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Căn giữa các sản phẩm */
+}
