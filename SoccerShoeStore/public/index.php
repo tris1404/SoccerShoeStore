@@ -118,7 +118,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <div class="care-about-img">
                             <a href="">
-                                <img src="" alt="">
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
@@ -160,7 +159,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <div class="list-brand-img">
                             <a href="">
-                                <img src="" alt="">
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
@@ -246,7 +244,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <div class="list-sole-img">
                             <a href="">
-                                <img src="" alt="">
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">

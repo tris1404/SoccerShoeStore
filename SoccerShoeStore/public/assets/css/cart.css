@@ -1,0 +1,284 @@
+.wrapper-cart {
+    background-color: white;
+    margin: 20px 150px 0px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.shopping-cart {
+    border-radius: 10px;
+    background-color: white;
+}
+
+
+
+.top-bar {
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+}
+
+
+.top-bar .title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 30px;
+}
+
+.numbers-product {
+    float: right;
+}
+
+.product-container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.product-section {
+    width: 100%;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.product-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-width: 1px 0;
+    /* Chỉ giữ viền trên & dưới, bỏ trái & phải */
+    padding: 20px;
+    text-align: left;
+    background-color: #fff;
+    gap: 25px;
+}
+
+.product-items img {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 100px;
+    flex-grow: 1;
+}
+
+.product-items h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    border: none;
+    background-color: #F0F0F0;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.quantity-btn:hover {
+    background-color: #E0E0E0;
+}
+
+.quantity-input {
+    width: 40px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.function {
+    display: flex;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+.add-to-cart-btn {
+    background-color: #28a745;
+    /* Màu xanh lá cây */
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 10px;
+    /* Cách nút xóa một chút */
+}
+
+.add-to-cart-btn:hover {
+    background-color: #218838;
+    /* Màu khi hover */
+}
+
+.bill {
+    height: auto;
+    background-color: #F8F8F8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.bill h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.bill-info {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.discount-input {
+    width: 30%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+.checkout-btn {
+    background-color: #E0E0E0;
+    color: black;
+    padding: 10px 15px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.checkout-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.cart-header {
+    display: flex;
+    gap: 190px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.product-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.product-table img {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.favorite-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.favorite-table th,
+.favorite-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.favorite-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.favorite-table img {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-table td img,
+.favorite-table td img {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px 15px;
+}
+
+.product-table td h3,
+.favorite-table td h3 {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    text-align: left;
+}
+
+.product-table td:first-child,
+.favorite-table td:first-child {
+    text-align: left;
+}
+
+.product-table td:not(:first-child),
+.favorite-table td:not(:first-child) {
+    text-align: center;
+}

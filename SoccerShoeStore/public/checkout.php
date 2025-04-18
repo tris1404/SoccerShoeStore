@@ -1,209 +1,49 @@
+<?php
+session_start();
+require_once '../config/database.php'; // Kết nối cơ sở dữ liệu
+
+// Kiểm tra trạng thái đăng nhập
+$isLoggedIn = isset($_SESSION['user']['id']);
+if (!$isLoggedIn) {
+    header('Location: login.php'); // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+    exit();
+}
+
+// Lấy danh sách sản phẩm được chọn
+$selectedProducts = isset($_POST['selected_products']) ? $_POST['selected_products'] : [];
+if (empty($selectedProducts)) {
+    echo 'Không có sản phẩm nào được chọn để thanh toán.';
+    exit();
+}
+
+// Lấy thông tin sản phẩm từ cơ sở dữ liệu
+$userId = $_SESSION['user']['id'];
+$cartItems = [];
+foreach ($selectedProducts as $key) {
+    list($productId, $size) = explode('_', $key);
+    $query = "SELECT ci.*, p.name, p.image FROM cart_items ci 
+              JOIN products p ON ci.product_id = p.id 
+              WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = $userId) 
+              AND ci.product_id = $productId AND ci.size = '$size'";
+    $result = mysqli_query($conn, $query);
+    if ($row = mysqli_fetch_assoc($result)) {
+        $cartItems[] = $row;
+    }
+}
+
+// Hiển thị giao diện thanh toán
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/checkout.css" type="text/css">
     <link rel="stylesheet" href="assets/css/styles.css?v=2" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Soccer Shoes Store</title>
 </head>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: white;
-    }
-
-    .checkout-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        margin-top: 50px;
-    }
-
-    .shipping-info,
-    .order-summary {
-        width: 45%;
-        background-color: #ffffff;
-        padding: 20px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .shipping-info h2,
-    .order-summary h2 {
-        margin-top: 0;
-    }
-
-    .shipping-info label,
-    .address-fields label,
-    .store-selection label {
-        display: block;
-        margin: 8px 0 4px;
-    }
-
-    .shipping-info input,
-    .shipping-info select,
-    .address-fields input,
-    .store-selection select {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .radio-option input {
-        width: auto;
-    }
-
-    .button {
-        margin-top: 10px;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .cart-button,
-    .continue-button {
-        width: 40%;
-        padding: 10px;
-        margin-top: 10px;
-        background-color: #dedede4b;
-        color: black;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    .cart-button:hover,
-    .continue-button:hover {
-        background-color: black;
-        color: white;
-    }
-
-    .delivery-method {
-        padding: 15px;
-        margin-top: 10px;
-        background-color: #f9f9f9;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .radio-option label {
-        margin: initial;
-    }
-
-    .radio-option {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-
-    .address-fields,
-    .store-selection {
-        display: none;
-        margin: 10px 0px;
-        padding: 10px;
-        background: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .order-summary {
-        background-color: #F8F8F8;
-    }
-
-    .order-summary ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .order-summary li {
-        margin-bottom: 10px;
-    }
-
-    .order-summary p {
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .product-header h1 {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
-
-    .product-details,
-    .discount-container,
-    .bill-info {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .product-image img {
-        max-width: 100px;
-    }
-
-    .product-info h2 {
-        width: 400px;
-        font-size: 15px;
-        margin-bottom: 10px;
-    }
-
-    .product-info .price {
-        font-size: 14px;
-        font-weight: bold;
-        color: #007bff;
-    }
-
-    .price-product {
-        margin-block: auto;
-        font-size: 14px;
-    }
-
-    .bill-info {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-
-    .discount-input {
-        width: 80%;
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    .apply-btn {
-        background-color: #dedede4b;
-        color: black;
-        padding: 8px 12px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-
-    .apply-btn:hover {
-        background-color: black;
-        color: white;
-    }
-
-    .bill-sum {
-        font-size: 20px;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-
-    }
-    .list-product {
-        min-width: 0;
-        padding: 0;
-    }
-</style>
 
 <body>
     <div id="wrapper">
@@ -260,9 +100,34 @@
                         </div>
                     </div>
 
+                    <div class="payment-method">
+                        <h3>Chọn phương thức thanh toán:</h3>
+                        <div class="radio-option">
+                            <input type="radio" id="cod" name="paymentMethod" value="cod" required>
+                            <label for="cod">Thanh toán khi nhận hàng (COD)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="bankTransfer" name="paymentMethod" value="bankTransfer">
+                            <label for="bankTransfer">Chuyển khoản ngân hàng</label>
+                        </div>
+                        <div id="bankTransferDetails" class="bank-transfer-details">
+                            <p>Quý khách vui lòng chuyển khoản kèm nội dung là <strong>Số điện thoại mua hàng</strong></p>
+                            <p><strong>Ngân hàng: ACB</strong></p>
+                            <p><strong>Số tài khoản:</strong> 233029569</p>
+                            <p><strong>Chủ tài khoản:</strong> Nguyễn Phan Thanh Hùng</p>
+                            <p><strong>Chi nhánh:</strong> ACB PGD Tân Định</p>
+                            <p>Đơn hàng thanh toán chuyển khoản sẽ được <strong>miễn phí vận chuyển</strong> qua Giaohangtietkiem. Quý khách vui lòng chỉ chuyển khoản tiền sản phẩm.</p>
+                            <p>Cảm ơn quý khách rất nhiều.</p>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="creditCard" name="paymentMethod" value="creditCard">
+                            <label for="creditCard">Thẻ tín dụng/ghi nợ</label>
+                        </div>
+                    </div>
+
                     <div class="button">
                         <button type="button" onclick="checkout()" class="cart-button">Giỏ hàng</button>
-                        <button type="button" id="continuePaymentButton" class="continue-button">Tiếp tục thanh toán</button>
+                        <button type="button" id="continuePaymentButton" class="continue-button">Hoàn tất thanh toán</button>
                     </div>
                 </form>
             </div>
@@ -270,52 +135,57 @@
             <!-- Phần phải: Thông tin sản phẩm và tổng tiền -->
             <div class="order-summary">
                 <div class="product-header">
-                    <h1>Giày đá banh chính hãng</h1>
+                    <h1>Giày đá bóng chính hãng</h1>
                 </div>
-                <div class="list-product">
-                    <div class="product-details">
-                        <div class="product-image">
-                            <img src="https://www.sport9.vn/images/thumbs/002/0024851_nike-air-zoom-mercurial-vapor-16-pro-tf-xamhong-fq8687-301_1000.jpeg" alt="NIKE ZOOM MERCURIAL VAPOR 16 PRO TF">
-                        </div>
-                        <div class="product-info">
-                            <h2>NIKE ZOOM MERCURIAL VAPOR 16 PRO TF - FQ8687-301 - XÁM XANH / HỒNG</h2>
-                            <p>Size: 38.5</p>
-                        </div>
-                        <div class="price-product">
-                            <p>2,850,000₫</p>
-                        </div>
-                    </div>
-
-                    <div class="product-details">
-                        <div class="product-image">
-                            <img src="https://www.sport9.vn/images/thumbs/002/0024851_nike-air-zoom-mercurial-vapor-16-pro-tf-xamhong-fq8687-301_1000.jpeg" alt="NIKE ZOOM MERCURIAL VAPOR 16 PRO TF">
-                        </div>
-                        <div class="product-info">
-                            <h2>NIKE ZOOM MERCURIAL VAPOR 16 PRO TF - FQ8687-301 - XÁM XANH / HỒNG</h2>
-                            <p>Size: 38.5</p>
-                        </div>
-                        <div class="price-product">
-                            <p>2,850,000₫</p>
-                        </div>
-                    </div>
-
-                    
+                <div class="list-products">
+                    <?php if (!empty($cartItems)): ?>
+                        <?php foreach ($cartItems as $item): ?>
+                            <div class="product-details">
+                                <div class="product-image">
+                                    <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>">
+                                </div>
+                                <div class="product-info">
+                                    <h2><?= htmlspecialchars($item['name']) ?></h2>
+                                    <p>Size: <?= htmlspecialchars($item['size']) ?></p>
+                                    <p>Số lượng: <?= htmlspecialchars($item['qty']) ?></p>
+                                </div>
+                                <div class="price-product">
+                                    <p><?= number_format($item['price'], 0, ',', '.') ?>₫</p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>Không có sản phẩm nào được chọn để thanh toán.</p>
+                    <?php endif; ?>
+                </div>
                 <div class="discount-container">
                     <input type="text" class="discount-input" placeholder="Nhập mã giảm giá">
                     <button class="apply-btn">Áp dụng</button>
                 </div>
+                <?php
+                $subtotal = 0;
+                foreach ($cartItems as $item) {
+                    $priceToUse = !empty($item['discount_price']) ? $item['discount_price'] : $item['price'];
+                    $subtotal += $item['qty'] * $priceToUse;
+                }
+                $shipping = 30000; // Phí vận chuyển cố định
+                $total = $subtotal + $shipping;
+                ?>
                 <div class="bill-info">
                     <span class="left">Tạm tính:</span>
-                    <span class="right">2.850.000₫</span>
+                    <span class="right"><?= number_format($subtotal, 0, ',', '.') ?>₫</span>
                 </div>
                 <div class="bill-info">
-                    <span class="lefr">Phí vận chuyển:</span>
-                    <span class="right">30.000₫</span>
+                    <span class="left">Phí vận chuyển:</span>
+                    <span class="right"><?= number_format($shipping, 0, ',', '.') ?>₫</span>
                 </div>
-
                 <div class="bill-sum">
-                    <span class="lefr">Tổng cộng:</span>
-                    <span class="right">2.880.000₫</span>
+                    <span class="left">Tổng cộng:</span>
+                    <span class="right"><?= number_format($total, 0, ',', '.') ?>₫</span>
+                </div>
+                <div class="order-note">
+                    <p>Ghi chú đơn hàng:</p>
+                    <textarea rows="4" placeholder="Nhập ghi chú cho đơn hàng của bạn"></textarea>
                 </div>
             </div>
         </div>
@@ -339,16 +209,33 @@
             });
         });
 
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const bankTransferDetails = document.getElementById('bankTransferDetails');
+
+                if (this.value === 'bankTransfer') {
+                    bankTransferDetails.style.display = 'block';
+                } else {
+                    bankTransferDetails.style.display = 'none';
+                }
+            });
+        });
 
         document.getElementById('continuePaymentButton').addEventListener('click', function(event) {
             const form = document.querySelector('form');
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+
+            if (!paymentMethod) {
+                alert('Vui lòng chọn phương thức thanh toán!');
+                return;
+            }
 
             if (form.checkValidity()) {
-                alert('Tiến hành thanh toán!');
-                form.submit(); // Nếu biểu mẫu hợp lệ, tiến hành gửi biểu mẫu
+                alert('Đơn hàng dã được đặt: ' + paymentMethod.value);
+                form.submit();
             } else {
                 alert('Vui lòng điền đầy đủ thông tin!');
-                form.reportValidity(); // Hiển thị cảnh báo của trình duyệt về các trường bị thiếu
+                form.reportValidity();
             }
         });
 
