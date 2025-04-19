@@ -21,7 +21,8 @@ $userId = $_SESSION['user']['id'];
 $cartItems = [];
 foreach ($selectedProducts as $key) {
     list($productId, $size) = explode('_', $key);
-    $query = "SELECT ci.*, p.name, p.image FROM cart_items ci 
+    $query = "SELECT ci.*, p.name, p.image, p.price, p.discount_price 
+              FROM cart_items ci 
               JOIN products p ON ci.product_id = p.id 
               WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = $userId) 
               AND ci.product_id = $productId AND ci.size = '$size'";
@@ -150,7 +151,7 @@ foreach ($selectedProducts as $key) {
                                     <p>Số lượng: <?= htmlspecialchars($item['qty']) ?></p>
                                 </div>
                                 <div class="price-product">
-                                    <p><?= number_format($item['price'], 0, ',', '.') ?>₫</p>
+                                    <p><?= number_format(!empty($item['discount_price']) ? $item['discount_price'] : $item['price'], 0, ',', '.') ?>₫</p>
                                 </div>
                             </div>
                         <?php endforeach; ?>

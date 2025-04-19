@@ -66,7 +66,8 @@ if ($isLoggedIn) {
 
     // Lấy giỏ hàng từ cơ sở dữ liệu
     $cart = [];
-    $query = "SELECT ci.*, p.name, p.image FROM cart_items ci 
+    $query = "SELECT ci.*, p.name, p.image, p.price, p.discount_price 
+              FROM cart_items ci 
               JOIN products p ON ci.product_id = p.id 
               WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = $userId)";
     $result = mysqli_query($conn, $query);
