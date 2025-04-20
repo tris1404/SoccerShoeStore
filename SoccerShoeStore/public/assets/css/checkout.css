@@ -231,13 +231,14 @@ body {
 }
 
 .order-note textarea {
-    width: 100%;
+    width: 98%;
     height: 80px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     resize: none;
+    margin: 5px 10px;
 }
 .order-note textarea:focus {
     outline: none;

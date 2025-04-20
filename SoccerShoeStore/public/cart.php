@@ -19,7 +19,8 @@ function getCartFromCookie()
 }
 
 // Hàm lấy cart_id của người dùng
-function getCartId($conn, $userId) {
+function getCartId($conn, $userId)
+{
     $query = "SELECT id FROM cart WHERE user_id = $userId";
     $result = mysqli_query($conn, $query);
     if ($result && $row = mysqli_fetch_assoc($result)) {
@@ -29,7 +30,8 @@ function getCartId($conn, $userId) {
 }
 
 // Hợp nhất giỏ hàng từ cookie vào cơ sở dữ liệu
-function mergeCartFromCookieToDatabase($conn, $userId, $cookieCart) {
+function mergeCartFromCookieToDatabase($conn, $userId, $cookieCart)
+{
     if (empty($cookieCart)) {
         return;
     }
@@ -66,15 +68,19 @@ if ($isLoggedIn) {
 
     // Lấy giỏ hàng từ cơ sở dữ liệu
     $cart = [];
-    $query = "SELECT ci.*, p.name, p.image, p.price, p.discount_price 
+    $query = "SELECT ci.*, p.name, p.image, p.price, p.discount_price, p.discount 
               FROM cart_items ci 
               JOIN products p ON ci.product_id = p.id 
               WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = $userId)";
     $result = mysqli_query($conn, $query);
     while ($row = mysqli_fetch_assoc($result)) {
+        // Tính giá đã giảm nếu có discount
+        $discounted_price = !empty($row['discount']) ? $row['price'] * (1 - $row['discount'] / 100) : $row['price'];
+
         $cart[$row['product_id'] . '_' . $row['size']] = [
             'name' => $row['name'],
-            'price' => $row['price'],
+            'price' => $row['price'], // Giá gốc
+            'discount_price' => $discounted_price, // Giá đã giảm
             'image' => $row['image'],
             'quantity' => $row['qty'],
             'size' => $row['size']
@@ -239,7 +245,7 @@ $cartItems = $cart;
                                                     <td>
                                                         <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" width="100">
                                                         <h3><?= htmlspecialchars($item['name']) ?></h3>
-                                                        <p>Size: <?= isset($item['size']) ? htmlspecialchars($item['size']) : 'Không có thông tin size' ?></p>
+                                                        <p style="float: left;">Size: <?= isset($item['size']) ? htmlspecialchars($item['size']) : 'Không có thông tin size' ?></p>
                                                     </td>
                                                     <td>
                                                         <span class="price-per-item" data-price="<?= !empty($item['discount_price']) ? $item['discount_price'] : $item['price'] ?>">
@@ -277,7 +283,7 @@ $cartItems = $cart;
                                         <tr>
                                             <td colspan="3" style="text-align: left; font-weight: bold;">Tổng tiền:</td>
                                             <td colspan="2" style="text-align: right; font-weight: bold; color:red">
-                                                <span id="total-price">0 VNĐ</span>
+                                                <span id="total-price">0 đ</span>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -285,26 +291,27 @@ $cartItems = $cart;
                             </div>
                         </div>
                     </div>
-                    <div class="bill">
-                        <form action="checkout.php" method="POST" id="checkout-form">
-                            <button type="submit" class="checkout-btn">Thanh toán</button>
-                        </form>
-                    </div>
                 </div>
-
-
-
+                <div class="bill">
+                    <form action="checkout.php" method="POST" id="checkout-form">
+                        <button type="submit" class="checkout-btn">Thanh toán</button>
+                    </form>
+                </div>
             </div>
-            <!-- End content -->
-            <!-- Sidebar -->
-            <!-- End sidebar -->
+
+
 
         </div>
-        <!-- End wrapper-container -->
+        <!-- End content -->
+        <!-- Sidebar -->
+        <!-- End sidebar -->
 
-        <!-- Footer -->
-        <?php include 'includes/footer.php'; ?>
-        <!-- End footer -->
+    </div>
+    <!-- End wrapper-container -->
+
+    <!-- Footer -->
+    <?php include 'includes/footer.php'; ?>
+    <!-- End footer -->
     </div>
     <button id="backToTop"><i class="fa-solid fa-angle-up"></i></button>
     <button id="zaloChat" onclick="window.open('https://zalo.me/09xxxxxxxx', '_blank')">
@@ -359,7 +366,7 @@ $cartItems = $cart;
         }
     </script>
     <script>
-        document.getElementById('checkout-form').addEventListener('submit', function (e) {
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
             const checkboxes = document.querySelectorAll('.product-checkbox:checked');
             if (checkboxes.length === 0) {
                 e.preventDefault();
@@ -378,39 +385,39 @@ $cartItems = $cart;
         });
     </script>
     <script>
-    // Hàm tính tổng tiền dựa trên các sản phẩm được chọn
-    function calculateTotal() {
-        const checkboxes = document.querySelectorAll('.product-checkbox:checked');
-        let total = 0;
+        // Hàm tính tổng tiền dựa trên các sản phẩm được chọn
+        function calculateTotal() {
+            const checkboxes = document.querySelectorAll('.product-checkbox:checked');
+            let total = 0;
 
-        checkboxes.forEach(checkbox => {
-            const row = checkbox.closest('tr');
-            const priceElement = row.querySelector('.price-per-item');
-            const quantityElement = row.querySelector('.quantity-input');
+            checkboxes.forEach(checkbox => {
+                const row = checkbox.closest('tr');
+                const priceElement = row.querySelector('.price-per-item');
+                const quantityElement = row.querySelector('.quantity-input');
 
-            const price = parseFloat(priceElement.dataset.price);
-            const quantity = parseInt(quantityElement.value);
+                const price = parseFloat(priceElement.dataset.price); // Lấy giá từ data-price
+                const quantity = parseInt(quantityElement.value); // Lấy số lượng từ input
 
-            total += price * quantity;
+                total += price * quantity; // Tính tổng tiền
+            });
+
+            // Cập nhật tổng tiền
+            document.getElementById('total-price').textContent = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(total);
+        }
+
+        // Gắn sự kiện cho các checkbox
+        document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', calculateTotal);
         });
 
-        // Cập nhật tổng tiền
-        document.getElementById('total-price').textContent = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(total);
-    }
-
-    // Gắn sự kiện cho các checkbox
-    document.querySelectorAll('.product-checkbox').forEach(checkbox => {
-        checkbox.addEventListener('change', calculateTotal);
-    });
-
-    // Gắn sự kiện khi thay đổi số lượng
-    document.querySelectorAll('.quantity-input').forEach(input => {
-        input.addEventListener('change', calculateTotal);
-    });
-</script>
+        // Gắn sự kiện khi thay đổi số lượng
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', calculateTotal);
+        });
+    </script>
 </body>
 
 </html>

@@ -260,15 +260,12 @@
 
 .product-table td img,
 .favorite-table td img {
-    display: inline-block;
-    vertical-align: middle;
+    float: left;
     margin: 0px 15px;
 }
 
 .product-table td h3,
 .favorite-table td h3 {
-    display: inline-block;
-    vertical-align: middle;
     margin: 0;
     text-align: left;
 }

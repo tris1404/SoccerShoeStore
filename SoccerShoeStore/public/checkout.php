@@ -113,10 +113,9 @@ foreach ($selectedProducts as $key) {
                         </div>
                         <div id="bankTransferDetails" class="bank-transfer-details">
                             <p>Quý khách vui lòng chuyển khoản kèm nội dung là <strong>Số điện thoại mua hàng</strong></p>
-                            <p><strong>Ngân hàng: ACB</strong></p>
+                            <p><strong>Ngân hàng: Vietcombank</strong></p>
                             <p><strong>Số tài khoản:</strong> 233029569</p>
-                            <p><strong>Chủ tài khoản:</strong> Nguyễn Phan Thanh Hùng</p>
-                            <p><strong>Chi nhánh:</strong> ACB PGD Tân Định</p>
+                            <p><strong>Chủ tài khoản:</strong> Nguyễn Tài Trí</p>
                             <p>Đơn hàng thanh toán chuyển khoản sẽ được <strong>miễn phí vận chuyển</strong> qua Giaohangtietkiem. Quý khách vui lòng chỉ chuyển khoản tiền sản phẩm.</p>
                             <p>Cảm ơn quý khách rất nhiều.</p>
                         </div>
@@ -151,7 +150,11 @@ foreach ($selectedProducts as $key) {
                                     <p>Số lượng: <?= htmlspecialchars($item['qty']) ?></p>
                                 </div>
                                 <div class="price-product">
-                                    <p><?= number_format(!empty($item['discount_price']) ? $item['discount_price'] : $item['price'], 0, ',', '.') ?>₫</p>
+                                    <?php
+                                    $priceToUse = !empty($item['discount_price']) ? $item['discount_price'] : $item['price'];
+                                    $totalPrice = $priceToUse * $item['qty'];
+                                    ?>
+                                    <p><?= number_format($totalPrice, 0, ',', '.') ?>₫</p>
                                 </div>
                             </div>
                         <?php endforeach; ?>
