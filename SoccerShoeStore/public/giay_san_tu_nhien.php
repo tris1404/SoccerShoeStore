@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giày Cỏ Tự Nhiên</title>
-    <link rel="stylesheet" href="assets/css/giay_san_tu_nhien.css?v=1">
+    <link rel="stylesheet" href="assets/css/giay_san_tu_nhien.css?v=3">
     <link rel="stylesheet" href="assets/css/styles.css?v=3" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -111,36 +111,41 @@
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<div class='product' data-price='{$row['price']}' data-product-type='{$row['product_type']}'>";
-                                
-                                if ($row['discount'] > 0) {
-                                    echo "<span class='discount'>-{$row['discount']}%</span>";
-                                }
+                                ?>
+                                    <div class='product' data-price='<?php echo $row['price']; ?>' data-product-type='<?php echo htmlspecialchars($row['product_type']); ?>'>
+                                        <a href='product-detail.php?id=<?php echo $row['id']; ?>&source=natural' class='product-link' title='Xem chi tiết'>
+                                            <?php
+                                            if (isset($row['discount']) && $row['discount'] > 0) {
+                                                echo "<span class='discount'>-{$row['discount']}%</span>";
+                                            }
 
-                                if (!empty($row['image'])) {
-                                    echo "<img src='" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
-                                } else {
-                                    echo "<img src='assets/img/default-product.png' alt='Hình ảnh không tồn tại'>";
-                                }
+                                            if (!empty($row['image'])) {
+                                                echo "<img src='" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>";
+                                            } else {
+                                                echo "<img src='assets/img/default-product.png' alt='Hình ảnh không tồn tại'>";
+                                            }
 
-                                echo "<p>" . htmlspecialchars($row['name']) . "</p>";
-                                echo "<div class='price-container'>";
-                                if ($row['discount'] > 0 && $row['discount_price']) {
-                                    echo "<span class='original-price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
-                                    echo "<span class='discount-price'>" . number_format($row['discount_price'], 0, ',', '.') . "</span>";
-                                } else {
-                                    echo "<span class='discount-price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
-                                }
-                                echo "</div>";
+                                            echo "<p>" . htmlspecialchars($row['name']) . "</p>";
+                                            echo "<div class='price-container'>";
+                                            if (isset($row['discount']) && $row['discount'] > 0 && isset($row['discount_price'])) {
+                                                echo "<span class='discount-price'>" . number_format($row['discount_price'], 0, ',', '.') . "</span>";
+                                                echo "<span class='original-price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
+                                            } else {
+                                                echo "<span class='discount-price'>" . number_format($row['price'], 0, ',', '.') . "</span>";
+                                            }
 
-                                echo "<div class='product-icons'>";
-                                echo "<a href='product-detail.php?id={$row['id']}&source=natural' title='Xem chi tiết'><i class='fas fa-eye'></i></a>";
-                                echo "<a href='javascript:void(0);' onclick='openPopup({$row['id']})' title='Thêm vào giỏ hàng'>";
-                                echo "<i class='fas fa-shopping-cart'></i>";
-                                echo "</a>";
-                                echo "</div>";
-
-                                echo "</div>";
+                                            // Thêm nút favorite
+                                            echo "<button class='favorite-btn'><i class='fa-regular fa-heart'></i></button>";
+                                            echo "</div>";
+                                            ?>
+                                        </a>
+                                        <div class='product-icons'>
+                                            <a href='javascript:void(0);' onclick='openPopup(<?php echo $row['id']; ?>)' title='Thêm vào giỏ hàng'>
+                                                <i class='fas fa-shopping-cart'></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php
                             }
                         } else {
                             echo "<p>Không tìm thấy sản phẩm nào!</p>";
