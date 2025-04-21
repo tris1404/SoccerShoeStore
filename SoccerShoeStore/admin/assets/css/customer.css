@@ -1,165 +1,281 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f4f4f4;
+/* CSS Variables */
+:root {
+    --primary-color: #e6c200; /* Vàng nhạt ánh kim */
+    --background-color: #f5f5f5; /* Trắng ngọc trai */
+    --card-background: rgba(255, 255, 255, 0.7); /* Kính mờ nhẹ */
+    --text-color: #333333; /* Đen nhạt */
+    --text-muted: #666666; /* Xám trung */
+    --border-color: rgba(0, 0, 0, 0.1); /* Viền mờ */
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease-in-out;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
+/* Heading */
 h2 {
     text-align: center;
-    color: #333;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-.add-btn {
-    display: block;
-    width: 200px;
-    margin: 10px auto;
-    padding: 10px;
-    background: #0b529e;
-    color: white;
+/* Search Form */
+form {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    background: var(--card-background);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+form input[type="text"] {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    flex: 1;
+    min-width: 150px;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+}
+
+form input::placeholder {
+    color: var(--text-muted);
+}
+
+form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 8px rgba(230, 194, 0, 0.3);
+}
+
+form button {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--primary-color), #d4af37); /* Vàng nhạt ánh kim */
+    color: #ffffff;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: var(--transition);
 }
 
-.add-btn:hover {
-    background: #4a76a4;
+form button:hover {
+    background: linear-gradient(135deg, #d4af37, var(--primary-color));
+    box-shadow: 0 0 15px rgba(230, 194, 0, 0.5);
+    transform: translateY(-2px);
 }
 
+/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 30px;
+    background: var(--card-background);
+    backdrop-filter: blur(5px);
+    box-shadow: var(--shadow);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
+th,
+td {
+    border: 1px solid var(--border-color);
+    padding: 14px;
     text-align: center;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
 }
 
 th {
-    background: #0b529e;
-    color: white;
+    background: linear-gradient(135deg, var(--primary-color), #d4af37);
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.edit-btn, .delete-btn {
-    padding: 5px 10px;
+td {
+    color: var(--text-muted);
+}
+
+td input[type="password"] {
     border: none;
+    background: transparent;
+    font-size: 14px;
+    width: 100px;
+    color: var(--text-muted);
+}
+
+td i.fa-eye,
+td i.fa-eye-slash {
+    color: var(--primary-color);
+}
+
+table .edit-btn {
+    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+}
+
+table .edit-btn:hover {
+    background: linear-gradient(135deg, #e0e0e0, #ffffff);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table .delete-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ee5253);
+    color: #ffffff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+}
+
+table .delete-btn:hover {
+    background: linear-gradient(135deg, #ee5253, #ff6b6b);
+    box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+}
+
+/* Form (không sử dụng nhưng giữ để tương thích) */
+#customer-form {
+    width: 90%;
+    max-width: 600px;
+    margin: 30px auto;
+    background: var(--card-background);
+    backdrop-filter: blur(5px);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+#customer-form h3 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-family: 'Playfair Display', serif;
+}
+
+#customer-form label {
+    display: block;
+    font-weight: 500;
+    margin-top: 12px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+}
+
+#customer-form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    transition: var(--transition);
+}
+
+#customer-form input::placeholder {
+    color: var(--text-muted);
+}
+
+#customer-form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 8px rgba(230, 194, 0, 0.3);
+}
+
+#customer-form button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-color), #d4af37);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 3px;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    margin-top: 20px;
+    transition: var(--transition);
 }
 
-.edit-btn {
-    background: #ffc107;
-    color: black;
+#customer-form button:hover {
+    background: linear-gradient(135deg, #d4af37, var(--primary-color));
+    box-shadow: 0 0 15px rgba(230, 194, 0, 0.5);
+    transform: translateY(-2px);
 }
 
-.edit-btn:hover {
-    background: #e0a800;
-}
-
-.delete-btn {
-    background: #dc3545;
-    color: white;
-}
-
-.delete-btn:hover {
-    background: #c82333;
-}
-
-/* Ẩn form mặc định */
 .hidden {
     display: none;
 }
 
-/* Phần form nhập khách hàng */
-#customer-form {
-    width: 50%;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+/* Responsive Design */
+@media (max-width: 768px) {
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    form input,
+    form button {
+        width: 100%;
+    }
+
+    #customer-form {
+        width: 100%;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 }
 
-/* Tiêu đề của form */
-#customer-form h3 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
+@media (max-width: 480px) {
+    h2 {
+        font-size: 24px;
+    }
 
-/* Nhãn cho ô nhập liệu */
-#customer-form label {
-    display: block;
-    font-weight: bold;
-    margin-top: 10px;
-}
+    th,
+    td {
+        font-size: 12px;
+        padding: 10px;
+    }
 
-/* Ô nhập liệu */
-#customer-form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Nút submit */
-.submit-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background: #0b529e;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 15px;
-}
-
-.submit-btn:hover {
-    background: #4a76a4;
-}
-
-/* Thêm vào tệp CSS cho trang khách hàng */
-#customer-form {
-    display: none; /* Ẩn form khi chưa nhấn Thêm Khách hàng */
-    background-color: #f4f6f8;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-#customer-form input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
-
-#customer-form button {
-    background-color: #1a73e8;
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
-
-#customer-form button:hover {
-    background-color: #155f9f;
+    table .edit-btn,
+    table .delete-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }

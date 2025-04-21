@@ -5,8 +5,6 @@ if (isset($_SESSION['success'])) {
     echo "<script>alert('$message');</script>";
     unset($_SESSION['success']);
 }
-// Xóa session khi người dùng vào trang admin.php
-
 
 // Kiểm tra nếu chưa đăng nhập hoặc không phải admin/staff
 if (!isset($_SESSION['user']) || !isset($_SESSION['role']) || 
@@ -45,8 +43,9 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Hóa đơn</title>
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
-    <link rel="stylesheet" href="assets/css/customer.css">
+    <link rel="stylesheet" href="assets/css/order.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="wrapper">
@@ -56,9 +55,9 @@ $result = $conn->query($sql);
     <main class="main-content">
         <h2>Quản lý Hóa đơn</h2>
 
-        <form method="GET" action="orders.php" style="margin-bottom: 20px;">
-            <input type="text" name="search" value="<?= htmlspecialchars($search); ?>" placeholder="Tìm kiếm theo tên, email, SĐT, mã đơn..." style="padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px;">
-            <button type="submit" style="padding: 8px 12px; border: 1px solid #ccc; background-color:#0b529e; color: white; border-radius: 4px; cursor: pointer;">Tìm kiếm</button>
+        <form method="GET" action="orders.php">
+            <input type="text" name="search" value="<?= htmlspecialchars($search); ?>" placeholder="Tìm kiếm theo tên, email, SĐT, mã đơn...">
+            <button type="submit">Tìm kiếm</button>
         </form>
 
         <table>
@@ -83,7 +82,7 @@ $result = $conn->query($sql);
                     <td>
                         <form action="XuLy_Order/update_status.php" method="POST">
                             <input type="hidden" name="order_id" value="<?= $row['id'] ?>">
-                            <select name="status" onchange="this.form.submit()">
+                            <select name="status" class="status-select" onchange="this.form.submit()">
                                 <?php
                                 $statuses = ['Đang xử lý', 'Đã xác nhận', ' Đang vận chuyển', 'Đã giao hàng', 'Đã hủy'];
                                 foreach ($statuses as $status) {

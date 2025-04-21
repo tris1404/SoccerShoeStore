@@ -44,10 +44,23 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sửa Danh mục</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #e6c200; /* Vàng nhạt ánh kim */
+            --background-color: #f5f5f5; /* Trắng ngọc trai */
+            --card-background: rgba(255, 255, 255, 0.7); /* Kính mờ nhẹ */
+            --text-color: #333333; /* Đen nhạt */
+            --text-muted: #666666; /* Xám trung */
+            --border-color: rgba(0, 0, 0, 0.1); /* Viền mờ */
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease-in-out;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f6f8;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
             margin: 20px;
             padding: 0;
             display: flex;
@@ -57,10 +70,12 @@ $conn->close();
         form {
             width: 100%;
             max-width: 700px;
-            background-color: rgb(245, 236, 213);
+            background: var(--card-background);
+            backdrop-filter: blur(5px);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
             display: grid;
             grid-template-columns: auto auto;
             gap: 15px 20px;
@@ -87,17 +102,20 @@ $conn->close();
         }
 
         .form-group.form-title h2 {
-            color: rgb(39, 83, 150);
+            color: var(--primary-color);
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 600;
             margin: 0;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .form-label {
             font-weight: 500;
             margin-bottom: 5px;
             display: block;
-            color: #495057;
+            color: var(--text-color);
             font-size: 14px;
         }
 
@@ -106,41 +124,60 @@ $conn->close();
             width: calc(100% - 12px);
             padding: 8px;
             margin-bottom: 0;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             box-sizing: border-box;
             font-size: 14px;
-            background-color: #fff;
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
         }
 
         .form-control:focus,
         .form-select:focus {
-            border-color: rgb(39, 83, 150);
+            border-color: var(--primary-color);
             outline: none;
-            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+            box-shadow: 0 0 8px rgba(230, 194, 0, 0.3);
         }
 
         .form-control::placeholder,
         .form-select::placeholder {
-            color: #6c757d;
+            color: var(--text-muted);
             font-size: 14px;
         }
 
         button[type="submit"] {
             grid-column: 1 / span 2;
             padding: 10px 15px;
-            border-radius: 4px;
+            border-radius: 8px;
             border: none;
-            background-color: rgb(39, 83, 150);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-color), #d4af37);
+            color: #ffffff;
             font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
+            transition: var(--transition);
             margin-top: 20px;
         }
 
         button[type="submit"]:hover {
-            background-color: rgb(25, 94, 198);
+            background: linear-gradient(135deg, #d4af37, var(--primary-color));
+            box-shadow: 0 0 15px rgba(230, 194, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group:nth-child(odd),
+            .form-group:nth-child(even) {
+                grid-column: 1;
+            }
         }
     </style>
 </head>

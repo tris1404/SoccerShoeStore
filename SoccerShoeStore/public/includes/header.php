@@ -52,8 +52,7 @@
                     <ul class="sub-navigation__list">
                         <li><a href="#" class="sub-navigation__link">Tất cả sản phẩm</a></li>
                         <li><a href="#" class="sub-navigation__link">Hàng mới về</a></li>
-                        <li><a href="#" class="sub-navigation__link">Giày giá rẻ</a></li>
-                        <li><a href="#" class="sub-navigation__link">Giày trẻ em</a></li>
+                        <li><a href="#" class="sub-navigation__link">Sản Phẩm Bán Chạy</a></li>
                     </ul>
                 </li>
 
