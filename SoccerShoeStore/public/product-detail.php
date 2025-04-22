@@ -9,10 +9,7 @@ $source = isset($_GET['source']) ? $_GET['source'] : 'default';
 $product = null;
 
 // Kết nối database
-$conn = new mysqli("localhost", "root", "", "soccershoestore");
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
+require_once '../config/database.php';
 
 // Truy vấn sản phẩm từ database
 $sql = "SELECT * FROM products WHERE id = $id";
@@ -122,6 +119,7 @@ $conn->close();
                                 <input type="hidden" name="product_id" value="<?= $id ?>">
                                 <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['name']) ?>">
                                 <input type="hidden" name="product_price" value="<?= $product_from_db['price'] ?>"> <!-- Giá gốc -->
+                                <input type="hidden" name="product_discount" value="<?= $product_from_db['discount'] ?>"> <!-- Phần trăm giảm giá -->
                                 <input type="hidden" name="discount_price" value="<?= $discounted_price ?>"> <!-- Giá đã giảm -->
                                 <input type="hidden" name="product_image" value="<?= htmlspecialchars($product['image']) ?>">
                                 <input type="hidden" name="product_quantity" id="hidden-quantity" value="1">

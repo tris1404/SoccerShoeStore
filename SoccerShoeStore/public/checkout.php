@@ -1,13 +1,6 @@
 <?php
 session_start();
-require_once '../config/database.php'; // Kết nối cơ sở dữ liệu
-
-// Kiểm tra trạng thái đăng nhập
-$isLoggedIn = isset($_SESSION['user']['id']);
-if (!$isLoggedIn) {
-    header('Location: login.php'); // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
-    exit();
-}
+require_once '../config/database.php';
 
 // Lấy danh sách sản phẩm được chọn
 $selectedProducts = isset($_POST['selected_products']) ? $_POST['selected_products'] : [];
@@ -16,19 +9,57 @@ if (empty($selectedProducts)) {
     exit();
 }
 
-// Lấy thông tin sản phẩm từ cơ sở dữ liệu
-$userId = $_SESSION['user']['id'];
+// Lấy thông tin sản phẩm
+$userId = isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : null;
 $cartItems = [];
-foreach ($selectedProducts as $key) {
-    list($productId, $size) = explode('_', $key);
-    $query = "SELECT ci.*, p.name, p.image, p.price, p.discount_price 
-              FROM cart_items ci 
-              JOIN products p ON ci.product_id = p.id 
-              WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = $userId) 
-              AND ci.product_id = $productId AND ci.size = '$size'";
-    $result = mysqli_query($conn, $query);
-    if ($row = mysqli_fetch_assoc($result)) {
-        $cartItems[] = $row;
+
+if ($userId) {
+    // Người dùng đã đăng nhập: Lấy từ cơ sở dữ liệu
+    foreach ($selectedProducts as $key) {
+        list($productId, $size) = explode('_', $key);
+        $productId = (int)$productId;
+        $size = mysqli_real_escape_string($conn, $size);
+
+        $query = "SELECT ci.*, p.name, p.image, p.price, p.discount 
+                  FROM cart_items ci 
+                  JOIN products p ON ci.product_id = p.id 
+                  WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = ?) 
+                  AND ci.product_id = ? AND ci.size = ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'iis', $userId, $productId, $size);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if ($row = mysqli_fetch_assoc($result)) {
+            $discounted_price = !empty($row['discount']) ? $row['price'] * (1 - $row['discount'] / 100) : $row['price'];
+            $cartItems[] = [
+                'product_id' => $row['product_id'],
+                'name' => $row['name'],
+                'image' => $row['image'],
+                'price' => $row['price'],
+                'discount_price' => $discounted_price,
+                'qty' => $row['qty'],
+                'size' => $row['size']
+            ];
+        }
+        mysqli_stmt_close($stmt);
+    }
+} else {
+    // Người dùng chưa đăng nhập: Lấy từ session
+    $cart = isset($_SESSION['guest_cart']) ? $_SESSION['guest_cart'] : [];
+    foreach ($selectedProducts as $key) {
+        if (isset($cart[$key])) {
+            $item = $cart[$key];
+            $cartItems[] = [
+                'product_id' => explode('_', $key)[0],
+                'name' => $item['name'],
+                'image' => $item['image'],
+                'price' => $item['price'],
+                'discount_price' => $item['discount_price'],
+                'qty' => $item['quantity'],
+                'size' => $item['size']
+            ];
+        }
     }
 }
 
@@ -36,7 +67,6 @@ foreach ($selectedProducts as $key) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +75,6 @@ foreach ($selectedProducts as $key) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Soccer Shoes Store</title>
 </head>
-
 <body>
     <div id="wrapper">
         <!-- Wrapper-container -->
@@ -64,33 +93,25 @@ foreach ($selectedProducts as $key) {
                     <input type="tel" id="phone" name="phone" required>
 
                     <label>Chọn phương thức giao hàng:</label>
-
-
                     <div class="delivery-method">
                         <div class="radio-option">
                             <input type="radio" id="homeDelivery" name="deliveryMethod" value="homeDelivery">
                             <label for="homeDelivery">Giao hàng tận nơi</label>
                         </div>
-
                         <div id="addressFields" class="address-fields">
                             <label for="addressDetails">Chi tiết địa chỉ:</label>
                             <input type="text" id="addressDetails" name="addressDetails">
-
                             <label for="commune">Xã:</label>
                             <input type="text" id="commune" name="commune">
-
                             <label for="district">Huyện:</label>
                             <input type="text" id="district" name="district">
-
                             <label for="province">Tỉnh:</label>
                             <input type="text" id="province" name="province">
                         </div>
-
                         <div class="radio-option">
                             <input type="radio" id="storePickup" name="deliveryMethod" value="storePickup">
                             <label for="storePickup">Nhận tại cửa hàng</label>
                         </div>
-
                         <div id="storeSelection" class="store-selection">
                             <label for="store">Chọn cửa hàng nhận:</label>
                             <select id="store" name="store">
@@ -172,7 +193,7 @@ foreach ($selectedProducts as $key) {
                     $priceToUse = !empty($item['discount_price']) ? $item['discount_price'] : $item['price'];
                     $subtotal += $item['qty'] * $priceToUse;
                 }
-                $shipping = 30000; // Phí vận chuyển cố định
+                $shipping = 30000;
                 $total = $subtotal + $shipping;
                 ?>
                 <div class="bill-info">
@@ -195,7 +216,6 @@ foreach ($selectedProducts as $key) {
         </div>
     </div>
 
-
     <script src="assets/js/scripts.js?v=1"></script>
     <script>
         document.querySelectorAll('input[name="deliveryMethod"]').forEach(radio => {
@@ -216,12 +236,7 @@ foreach ($selectedProducts as $key) {
         document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 const bankTransferDetails = document.getElementById('bankTransferDetails');
-
-                if (this.value === 'bankTransfer') {
-                    bankTransferDetails.style.display = 'block';
-                } else {
-                    bankTransferDetails.style.display = 'none';
-                }
+                bankTransferDetails.style.display = this.value === 'bankTransfer' ? 'block' : 'none';
             });
         });
 
@@ -235,7 +250,7 @@ foreach ($selectedProducts as $key) {
             }
 
             if (form.checkValidity()) {
-                alert('Đơn hàng dã được đặt: ' + paymentMethod.value);
+                alert('Đơn hàng đã được đặt: ' + paymentMethod.value);
                 form.submit();
             } else {
                 alert('Vui lòng điền đầy đủ thông tin!');
@@ -244,9 +259,8 @@ foreach ($selectedProducts as $key) {
         });
 
         function checkout() {
-            window.location.href = "cart.php"
+            window.location.href = "cart.php";
         }
     </script>
 </body>
-
 </html>

@@ -1,135 +1,168 @@
 <?php
 session_start();
-require_once '../config/database.php'; // Kết nối cơ sở dữ liệu
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+require_once '../config/database.php';
 
 // Kiểm tra trạng thái đăng nhập
-$isLoggedIn = isset($_SESSION['user']['id']); // Giả sử user_id được lưu trong session khi đăng nhập
+$isLoggedIn = isset($_SESSION['user']['id']);
 $userId = $isLoggedIn ? $_SESSION['user']['id'] : null;
 
-// Hàm lưu giỏ hàng vào cookie
-function saveCartToCookie($cart)
+// Hàm lưu giỏ hàng vào session
+function saveCartToSession($cart)
 {
-    setcookie('guest_cart', json_encode($cart), time() + (100 * 24 * 60 * 60), '/'); // 100 ngày
+    $_SESSION['guest_cart'] = $cart;
 }
 
-// Hàm lấy giỏ hàng từ cookie
-function getCartFromCookie()
+// Hàm lấy giỏ hàng từ session
+function getCartFromSession()
 {
-    return isset($_COOKIE['guest_cart']) ? json_decode($_COOKIE['guest_cart'], true) : [];
+    return isset($_SESSION['guest_cart']) ? $_SESSION['guest_cart'] : [];
 }
 
 // Hàm lấy cart_id của người dùng
 function getCartId($conn, $userId)
 {
-    $query = "SELECT id FROM cart WHERE user_id = $userId";
-    $result = mysqli_query($conn, $query);
-    if ($result && $row = mysqli_fetch_assoc($result)) {
+    $query = "SELECT id FROM cart WHERE user_id = ?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $userId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if ($row = mysqli_fetch_assoc($result)) {
+        mysqli_stmt_close($stmt);
         return $row['id'];
     }
+    mysqli_stmt_close($stmt);
     return null;
 }
 
-// Hợp nhất giỏ hàng từ cookie vào cơ sở dữ liệu
-function mergeCartFromCookieToDatabase($conn, $userId, $cookieCart)
+// Hợp nhất giỏ hàng từ session vào cơ sở dữ liệu
+function mergeCartFromSessionToDatabase($conn, $userId, $sessionCart)
 {
-    if (empty($cookieCart)) {
+    if (empty($sessionCart)) {
         return;
     }
 
-    // Lấy cart_id của người dùng
     $cartId = getCartId($conn, $userId);
     if (!$cartId) {
-        $query = "INSERT INTO cart (user_id) VALUES ($userId)";
-        mysqli_query($conn, $query);
+        $query = "INSERT INTO cart (user_id) VALUES (?)";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'i', $userId);
+        mysqli_stmt_execute($stmt);
         $cartId = mysqli_insert_id($conn);
+        mysqli_stmt_close($stmt);
     }
 
-    // Hợp nhất từng sản phẩm từ cookie vào cơ sở dữ liệu
-    foreach ($cookieCart as $key => $item) {
+    foreach ($sessionCart as $key => $item) {
         list($productId, $size) = explode('_', $key);
-        $quantity = $item['quantity'];
-        $price = $item['price'];
+        $productId = (int)$productId;
+        $quantity = (int)$item['quantity'];
+        $price = (float)$item['price'];
+        $size = mysqli_real_escape_string($conn, $size);
 
         $query = "INSERT INTO cart_items (cart_id, product_id, qty, price, size) 
-                  VALUES ($cartId, $productId, $quantity, $price, '$size') 
-                  ON DUPLICATE KEY UPDATE qty = qty + $quantity";
-        mysqli_query($conn, $query);
+                  VALUES (?, ?, ?, ?, ?) 
+                  ON DUPLICATE KEY UPDATE qty = qty + ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'iiidss', $cartId, $productId, $quantity, $price, $size, $quantity);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     }
 
-    // Xóa cookie sau khi hợp nhất
-    setcookie('guest_cart', '', time() - 3600, '/');
+    unset($_SESSION['guest_cart']);
 }
 
 // Lấy giỏ hàng hiện tại
 if ($isLoggedIn) {
-    // Nếu người dùng đã đăng nhập, hợp nhất giỏ hàng từ cookie vào cơ sở dữ liệu
-    $cookieCart = getCartFromCookie();
-    mergeCartFromCookieToDatabase($conn, $userId, $cookieCart);
+    $sessionCart = getCartFromSession();
+    mergeCartFromSessionToDatabase($conn, $userId, $sessionCart);
 
-    // Lấy giỏ hàng từ cơ sở dữ liệu
     $cart = [];
-    $query = "SELECT ci.*, p.name, p.image, p.price, p.discount_price, p.discount 
+    $query = "SELECT ci.*, p.name, p.image, p.price, p.discount 
               FROM cart_items ci 
               JOIN products p ON ci.product_id = p.id 
-              WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = $userId)";
-    $result = mysqli_query($conn, $query);
+              WHERE ci.cart_id = (SELECT id FROM cart WHERE user_id = ?)";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $userId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
     while ($row = mysqli_fetch_assoc($result)) {
-        // Tính giá đã giảm nếu có discount
+        
         $discounted_price = !empty($row['discount']) ? $row['price'] * (1 - $row['discount'] / 100) : $row['price'];
 
-        $cart[$row['product_id'] . '_' . $row['size']] = [
+        $key = $row['product_id'] . '_' . $row['size'];
+        $cart[$key] = [
             'name' => $row['name'],
-            'price' => $row['price'], // Giá gốc
-            'discount_price' => $discounted_price, // Giá đã giảm
+            'price' => $row['price'],
+            'discount_price' => $discounted_price,
             'image' => $row['image'],
             'quantity' => $row['qty'],
             'size' => $row['size']
         ];
     }
+    mysqli_stmt_close($stmt);
 } else {
-    // Nếu người dùng chưa đăng nhập, lấy giỏ hàng từ cookie
-    $cart = getCartFromCookie();
+    $cart = getCartFromSession();
+    foreach ($cart as $key => $item) {
+        $cart[$key]['discount_price'] = (isset($item['discount']) && $item['discount'] > 0)
+            ? $item['price'] * (1 - $item['discount'] / 100)
+            : $item['price'];
+    }
 }
 
 // Xử lý thêm sản phẩm vào giỏ hàng
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $productId = $_POST['product_id'];
-    $productName = $_POST['product_name'];
-    $productPrice = $_POST['product_price'];
-    $productImage = $_POST['product_image'];
+    if (!isset($_POST['product_id'], $_POST['product_name'], $_POST['product_price'], $_POST['product_image'], $_POST['product_quantity'], $_POST['product_size'])) {
+        die('Dữ liệu không hợp lệ');
+    }
+
+    $productId = (int)$_POST['product_id'];
+    $productName = mysqli_real_escape_string($conn, $_POST['product_name']);
+    $productPrice = (float)$_POST['product_price'];
+    $productDiscount = isset($_POST['product_discount']) ? (float)$_POST['product_discount'] : 0;
+    $discountPrice = $productPrice * (1 - $productDiscount / 100);
+    $productImage = mysqli_real_escape_string($conn, $_POST['product_image']);
     $productQuantity = (int)$_POST['product_quantity'];
-    $productSize = $_POST['product_size'];
+    $productSize = mysqli_real_escape_string($conn, $_POST['product_size']);
 
     $cartKey = $productId . '_' . $productSize;
 
-    if (isset($cart[$cartKey])) {
-        $cart[$cartKey]['quantity'] += $productQuantity;
-    } else {
-        $cart[$cartKey] = [
-            'name' => $productName,
-            'price' => $productPrice,
-            'image' => $productImage,
-            'quantity' => $productQuantity,
-            'size' => $productSize
-        ];
-    }
-
     if ($isLoggedIn) {
-        // Lưu vào cơ sở dữ liệu
         $cartId = getCartId($conn, $userId);
         if (!$cartId) {
-            $query = "INSERT INTO cart (user_id) VALUES ($userId)";
-            mysqli_query($conn, $query);
+            $query = "INSERT INTO cart (user_id) VALUES (?)";
+            $stmt = mysqli_prepare($conn, $query);
+            mysqli_stmt_bind_param($stmt, 'i', $userId);
+            mysqli_stmt_execute($stmt);
             $cartId = mysqli_insert_id($conn);
+            mysqli_stmt_close($stmt);
         }
 
-        $query = "INSERT INTO cart_items (cart_id, product_id, qty, price, size) 
-                  VALUES ($cartId, $productId, $productQuantity, $productPrice, '$productSize') 
-                  ON DUPLICATE KEY UPDATE qty = qty + $productQuantity";
-        mysqli_query($conn, $query);
+        $query = "INSERT INTO cart_items (cart_id, product_id, qty, price, discount_price, size) 
+                  VALUES (?, ?, ?, ?, ?, ?) 
+                  ON DUPLICATE KEY UPDATE qty = qty + ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'iiiddsi', $cartId, $productId, $productQuantity, $productPrice, $discountPrice, $productSize, $productQuantity);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     } else {
-        // Lưu vào cookie
-        saveCartToCookie($cart);
+        $cart = getCartFromSession();
+        if (isset($cart[$cartKey])) {
+            $cart[$cartKey]['quantity'] += $productQuantity;
+        } else {
+            $cart[$cartKey] = [
+                'name' => $productName,
+                'price' => $productPrice,
+                'discount_price' => $discountPrice,
+                'discount' => $productDiscount,
+                'image' => $productImage,
+                'quantity' => $productQuantity,
+                'size' => $productSize
+            ];
+        }
+        saveCartToSession($cart);
     }
 
     header('Location: cart.php');
@@ -141,16 +174,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_product_id']))
     $cartKey = $_POST['remove_product_id'];
 
     if ($isLoggedIn) {
-        // Xóa khỏi cơ sở dữ liệu
         list($productId, $size) = explode('_', $cartKey);
+        $productId = (int)$productId;
+        $size = mysqli_real_escape_string($conn, $size);
         $query = "DELETE FROM cart_items 
-                  WHERE cart_id = (SELECT id FROM cart WHERE user_id = $userId) 
-                  AND product_id = $productId AND size = '$size'";
-        mysqli_query($conn, $query);
+                  WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?) 
+                  AND product_id = ? AND size = ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'iis', $userId, $productId, $size);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     } else {
-        // Xóa khỏi cookie
+        $cart = getCartFromSession();
         unset($cart[$cartKey]);
-        saveCartToCookie($cart);
+        saveCartToSession($cart);
     }
 
     header('Location: cart.php');
@@ -163,18 +200,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_quantity'])) {
     $newQuantity = (int)$_POST['quantity'];
 
     if ($isLoggedIn) {
-        // Cập nhật trong cơ sở dữ liệu
         list($productId, $size) = explode('_', $cartKey);
+        $productId = (int)$productId;
+        $size = mysqli_real_escape_string($conn, $size);
         $query = "UPDATE cart_items 
-                  SET qty = $newQuantity 
-                  WHERE cart_id = (SELECT id FROM cart WHERE user_id = $userId) 
-                  AND product_id = $productId AND size = '$size'";
-        mysqli_query($conn, $query);
+                  SET qty = ? 
+                  WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?) 
+                  AND product_id = ? AND size = ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, 'iiis', $newQuantity, $userId, $productId, $size);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     } else {
-        // Cập nhật trong cookie
+        $cart = getCartFromSession();
         if (isset($cart[$cartKey])) {
             $cart[$cartKey]['quantity'] = $newQuantity;
-            saveCartToCookie($cart);
+            saveCartToSession($cart);
         }
     }
 
@@ -184,11 +225,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_quantity'])) {
 
 // Hiển thị giỏ hàng
 $cartItems = $cart;
-?>
 
+error_log('Cart Items: ' . print_r($cartItems, true));
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -197,11 +239,6 @@ $cartItems = $cart;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Soccer Shoes Store</title>
 </head>
-
-<style>
-
-</style>
-
 <body>
     <div id="wrapper">
         <!-- Header -->
@@ -219,7 +256,6 @@ $cartItems = $cart;
                                 <h4>Giỏ hàng</h4>
                             </div>
                             <div class="numbers-product">Tổng sản phẩm: </div>
-
                         </div>
                         <div class="product-container">
                             <div class="product-section">
@@ -227,7 +263,7 @@ $cartItems = $cart;
                                 <table class="product-table">
                                     <thead>
                                         <tr>
-                                            <th>Chọn</th> <!-- Thêm cột checkbox -->
+                                            <th>Chọn</th>
                                             <th>Sản phẩm</th>
                                             <th>Đơn giá</th>
                                             <th>Số lượng</th>
@@ -238,36 +274,36 @@ $cartItems = $cart;
                                     <tbody>
                                         <?php if (!empty($cartItems)): ?>
                                             <?php foreach ($cartItems as $key => $item): ?>
-                                                <tr>
+                                                
+                                                <tr data-key="<?= htmlspecialchars($key) ?>" data-price="<?= htmlspecialchars($item['discount_price']) ?>" data-quantity="<?= htmlspecialchars($item['quantity']) ?>">
                                                     <td>
-                                                        <input type="checkbox" name="selected_products[]" value="<?= $key ?>" class="product-checkbox">
+                                                        <input type="checkbox" name="selected_products[]" value="<?= htmlspecialchars($key) ?>" class="product-checkbox">
                                                     </td>
                                                     <td>
                                                         <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>" width="100">
                                                         <h3><?= htmlspecialchars($item['name']) ?></h3>
-                                                        <p style="float: left;">Size: <?= isset($item['size']) ? htmlspecialchars($item['size']) : 'Không có thông tin size' ?></p>
+                                                        <p style="float: left;">Size: <?= htmlspecialchars($item['size']) ?></p>
                                                     </td>
                                                     <td>
-                                                        <span class="price-per-item" data-price="<?= !empty($item['discount_price']) ? $item['discount_price'] : $item['price'] ?>">
-                                                            <?= number_format(!empty($item['discount_price']) ? $item['discount_price'] : $item['price'], 0, ',', '.') ?>đ
+                                                        <span class="price-per-item" data-price="<?= htmlspecialchars($item['discount_price']) ?>">
+                                                            <?= number_format($item['discount_price'], 0, ',', '.') ?>đ
                                                         </span>
                                                     </td>
                                                     <td>
                                                         <div class="quantity-container">
-                                                            <button class="quantity-btn" onclick="changeQuantity(-1, 'quantity<?= $key; ?>', '<?= $key; ?>')">-</button>
-                                                            <input type="text" id="quantity<?= $key; ?>" class="quantity-input" value="<?= htmlspecialchars($item['quantity']); ?>" readonly>
-                                                            <button class="quantity-btn" onclick="changeQuantity(1, 'quantity<?= $key; ?>', '<?= $key; ?>')">+</button>
+                                                            <button class="quantity-btn" onclick="changeQuantity(-1, '<?= htmlspecialchars($key) ?>')">-</button>
+                                                            <input type="text" id="quantity<?= htmlspecialchars($key) ?>" class="quantity-input" value="<?= htmlspecialchars($item['quantity']) ?>" readonly>
+                                                            <button class="quantity-btn" onclick="changeQuantity(1, '<?= htmlspecialchars($key) ?>')">+</button>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <?php
-                                                        $priceToUse = !empty($item['discount_price']) ? $item['discount_price'] : $item['price'];
-                                                        echo number_format($item['quantity'] * $priceToUse, 0, ',', '.') . 'đ';
-                                                        ?>
+                                                        <span class="total-price">
+                                                            <?= number_format($item['quantity'] * $item['discount_price'], 0, ',', '.') ?>đ
+                                                        </span>
                                                     </td>
                                                     <td>
                                                         <form action="cart.php" method="POST">
-                                                            <input type="hidden" name="remove_product_id" value="<?= $key ?>">
+                                                            <input type="hidden" name="remove_product_id" value="<?= htmlspecialchars($key) ?>">
                                                             <button type="submit" class="delete-btn">Xóa</button>
                                                         </form>
                                                     </td>
@@ -298,14 +334,8 @@ $cartItems = $cart;
                     </form>
                 </div>
             </div>
-
-
-
         </div>
         <!-- End content -->
-        <!-- Sidebar -->
-        <!-- End sidebar -->
-
     </div>
     <!-- End wrapper-container -->
 
@@ -318,74 +348,47 @@ $cartItems = $cart;
         <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png" alt="Chat Zalo">
     </button>
 
-
     <script src="assets/js/scripts.js?v=1"></script>
     <script>
-        // Thêm bớt sô lương sản phẩm
-        function changeQuantity(amount, id, productId) {
-            let quantityInput = document.getElementById(id);
+        // Hàm thay đổi số lượng sản phẩm
+        function changeQuantity(amount, key) {
+            const row = document.querySelector(`tr[data-key="${key}"]`);
+            const quantityInput = row.querySelector('.quantity-input');
+            const pricePerItem = parseFloat(row.dataset.price);
             let currentQuantity = parseInt(quantityInput.value);
             let newQuantity = currentQuantity + amount;
 
             if (newQuantity >= 1) {
                 quantityInput.value = newQuantity;
+                row.dataset.quantity = newQuantity;
+
+                // Cập nhật tổng tiền cho sản phẩm
+                const totalPriceElement = row.querySelector('.total-price');
+                totalPriceElement.textContent = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                }).format(newQuantity * pricePerItem);
 
                 // Gửi yêu cầu cập nhật số lượng đến server
                 fetch('cart.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `update_quantity=1&product_id=${productId}&quantity=${newQuantity}`,
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        console.log('Cập nhật số lượng thành công:', data);
-                        location.reload(); // Tải lại trang để đồng bộ dữ liệu
-                    })
-                    .catch(error => {
-                        console.error('Lỗi khi cập nhật số lượng:', error);
-                    });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `update_quantity=1&product_id=${key}&quantity=${newQuantity}`,
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Cập nhật số lượng thành công:', data);
+                    calculateTotal();
+                })
+                .catch(error => {
+                    console.error('Lỗi khi cập nhật số lượng:', error);
+                });
             }
         }
-        // Xóa sản phẩm
-        function deleteProduct(button) {
-            let productItem = button.closest('.product-items');
-            productItem.remove();
-        }
 
-        // Thêm sản phẩm từ yêu thích sang giỏ hàng
-        function addToCart(button) {
-            let productItem = button.closest('.product-items');
-            let productName = productItem.querySelector('h3').innerText;
-            alert(`Đã thêm sản phẩm "${productName}" vào giỏ hàng.`);
-        }
-
-        function redirectToCheckout() {
-            window.location.href = "checkout.php"; // Thay bằng đường dẫn đúng
-        }
-    </script>
-    <script>
-        document.getElementById('checkout-form').addEventListener('submit', function(e) {
-            const checkboxes = document.querySelectorAll('.product-checkbox:checked');
-            if (checkboxes.length === 0) {
-                e.preventDefault();
-                alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
-                return;
-            }
-
-            // Thêm các checkbox được chọn vào form
-            checkboxes.forEach(checkbox => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'selected_products[]';
-                input.value = checkbox.value;
-                this.appendChild(input);
-            });
-        });
-    </script>
-    <script>
-        // Hàm tính tổng tiền dựa trên các sản phẩm được chọn
+        // Hàm tính tổng tiền
         function calculateTotal() {
             const checkboxes = document.querySelectorAll('.product-checkbox:checked');
             let total = 0;
@@ -395,10 +398,10 @@ $cartItems = $cart;
                 const priceElement = row.querySelector('.price-per-item');
                 const quantityElement = row.querySelector('.quantity-input');
 
-                const price = parseFloat(priceElement.dataset.price); // Lấy giá từ data-price
-                const quantity = parseInt(quantityElement.value); // Lấy số lượng từ input
+                const price = parseFloat(priceElement.dataset.price);
+                const quantity = parseInt(quantityElement.value);
 
-                total += price * quantity; // Tính tổng tiền
+                total += price * quantity;
             });
 
             // Cập nhật tổng tiền
@@ -417,7 +420,24 @@ $cartItems = $cart;
         document.querySelectorAll('.quantity-input').forEach(input => {
             input.addEventListener('change', calculateTotal);
         });
+
+        // Gắn sự kiện cho form thanh toán
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            const checkboxes = document.querySelectorAll('.product-checkbox:checked');
+            if (checkboxes.length === 0) {
+                e.preventDefault();
+                alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
+                return;
+            }
+
+            checkboxes.forEach(checkbox => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'selected_products[]';
+                input.value = checkbox.value;
+                this.appendChild(input);
+            });
+        });
     </script>
 </body>
-
 </html>
