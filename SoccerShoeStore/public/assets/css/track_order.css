@@ -1,0 +1,314 @@
+/* assets/css/track_order.css */
+
+/* Reset mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #e9ecef; /* Xám nhạt làm nền */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Wrapper */
+#wrapper {
+    max-width: 800px;
+    width: 100%;
+    background: #ffffff; /* Trắng làm nền container */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px auto;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Tiêu đề */
+h1 {
+    font-size: 2rem;
+    color: #1a1a1a; /* Đen cho tiêu đề */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Form theo dõi */
+.track-form {
+    margin-bottom: 30px;
+}
+
+.track-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.track-form label {
+    font-size: 1rem;
+    color: #1a1a1a; /* Đen cho nhãn */
+    font-weight: 500;
+}
+
+.track-form input {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #e9ecef; /* Viền xám nhạt */
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.track-form input:focus {
+    border-color: #6c757d; /* Xám đậm khi focus */
+    box-shadow: 0 0 5px rgba(108, 117, 125, 0.3);
+}
+
+.track-form button {
+    padding: 12px;
+    font-size: 1rem;
+    color: #ffffff; /* Trắng cho chữ nút */
+    background: #1a1a1a; /* Đen cho nút */
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.track-form button:hover {
+    background: #6c757d; /* Xám đậm khi hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Danh sách đơn hàng */
+.order-list {
+    margin-bottom: 30px;
+}
+
+.order-list h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a; /* Đen cho tiêu đề */
+    margin-bottom: 15px;
+}
+
+.order-item {
+    background: #f8f9fa; /* Xám nhạt làm nền */
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.order-item p {
+    font-size: 1rem;
+    color: #333; /* Xám đậm cho text */
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-item a {
+    color: white; /* Đen cho liên kết */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.order-item a:hover {
+    text-decoration: underline;
+    color: white; /* Xám đậm khi hover */
+}
+
+/* Thông tin đơn hàng */
+.order-info {
+    background: #f8f9fa; /* Xám nhạt làm nền */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-info h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a; /* Đen cho tiêu đề */
+    margin-bottom: 15px;
+}
+
+.order-info p {
+    font-size: 1rem;
+    color: #333; /* Xám đậm cho text */
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e9ecef; /* Viền xám nhạt */
+}
+
+.order-info p:last-child {
+    border-bottom: none;
+}
+
+.order-info strong {
+    color: #1a1a1a; /* Đen cho nhãn */
+    font-weight: 600;
+    flex: 0 0 40%;
+}
+
+/* Danh sách sản phẩm */
+.order-items {
+    background: #f8f9fa; /* Xám nhạt làm nền */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-items h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a; /* Đen cho tiêu đề */
+    margin-bottom: 15px;
+}
+
+.order-items .item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef; /* Viền xám nhạt */
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.order-items .item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.order-items .item-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+    border: 1px solid #e9ecef; /* Viền xám nhạt cho ảnh */
+}
+
+.order-items .item-details {
+    flex: 1;
+}
+
+.order-items .item-details p {
+    font-size: 1rem;
+    color: #333; /* Xám đậm cho text */
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-items strong {
+    color: #1a1a1a; /* Đen cho nhãn */
+    font-weight: 600;
+}
+
+/* Thông báo lỗi */
+.error-message {
+    font-size: 1.1rem;
+    color: #ffffff; /* Trắng cho chữ lỗi */
+    text-align: center;
+    padding: 15px;
+    background: #6c757d; /* Xám đậm cho nền lỗi */
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Nút quay lại */
+a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #ffffff; /* Trắng cho chữ nút */
+    background: #1a1a1a; /* Đen cho nút */
+    padding: 12px 30px;
+    border-radius: 25px;
+    margin-top: 20px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+a:hover {
+    background: #6c757d; /* Xám đậm khi hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    #wrapper {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .track-form input,
+    .track-form button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .order-item p,
+    .order-info p,
+    .order-items .item-details p {
+        font-size: 0.9rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-item strong,
+    .order-info strong,
+    .order-items strong {
+        margin-bottom: 5px;
+    }
+
+    .order-items .item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-items .item-image {
+        margin-bottom: 10px;
+    }
+
+    a {
+        width: 100%;
+        padding: 10px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

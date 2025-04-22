@@ -15,7 +15,7 @@
         <nav class="top-bar__right">
             <a href="#" class="top-bar__right__item">Liên hệ</a>
             <span class="pipe2">|</span>
-            <a href="#" class="top-bar__right__item">Theo dõi đơn hàng</a>
+            <a href="track_order.php" class="top-bar__right__item">Theo dõi đơn hàng</a>
             <span class="pipe2">|</span>
 
             <?php

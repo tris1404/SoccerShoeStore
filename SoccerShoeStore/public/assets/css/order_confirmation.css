@@ -1,0 +1,150 @@
+/* assets/css/order_confirmation.css */
+
+/* Reset mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Wrapper */
+#wrapper {
+    max-width: 600px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px auto;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Tiêu đề */
+h1 {
+    font-size: 2rem;
+    color: #1a3c6d;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Thông báo cảm ơn */
+p:first-of-type {
+    font-size: 1.2rem;
+    color: #28a745;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+/* Thông tin đơn hàng */
+.order-info {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-info p {
+    font-size: 1rem;
+    color: #333;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.order-info p:last-child {
+    border-bottom: none;
+}
+
+.order-info strong {
+    color: #1a3c6d;
+    font-weight: 600;
+    flex: 0 0 40%;
+}
+
+/* Nút quay lại trang chủ */
+a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(90deg, #1a3c6d 0%, #2a5b9e 100%);
+    padding: 12px 30px;
+    border-radius: 25px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+a:hover {
+    background: linear-gradient(90deg, #2a5b9e 0%, #3b7adf 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Thông báo lỗi */
+.error-message {
+    font-size: 1.1rem;
+    color: #dc3545;
+    text-align: center;
+    padding: 15px;
+    background: #f8d7da;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    #wrapper {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .order-info p {
+        font-size: 0.9rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-info strong {
+        margin-bottom: 5px;
+    }
+
+    a {
+        width: 100%;
+        padding: 10px;
+    }
+}

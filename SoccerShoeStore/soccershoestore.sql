@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 19, 2025 lúc 09:14 AM
+-- Thời gian đã tạo: Th4 22, 2025 lúc 01:11 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -108,15 +108,9 @@ CREATE TABLE `cart_items` (
   `price` double NOT NULL,
   `size` varchar(10) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `discount_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `cart_items`
---
-
-INSERT INTO `cart_items` (`id`, `cart_id`, `product_id`, `qty`, `price`, `size`, `created_at`, `updated_at`) VALUES
-(6, 1, 12, 2, 2500000, '40', '2025-04-18 17:00:23', '2025-04-18 17:01:22');
 
 -- --------------------------------------------------------
 
@@ -259,36 +253,53 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `status` enum('Processing','Confirmed','Shipping','Delivered','Cancelled') NOT NULL DEFAULT 'Processing',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `id` int(11) NOT NULL,
+  `order_code` varchar(50) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` text NOT NULL,
+  `delivery_method` enum('Giao hàng tận nhà','Nhận hàng tại cửa hàng') NOT NULL,
+  `store_id` varchar(50) DEFAULT NULL,
+  `payment_method` enum('Thanh toán khi nhận hàng','Chuyển khoản ngân hàng','Thẻ tín dụng/ ghi nợ') NOT NULL,
+  `order_note` text DEFAULT NULL,
+  `status` enum('Đang chờ','Đang xử lý','Đã vận chuyển','Đã giao','Đã hủy') DEFAULT 'Đang chờ',
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Processing', '2025-04-06 13:56:15', '2025-04-06 13:56:15');
+INSERT INTO `orders` (`id`, `order_code`, `user_id`, `full_name`, `email`, `phone`, `address`, `delivery_method`, `store_id`, `payment_method`, `order_note`, `status`, `created_at`) VALUES
+(1, 'ORD-20250422-001', NULL, 'Nguyễn Tài Trí', 'user@gmail.com', '0937248684', 'số 05 ấp 4, Long Sơn, Cần Đước, Long An', '', NULL, 'Thanh toán khi nhận hàng', '', '', '2025-04-22 15:15:30'),
+(2, 'ORD-20250422-002', 1, 'Nguyễn Tài Trí', 'trint3445@ut.edu.vn', '0937248684', 'Nhận tại cửa hàng: store1', '', 'store1', 'Chuyển khoản ngân hàng', 'giao buổi sáng', '', '2025-04-22 15:23:11');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_details`
+-- Cấu trúc bảng cho bảng `order_items`
 --
 
-CREATE TABLE `order_details` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `order_id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED NOT NULL,
-  `price` double NOT NULL,
-  `qty` tinyint(4) NOT NULL,
-  `total` double NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `discount_price` decimal(10,2) NOT NULL,
+  `size` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `discount_price`, `size`) VALUES
+(1, 1, 12, 2, 2500000.00, 1875000.00, '41'),
+(2, 2, 12, 1, 2500000.00, 1875000.00, '40'),
+(3, 2, 6, 1, 3050000.00, 2440000.00, '40');
 
 -- --------------------------------------------------------
 
@@ -443,7 +454,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `phone`, `address`, `status`, `created_at`, `updated_at`, `role`) VALUES
 (1, 'user', 'user@gmail.com', NULL, 'user', NULL, '0123456789', 'Long An', 'Active', NULL, NULL, 'User'),
-(18, 'user2', 'user2@gmail.com', NULL, 'User2@123', NULL, '', '', 'Active', NULL, NULL, 'User');
+(2, 'user2', 'user2@gmail.com', NULL, 'User2@123', NULL, '', '', 'Active', NULL, NULL, 'User');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -504,15 +515,16 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `orders_user_id_foreign` (`user_id`);
+  ADD UNIQUE KEY `order_code` (`order_code`),
+  ADD KEY `user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `order_details`
+-- Chỉ mục cho bảng `order_items`
 --
-ALTER TABLE `order_details`
+ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `order_details_order_id_foreign` (`order_id`),
-  ADD KEY `order_details_product_id_foreign` (`product_id`);
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Chỉ mục cho bảng `password_resets`
@@ -581,7 +593,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT cho bảng `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT cho bảng `categories`
@@ -605,13 +617,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `order_details`
+-- AUTO_INCREMENT cho bảng `order_items`
 --
-ALTER TABLE `order_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `personal_access_tokens`
@@ -670,13 +682,14 @@ ALTER TABLE `categories`
 -- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
--- Các ràng buộc cho bảng `order_details`
+-- Các ràng buộc cho bảng `order_items`
 --
-ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
