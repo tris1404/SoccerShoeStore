@@ -28,8 +28,9 @@ body {
 /* Wrapper */
 .wrapper {
   display: flex;
-  min-height: 100vh;
-  overflow: hidden;
+  flex-direction: column; /* Sử dụng flex để bố cục dọc */
+  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu bằng 100% viewport height */
+  overflow-x: hidden;
 }
 
 /* Sidebar */
@@ -239,7 +240,7 @@ body {
   margin-left: 250px;
   margin-top: 60px;
   padding: 30px;
-  flex-grow: 1;
+  flex: 1; /* Đảm bảo main-content chiếm toàn bộ không gian còn lại */
   transition: var(--transition);
 }
 
@@ -254,9 +255,10 @@ body {
   color: var(--text-muted);
   text-align: center;
   padding: 15px;
-  position: fixed;
-  bottom: 0;
-  left: 250px;
+  position: relative;
+  left: 0;
+  width: 100%;
+  margin-left: 250px; /* Đẩy footer sang bên phải để khớp với main-content */
   width: calc(100% - 250px);
   border-top: 1px solid var(--border-color);
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
@@ -264,7 +266,7 @@ body {
 }
 
 .footer.expanded {
-  left: 0;
+  margin-left: 0;
   width: 100%;
 }
 

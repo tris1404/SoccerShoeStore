@@ -24,6 +24,7 @@ if (
     <link rel="stylesheet" href="assets/css/products.css">
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../public/assets/img/football-shoes.png">
 </head>
 <body>
     <div class="wrapper">
@@ -120,19 +121,33 @@ if (
                         die("Kết nối thất bại: " . $conn->connect_error);
                     }
 
-                    $sql = "SELECT * FROM products_admin WHERE 1=1";
-                    $params = [];
+                    // Xử lý phân trang
+                    $rows_per_page = 10;
+                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                    $offset = ($page - 1) * $rows_per_page;
 
+                    // Đếm tổng số hàng
+                    $count_sql = "SELECT COUNT(*) FROM products_admin WHERE 1=1";
                     if (isset($_GET['search']) && !empty($_GET['search'])) {
                         $search = $conn->real_escape_string($_GET['search']);
-                        $sql .= " AND name LIKE '%$search%'";
+                        $count_sql .= " AND name LIKE '%$search%'";
                     }
-
                     if (isset($_GET['category']) && !empty($_GET['category'])) {
                         $category = $conn->real_escape_string($_GET['category']);
+                        $count_sql .= " AND category = '$category'";
+                    }
+                    $count_result = mysqli_query($conn, $count_sql);
+                    $total_rows = mysqli_fetch_array($count_result)[0];
+                    $total_pages = ceil($total_rows / $rows_per_page);
+
+                    // Truy vấn sản phẩm với phân trang
+                    $sql = "SELECT * FROM products_admin WHERE 1=1";
+                    if (isset($_GET['search']) && !empty($_GET['search'])) {
+                        $sql .= " AND name LIKE '%$search%'";
+                    }
+                    if (isset($_GET['category']) && !empty($_GET['category'])) {
                         $sql .= " AND category = '$category'";
                     }
-
                     $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id-desc';
                     if ($sort == 'price-asc') {
                         $sql .= " ORDER BY price ASC";
@@ -141,7 +156,7 @@ if (
                     } else {
                         $sql .= " ORDER BY id DESC";
                     }
-
+                    $sql .= " LIMIT $offset, $rows_per_page";
                     $result = mysqli_query($conn, $sql);
 
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -187,6 +202,51 @@ if (
                     ?>
                 </tbody>
             </table>
+            <!-- Phân trang -->
+            <div class="pagination">
+                <?php
+                // Nút "Trước"
+                if ($page > 1) {
+                    echo "<a href='products.php?page=" . ($page - 1) . "&search=" . urlencode($_GET['search'] ?? '') . "&category=" . urlencode($_GET['category'] ?? '') . "&sort=" . urlencode($_GET['sort'] ?? '') . "'><</a>";
+                } else {
+                    echo "<a style='background: #e0e0e0; color: #666666; cursor: not-allowed;'><</a>";
+                }
+
+                // Hiển thị số trang
+                $max_pages_to_show = 5;
+                $start_page = max(1, $page - 2);
+                $end_page = min($total_pages, $start_page + $max_pages_to_show - 1);
+
+                if ($start_page > 1) {
+                    echo "<a href='products.php?page=1&search=" . urlencode($_GET['search'] ?? '') . "&category=" . urlencode($_GET['category'] ?? '') . "&sort=" . urlencode($_GET['sort'] ?? '') . "'>1</a>";
+                    if ($start_page > 2) {
+                        echo "<span class='dots'>...</span>";
+                    }
+                }
+
+                for ($i = $start_page; $i <= $end_page; $i++) {
+                    if ($i == $page) {
+                        echo "<a class='active'>" . $i . "</a>";
+                    } else {
+                        echo "<a href='products.php?page=" . $i . "&search=" . urlencode($_GET['search'] ?? '') . "&category=" . urlencode($_GET['category'] ?? '') . "&sort=" . urlencode($_GET['sort'] ?? '') . "'>" . $i . "</a>";
+                    }
+                }
+
+                if ($end_page < $total_pages) {
+                    if ($end_page < $total_pages - 1) {
+                        echo "<span class='dots'>...</span>";
+                    }
+                    echo "<a href='products.php?page=" . $total_pages . "&search=" . urlencode($_GET['search'] ?? '') . "&category=" . urlencode($_GET['category'] ?? '') . "&sort=" . urlencode($_GET['sort'] ?? '') . "'>" . $total_pages . "</a>";
+                }
+
+                // Nút "Sau"
+                if ($page < $total_pages) {
+                    echo "<a href='products.php?page=" . ($page + 1) . "&search=" . urlencode($_GET['search'] ?? '') . "&category=" . urlencode($_GET['category'] ?? '') . "&sort=" . urlencode($_GET['sort'] ?? '') . "'>></a>";
+                } else {
+                    echo "<a style='background: #e0e0e0; color: #666666; cursor: not-allowed;'>></a>";
+                }
+                ?>
+            </div>
         </main>
         <?php include 'template/footer.php'; ?>
     </div>

@@ -33,6 +33,7 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
     <meta charset="UTF-8">
     <title>Sửa sản phẩm</title>
     <link rel="stylesheet" href="../assets/css/products.css">
+    <link rel="icon" type="image/x-icon" href="../../public/assets/img/football-shoes.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* CSS Variables */

@@ -29,6 +29,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <title>Sửa khách hàng</title>
     <link rel="stylesheet" href="../assets/css/customer.css">
+    <link rel="icon" type="image/x-icon" href="../../public/assets/img/football-shoes.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>

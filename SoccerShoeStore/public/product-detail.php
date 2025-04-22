@@ -40,6 +40,7 @@ $conn->close();
     <link rel="stylesheet" href="assets/css/product-detail.css?v=1" type="text/css">
     <link rel="stylesheet" href="assets/css/styles.css?v=2" type="text/css"> <!-- CSS của trang chủ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
     <!-- Font Awesome -->
     <!-- CSS riêng cho trang chi tiết -->
     <title><?= htmlspecialchars($product['name']) ?> - Soccer Shoes Store</title>

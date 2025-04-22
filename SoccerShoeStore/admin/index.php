@@ -51,6 +51,7 @@ $conn->close();
     <title>Trang chủ Admin</title>
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <link rel="stylesheet" href="assets/css/index.css?v=1">
+    <link rel="icon" type="image/x-icon" href="../public/assets/img/football-shoes.png">
     <script src="https://kit.fontawesome.com/1e93584bbb.js" crossorigin="anonymous"></script>
 </head>
 <body>

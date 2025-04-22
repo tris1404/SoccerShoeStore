@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/giay_san_tu_nhien.css?v=3">
     <link rel="stylesheet" href="assets/css/styles.css?v=3" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="assets/js/scripts.js?v=1"></script>
 </head>

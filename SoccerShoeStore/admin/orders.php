@@ -24,7 +24,23 @@ if ($conn->connect_error) {
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-// Truy vấn kết hợp bảng orders và users
+// Xử lý phân trang
+$rows_per_page = 10; // Số hàng trên mỗi trang
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Trang hiện tại
+$offset = ($page - 1) * $rows_per_page; // Tính offset
+
+// Đếm tổng số hàng để tính số trang
+$count_sql = "SELECT COUNT(*) FROM orders 
+              JOIN users ON orders.user_id = users.id
+              WHERE users.name LIKE '%$search%' 
+                  OR users.email LIKE '%$search%' 
+                  OR users.phone LIKE '%$search%' 
+                  OR orders.id LIKE '%$search%'";
+$count_result = $conn->query($count_sql);
+$total_rows = $count_result->fetch_array()[0];
+$total_pages = ceil($total_rows / $rows_per_page);
+
+// Truy vấn kết hợp bảng orders và users với phân trang
 $sql = "SELECT orders.*, users.name, users.email, users.phone 
         FROM orders 
         JOIN users ON orders.user_id = users.id
@@ -32,8 +48,9 @@ $sql = "SELECT orders.*, users.name, users.email, users.phone
             OR users.email LIKE '%$search%' 
             OR users.phone LIKE '%$search%' 
             OR orders.id LIKE '%$search%'
-        ORDER BY orders.created_at DESC";
+        ORDER BY orders.created_at DESC LIMIT $offset, $rows_per_page";
 $result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +62,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <link rel="stylesheet" href="assets/css/order.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../public/assets/img/football-shoes.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -103,6 +121,51 @@ $result = $conn->query($sql);
             <?php endwhile; ?>
             </tbody>
         </table>
+        <!-- Phân trang -->
+        <div class="pagination">
+            <?php
+            // Nút "Trước"
+            if ($page > 1) {
+                echo "<a href='orders.php?page=" . ($page - 1) . "&search=" . urlencode($search) . "'><</a>";
+            } else {
+                echo "<a style='background: #e0e0e0; color: #666666; cursor: not-allowed;'><</a>";
+            }
+
+            // Hiển thị số trang
+            $max_pages_to_show = 5;
+            $start_page = max(1, $page - 2);
+            $end_page = min($total_pages, $start_page + $max_pages_to_show - 1);
+
+            if ($start_page > 1) {
+                echo "<a href='orders.php?page=1&search=" . urlencode($search) . "'>1</a>";
+                if ($start_page > 2) {
+                    echo "<span class='dots'>...</span>";
+                }
+            }
+
+            for ($i = $start_page; $i <= $end_page; $i++) {
+                if ($i == $page) {
+                    echo "<a class='active'>" . $i . "</a>";
+                } else {
+                    echo "<a href='orders.php?page=" . $i . "&search=" . urlencode($search) . "'>" . $i . "</a>";
+                }
+            }
+
+            if ($end_page < $total_pages) {
+                if ($end_page < $total_pages - 1) {
+                    echo "<span class='dots'>...</span>";
+                }
+                echo "<a href='orders.php?page=" . $total_pages . "&search=" . urlencode($search) . "'>" . $total_pages . "</a>";
+            }
+
+            // Nút "Sau"
+            if ($page < $total_pages) {
+                echo "<a href='orders.php?page=" . ($page + 1) . "&search=" . urlencode($search) . "'>></a>";
+            } else {
+                echo "<a style='background: #e0e0e0; color: #666666; cursor: not-allowed;'>></a>";
+            }
+            ?>
+        </div>
     </main>
 
     <?php include 'template/footer.php'; ?>

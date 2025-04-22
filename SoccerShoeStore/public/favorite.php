@@ -23,6 +23,7 @@ $favorites = $_SESSION['favorites'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
     <title>Danh sách yêu thích</title>
     <link rel="stylesheet" href="styles.css"> <!-- Đường dẫn tới file CSS -->
 </head>

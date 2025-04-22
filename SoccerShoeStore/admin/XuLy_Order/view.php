@@ -30,6 +30,7 @@ $order = $result->fetch_assoc();
     <meta charset="UTF-8">
     <title>Chi tiết đơn hàng</title>
     <link rel="stylesheet" href="../assets/css/order.css">
+    <link rel="icon" type="image/x-icon" href="../../public/assets/img/football-shoes.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* CSS Variables */

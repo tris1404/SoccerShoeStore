@@ -237,6 +237,7 @@ error_log('Cart Items: ' . print_r($cartItems, true));
     <link rel="stylesheet" href="assets/css/cart.css" type="text/css">
     <link rel="stylesheet" href="assets/css/styles.css?v=2" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
     <title>Soccer Shoes Store</title>
 </head>
 <body>

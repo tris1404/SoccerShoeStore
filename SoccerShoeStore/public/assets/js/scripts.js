@@ -116,3 +116,13 @@ document.querySelectorAll(".favorite-btn").forEach(button => {
     });
 });
 
+// Chuyển hướng đến giay_san_tu_nhien.php khi nhấn nút "Xem thêm" trong phần "Giày sân cỏ tự nhiên"
+document.getElementById('btn-xem-them-tu-nhien').addEventListener('click', function() {
+    window.location.href = 'giay_san_tu_nhien.php';
+});
+
+// Chuyển hướng đến giay_hot.php khi nhấn nút "Xem thêm" trong phần "Sản Phẩm Hot"
+document.getElementById('btn-xem-them-hot').addEventListener('click', function() {
+    window.location.href = 'giay_hot.php';
+});
+

@@ -311,3 +311,41 @@
       padding: 6px 12px;
     }
   }
+
+/* CSS cho phân trang */
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pagination a {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination a:not(.active):not(.dots) {
+  background: #e0e0e0;
+  color: #333333;
+}
+
+.pagination a:not(.active):not(.dots):hover {
+  background: #d4af37;
+  color: #ffffff;
+}
+
+.pagination .active {
+  background: linear-gradient(135deg, #e6c200, #d4af37);
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.pagination .dots {
+  color: #666666;
+  padding: 8px 12px;
+}

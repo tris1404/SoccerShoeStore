@@ -28,6 +28,21 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 // Nếu có từ khóa tìm kiếm, thay đổi câu truy vấn
 $sql = "SELECT * FROM users WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%' ORDER BY created_at DESC";
 $result = mysqli_query($conn, $sql);
+
+// Xử lý phân trang
+$rows_per_page = 10; // Số hàng trên mỗi trang
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Trang hiện tại
+$offset = ($page - 1) * $rows_per_page; // Tính offset
+
+// Đếm tổng số hàng để tính số trang
+$count_sql = "SELECT COUNT(*) FROM users WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%'";
+$count_result = mysqli_query($conn, $count_sql);
+$total_rows = mysqli_fetch_array($count_result)[0];
+$total_pages = ceil($total_rows / $rows_per_page);
+
+// Truy vấn dữ liệu với giới hạn cho phân trang
+$sql = "SELECT * FROM users WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%' ORDER BY created_at DESC LIMIT $offset, $rows_per_page";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +54,7 @@ $result = mysqli_query($conn, $sql);
     <link rel="stylesheet" href="assets/css/styles_admin.css?v=1">
     <link rel="stylesheet" href="assets/css/customer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../public/assets/img/football-shoes.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -101,6 +117,51 @@ $result = mysqli_query($conn, $sql);
                     ?>
                 </tbody>
             </table>
+            <!-- Phân trang -->
+            <div class="pagination">
+                <?php
+                // Nút "Trước"
+                if ($page > 1) {
+                    echo "<a href='customer.php?page=" . ($page - 1) . "&search=" . urlencode($search) . "'><</a>";
+                } else {
+                    echo "<a style='background: #e0e0e0; color: #666666; cursor: not-allowed;'><</a>";
+                }
+
+                // Hiển thị số trang
+                $max_pages_to_show = 5; // Số trang tối đa hiển thị trước khi dùng "..."
+                $start_page = max(1, $page - 2);
+                $end_page = min($total_pages, $start_page + $max_pages_to_show - 1);
+
+                if ($start_page > 1) {
+                    echo "<a href='customer.php?page=1&search=" . urlencode($search) . "'>1</a>";
+                    if ($start_page > 2) {
+                        echo "<span class='dots'>...</span>";
+                    }
+                }
+
+                for ($i = $start_page; $i <= $end_page; $i++) {
+                    if ($i == $page) {
+                        echo "<a class='active'>" . $i . "</a>";
+                    } else {
+                        echo "<a href='customer.php?page=" . $i . "&search=" . urlencode($search) . "'>" . $i . "</a>";
+                    }
+                }
+
+                if ($end_page < $total_pages) {
+                    if ($end_page < $total_pages - 1) {
+                        echo "<span class='dots'>...</span>";
+                    }
+                    echo "<a href='customer.php?page=" . $total_pages . "&search=" . urlencode($search) . "'>" . $total_pages . "</a>";
+                }
+
+                // Nút "Sau"
+                if ($page < $total_pages) {
+                    echo "<a href='customer.php?page=" . ($page + 1) . "&search=" . urlencode($search) . "'>></a>";
+                } else {
+                    echo "<a style='background: #e0e0e0; color: #666666; cursor: not-allowed;'>></a>";
+                }
+                ?>
+            </div>
         </main>
         
         <!-- Footer -->
