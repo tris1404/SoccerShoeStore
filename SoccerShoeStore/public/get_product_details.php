@@ -1,10 +1,8 @@
 <?php
 session_start();
 
-$conn = new mysqli("localhost", "root", "", "soccershoestore");
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
+// Kết nối đến cơ sở dữ liệu
+require_once '../config/database.php';
 
 // Xử lý thêm sản phẩm vào giỏ hàng qua AJAX
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_to_cart') {

@@ -194,7 +194,7 @@ body {
 }
 
 .payment-method {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 15px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -227,18 +227,17 @@ body {
 
 .order-note p {
     font-size: 16px;
-    margin: 5px 12px;
+    margin: 10px;
 }
 
 .order-note textarea {
-    width: 98%;
+    width: 100%;
     height: 80px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     resize: none;
-    margin: 5px 10px;
 }
 .order-note textarea:focus {
     outline: none;

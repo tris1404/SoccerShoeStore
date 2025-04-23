@@ -288,8 +288,8 @@ if ($userId) {
                         </div>
                     </div>
 
+                    <label>Chọn phương thanh toán:</label>
                     <div class="payment-method">
-                        <h3>Chọn phương thức thanh toán:</h3>
                         <div class="radio-option">
                             <input type="radio" id="cod" name="paymentMethod" value="cod" required>
                             <label for="cod">Thanh toán khi nhận hàng (COD)</label>

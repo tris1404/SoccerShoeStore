@@ -165,9 +165,39 @@
                 <span class="global-navigation__cart__link__count">0</span>
             </a>
 
+            <?php
+            // Lấy số lượng sản phẩm trong giỏ hàng
+            $cartCount = 0;
+
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            if (isset($_SESSION['user']['id'])) {
+                // Người dùng đã đăng nhập, lấy số lượng từ cơ sở dữ liệu
+                require_once '../config/database.php';
+                $userId = $_SESSION['user']['id'];
+                $query = "SELECT SUM(qty) AS total_items FROM cart_items WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?)";
+                $stmt = mysqli_prepare($conn, $query);
+                mysqli_stmt_bind_param($stmt, 'i', $userId);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                if ($row = mysqli_fetch_assoc($result)) {
+                    $cartCount = (int)$row['total_items'];
+                }
+                mysqli_stmt_close($stmt);
+            } else {
+                // Người dùng chưa đăng nhập, lấy số lượng từ session
+                if (isset($_SESSION['guest_cart'])) {
+                    foreach ($_SESSION['guest_cart'] as $item) {
+                        $cartCount += $item['quantity'];
+                    }
+                }
+            }
+            ?>
             <a href="cart.php" class="global-navigation__cart__link">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="global-navigation__cart__link__count">0</span>
+                <span class="global-navigation__cart__link__count"><?php echo $cartCount; ?></span>
             </a>
 
             <div class="user-menu">
@@ -186,33 +216,5 @@
 <!-- End header -->
 
 <style>
-    .user-menu {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        right: 2px;
-        background: white;
-        list-style: none;
-        border: 1px solid #ddd;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        min-width: 130px;
-    }
-
-    .dropdown-menu li {
-        padding: 8px 16px;
-    }
-
-    /* Hiển thị menu khi hover vào user-menu */
-    .user-menu:hover .dropdown-menu {
-        display: block;
-    }
-
-    .dropdown-menu li:hover {
-        background-color: #e8e8e8;
-    }
+    
 </style>

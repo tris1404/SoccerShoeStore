@@ -318,7 +318,7 @@ error_log('Cart Items: ' . print_r($cartItems, true));
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="3" style="text-align: left; font-weight: bold;">Tổng tiền:</td>
+                                            <td colspan="4" style="text-align: left; font-weight: bold;">Tổng tiền:</td>
                                             <td colspan="2" style="text-align: right; font-weight: bold; color:red">
                                                 <span id="total-price">0 đ</span>
                                             </td>
@@ -326,6 +326,7 @@ error_log('Cart Items: ' . print_r($cartItems, true));
                                     </tfoot>
                                 </table>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
