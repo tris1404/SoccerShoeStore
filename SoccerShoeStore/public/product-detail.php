@@ -27,8 +27,6 @@ if ($result->num_rows > 0) {
 } else {
     die('Sản phẩm không tồn tại trong cơ sở dữ liệu!');
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>

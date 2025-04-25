@@ -43,11 +43,12 @@ $total_pages = ceil($total_rows / $rows_per_page);
 // Truy vấn kết hợp bảng orders và users với phân trang
 $sql = "SELECT orders.*, users.name, users.email, users.phone 
         FROM orders 
-        JOIN users ON orders.user_id = users.id
-        WHERE users.name LIKE '%$search%' 
+        LEFT JOIN users ON orders.user_id = users.id
+        WHERE (users.name LIKE '%$search%' 
             OR users.email LIKE '%$search%' 
             OR users.phone LIKE '%$search%' 
             OR orders.id LIKE '%$search%'
+            OR users.name IS NULL)
         ORDER BY orders.created_at DESC LIMIT $offset, $rows_per_page";
 $result = $conn->query($sql);
 
