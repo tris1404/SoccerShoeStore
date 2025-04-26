@@ -56,6 +56,7 @@
                         <li><a href="Giay_Futsal.php" class="sub-navigation__link">Giày Futsal</a></li>
                         <li><a href="Giay_Tre_Em.php" class="sub-navigation__link">Giày trẻ em</a></li>
                         <li><a href="Hang_Moi_Ve.php" class="sub-navigation__link">Hàng mới về</a></li>
+                        <li><a href="Giay_Hot.php" class="sub-navigation__link">HOT</a></li>
                         <li><a href="Giay_Sale.php" class="sub-navigation__link">Sale</a></li>
                     </ul>
                 </li>
@@ -68,6 +69,9 @@
                 </li>
                 <li class="main-navigation__item">
                     <a href="Giay_Futsal.php" class="main-navigation__link">Giày FUTSAL</a>
+                </li>
+                <li>
+                    <a href="Giay_Hot.php" class="main-navigation__link">HOT</a>
                 </li>
                 <li>
                     <a href="Giay_Sale.php" class="main-navigation__link">Sale</a>

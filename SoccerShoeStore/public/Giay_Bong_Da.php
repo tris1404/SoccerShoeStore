@@ -126,8 +126,8 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     <div class="wrapper">
         <!-- HEADER -->
         <?php include 'includes/header.php'; ?>
+    
         <div id="main">
-
             <div class="maincontent">
             <!-- Sidebar lọc sản phẩm -->
             <?php include 'includes/sidebar.php'; ?> <!-- Sidebar lọc sản phẩm -->
