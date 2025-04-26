@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['order_code'])) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css?v=2" type="text/css">
     <link rel="stylesheet" href="assets/css/track_order.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
     <title>Theo dõi đơn hàng</title>
 </head>
 <body>
@@ -76,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['order_code'])) {
                     <?php foreach ($orders as $ord): ?>
                         <div class="order-item">
                             <p><strong>Mã đơn hàng:</strong> <a href="track_order.php?order_code=<?= urlencode($ord['order_code']) ?>"><?= htmlspecialchars($ord['order_code']) ?></a></p>
-                            <p><strong>Ngày đặt:</strong> <?= htmlspecialchars($ord['created_at']) ?></p>
-                            <p><strong>Trạng thái:</strong> <?= htmlspecialchars($ord['status']) ?></p>
+                            <p><strong>Ngày đặt:</strong> <?= date("d/m/Y H:i", strtotime($ord['created_at'])) ?></p>
+                            <p><strong>Trạng thái:</strong> <span class="status status-<?= strtolower(str_replace(' ', '-', $ord['status'])) ?>"><?= htmlspecialchars($ord['status']) ?></span></p>
                             <?php
                             // Tính tổng tiền
                             $query = "SELECT SUM(quantity * discount_price) as total FROM order_items WHERE order_id = ?";
@@ -116,8 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['order_code'])) {
                 <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($order['phone']) ?></p>
                 <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($order['address']) ?></p>
                 <p><strong>Phương thức thanh toán:</strong> <?= htmlspecialchars($order['payment_method']) ?></p>
-                <p><strong>Trạng thái:</strong> <?= htmlspecialchars($order['status']) ?></p>
-                <p><strong>Ngày đặt:</strong> <?= htmlspecialchars($order['created_at']) ?></p>
+                <p><strong>Trạng thái:</strong> <span class="status status-<?= strtolower(str_replace(' ', '-', $order['status'])) ?>"><?= htmlspecialchars($order['status']) ?></span></p>
+                <p><strong>Ngày đặt:</strong> <?= date("d/m/Y H:i", strtotime($order['created_at'])) ?></p>
             </div>
             <?php if (!empty($orderItems)): ?>
                 <div class="order-items">

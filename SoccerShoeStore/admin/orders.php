@@ -9,14 +9,10 @@ if (isset($_SESSION['success'])) {
 // Kiểm tra nếu chưa đăng nhập hoặc không phải admin/staff
 if (!isset($_SESSION['user']) || !isset($_SESSION['role']) || 
     ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'staff')) {
-    
-    // Chuyển về trang login
     header("Location: ../public/login.php");
     exit();
 }
-?>
 
-<?php
 $conn = new mysqli("localhost", "root", "", "soccershoestore");
 if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
@@ -25,33 +21,29 @@ if ($conn->connect_error) {
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Xử lý phân trang
-$rows_per_page = 10; // Số hàng trên mỗi trang
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Trang hiện tại
-$offset = ($page - 1) * $rows_per_page; // Tính offset
+$rows_per_page = 10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $rows_per_page;
 
 // Đếm tổng số hàng để tính số trang
 $count_sql = "SELECT COUNT(*) FROM orders 
-              JOIN users ON orders.user_id = users.id
-              WHERE users.name LIKE '%$search%' 
-                  OR users.email LIKE '%$search%' 
-                  OR users.phone LIKE '%$search%' 
-                  OR orders.id LIKE '%$search%'";
+              WHERE full_name LIKE '%$search%' 
+                  OR email LIKE '%$search%' 
+                  OR phone LIKE '%$search%' 
+                  OR order_code LIKE '%$search%'";
 $count_result = $conn->query($count_sql);
 $total_rows = $count_result->fetch_array()[0];
 $total_pages = ceil($total_rows / $rows_per_page);
 
-// Truy vấn kết hợp bảng orders và users với phân trang
-$sql = "SELECT orders.*, users.name, users.email, users.phone 
+// Truy vấn chính lấy dữ liệu từ orders
+$sql = "SELECT orders.* 
         FROM orders 
-        LEFT JOIN users ON orders.user_id = users.id
-        WHERE (users.name LIKE '%$search%' 
-            OR users.email LIKE '%$search%' 
-            OR users.phone LIKE '%$search%' 
-            OR orders.id LIKE '%$search%'
-            OR users.name IS NULL)
+        WHERE full_name LIKE '%$search%' 
+            OR email LIKE '%$search%' 
+            OR phone LIKE '%$search%' 
+            OR order_code LIKE '%$search%'
         ORDER BY orders.created_at DESC LIMIT $offset, $rows_per_page";
 $result = $conn->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -94,8 +86,8 @@ $result = $conn->query($sql);
             <tbody>
             <?php while ($row = $result->fetch_assoc()): ?>
                 <tr>
-                    <td>#<?= $row['id'] ?></td>
-                    <td><?= htmlspecialchars($row['name']) ?></td>
+                    <td><?= htmlspecialchars($row['order_code']) ?></td>
+                    <td><?= htmlspecialchars($row['full_name']) ?></td>
                     <td><?= htmlspecialchars($row['email']) ?></td>
                     <td><?= htmlspecialchars($row['phone']) ?></td>
                     <td>
@@ -103,7 +95,7 @@ $result = $conn->query($sql);
                             <input type="hidden" name="order_id" value="<?= $row['id'] ?>">
                             <select name="status" class="status-select" onchange="this.form.submit()">
                                 <?php
-                                $statuses = ['Đang xử lý', 'Đã xác nhận', ' Đang vận chuyển', 'Đã giao hàng', 'Đã hủy'];
+                                $statuses = ['Đang chờ', 'Đang xử lý', 'Đã vận chuyển', 'Đã giao', 'Đã hủy'];
                                 foreach ($statuses as $status) {
                                     $selected = $status == $row['status'] ? 'selected' : '';
                                     echo "<option value='$status' $selected>$status</option>";
@@ -122,6 +114,7 @@ $result = $conn->query($sql);
             <?php endwhile; ?>
             </tbody>
         </table>
+
         <!-- Phân trang -->
         <div class="pagination">
             <?php
