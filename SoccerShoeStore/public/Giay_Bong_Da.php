@@ -83,6 +83,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/assets/css/Giay_Bong_Da.css">
     <link rel="stylesheet" href="../public/assets/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
 </head>
 <body>
     <script>

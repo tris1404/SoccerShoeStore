@@ -12,7 +12,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
         $size = $_GET['size'] ?? '';
 
         // Tạo câu truy vấn cơ bản
-        $sql = "SELECT * FROM products WHERE 1";
+        $sql = "SELECT * FROM products WHERE product_type = 'sale'";
 
         // Nếu người dùng chọn thương hiệu
         if (!empty($brand)) {
@@ -84,6 +84,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/assets/css/Giay_Bong_Da.css">
     <link rel="stylesheet" href="../public/assets/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
 </head>
 <body>
     <script>
@@ -157,7 +158,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                     <!-- Danh sách sản phẩm ban đầu (khi không lọc) -->
                     <div class="product-list">
                         <?php
-                            $sql = "SELECT * FROM products"; // Lấy tất cả sản phẩm
+                            $sql = "SELECT * FROM products WHERE product_type = 'sale'"; // Lấy sản phẩm có product_type là sale
                             $result = mysqli_query($conn, $sql);
                             if (mysqli_num_rows($result) > 0):
                                 while ($row = mysqli_fetch_assoc($result)): ?>

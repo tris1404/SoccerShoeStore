@@ -10,9 +10,8 @@ if (!isset($_GET['id'])) {
 }
 
 $id = intval($_GET['id']);
-$sql = "SELECT orders.*, users.name, users.email, users.phone, users.address 
+$sql = "SELECT orders.* 
         FROM orders 
-        JOIN users ON orders.user_id = users.id 
         WHERE orders.id = $id";
 
 $result = $conn->query($sql);
@@ -22,6 +21,13 @@ if ($result->num_rows === 0) {
 }
 
 $order = $result->fetch_assoc();
+
+// Truy vấn các mục đơn hàng từ order_items
+$items_sql = "SELECT oi.*, p.name as product_name 
+              FROM order_items oi 
+              JOIN products p ON oi.product_id = p.id 
+              WHERE oi.order_id = $id";
+$items_result = $conn->query($items_sql);
 ?>
 
 <!DOCTYPE html>
@@ -107,24 +113,100 @@ $order = $result->fetch_assoc();
             transform: translateY(-2px);
         }
 
+        /* Table for order items */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: var(--card-background);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .items-table th,
+        .items-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .items-table th {
+            background: linear-gradient(135deg, var(--primary-color), #d4af37);
+            color: #ffffff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .items-table td {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .no-items {
+            text-align: center;
+            font-style: italic;
+            color: var(--text-muted);
+            padding: 20px;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 width: 90%;
+            }
+
+            .items-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
             }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Chi tiết đơn hàng #<?= $order['id'] ?></h2>
-    <p><strong>Khách hàng:</strong> <?= htmlspecialchars($order['name']) ?></p>
+    <h2>Chi tiết đơn hàng <?= htmlspecialchars($order['order_code']) ?></h2>
+    <p><strong>Khách hàng:</strong> <?= htmlspecialchars($order['full_name']) ?></p>
     <p><strong>Email:</strong> <?= htmlspecialchars($order['email']) ?></p>
     <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($order['phone']) ?></p>
     <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($order['address']) ?></p>
+    <p><strong>Phương thức giao hàng:</strong> <?= htmlspecialchars($order['delivery_method']) ?></p>
+    <p><strong>Phương thức thanh toán:</strong> <?= htmlspecialchars($order['payment_method']) ?></p>
+    <p><strong>Ghi chú đơn hàng:</strong> <?= htmlspecialchars($order['order_note'] ?: 'Không có') ?></p>
     <p><strong>Trạng thái:</strong> <?= htmlspecialchars($order['status']) ?></p>
-    <p><strong>Ngày đặt:</strong> <?= $order['created_at'] ?></p>
-    <p><strong>Lần cập nhật cuối:</strong> <?= $order['updated_at'] ?></p>
+    <p><strong>Ngày đặt:</strong> <?= date("d/m/Y H:i", strtotime($order['created_at'])) ?></p>
+    <p><strong>Ngày chỉnh sửa gần nhất:</strong> <?= date("d/m/Y H:i", strtotime($order['updated_at'])) ?></p>
+
+    <h3>Danh sách sản phẩm</h3>
+    <?php if ($items_result->num_rows > 0): ?>
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Kích thước</th>
+                    <th>Giá</th>
+                    <th>Giá giảm</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($item = $items_result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($item['product_name']) ?></td>
+                        <td><?= $item['quantity'] ?></td>
+                        <td><?= $item['size'] ?></td>
+                        <td><?= number_format($item['price'], 0, ',', '.') ?> VNĐ</td>
+                        <td><?= number_format($item['discount_price'], 0, ',', '.') ?> VNĐ</td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="no-items">Không có sản phẩm trong đơn hàng này.</p>
+    <?php endif; ?>
+
     <a href="../orders.php" class="add-btn">← Quay lại danh sách</a>
 </div>
 </body>
