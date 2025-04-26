@@ -23,7 +23,7 @@
                 </div>
                 <span>hoặc sử dụng mật khẩu email của bạn</span>
                 <select name="role" id="role" class="role">
-                    <option value="" disabled selected hidden>Role</option>
+                    <option value="" disabled selected hidden>Vai trò</option>
                     <option value="admin">Admin</option>
                     <option value="staff">Nhân viên</option>
                     <option value="user">Người Dùng</option>
