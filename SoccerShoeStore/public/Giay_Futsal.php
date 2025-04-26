@@ -40,7 +40,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
         if (mysqli_num_rows($result) > 0):
             while ($row = mysqli_fetch_assoc($result)): ?>
                 <div class="mustbuy-item">
-                <a href="product-detail.php?id=<?= $row['id'] ?>">
+                <a href="product_detail.php?id=<?= $row['id'] ?>">
                         <img src="<?= $row['image'] ?>" alt="<?= $row['name'] ?>">
                         <h3><?= $row['name'] ?></h3>
                         <?php if ($row['discount'] > 0): ?>
@@ -84,7 +84,6 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     <link rel="stylesheet" href="../public/assets/css/styles.css">
 </head>
 <body>
-    <!-- JS -->
     <script>
         // Khi trang tải xong
         document.addEventListener('DOMContentLoaded', function () {
@@ -123,21 +122,22 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     </script>
 
     <div class="wrapper">
-            <?php include 'includes/header.php'; ?>
+        <!-- HEADER -->
+        <?php include 'includes/header.php'; ?>
+        <div id="main">
 
-            <div id="main">
+            <div class="maincontent">
+            <!-- Sidebar lọc sản phẩm -->
             <?php include 'includes/sidebar.php'; ?> <!-- Sidebar lọc sản phẩm -->
-
-            
-                <div class="maincontent">
-                    <!-- Banner giới thiệu -->
+                <!-- Banner giới thiệu -->
+                <div class="content">
                     <div class="product-intro">
-                        <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Giày cỏ tự nhiên">
+                    <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Giày cỏ tự nhiên">
                     </div>
     
                     <!-- Giới thiệu mô tả -->
                     <div class="product-description">
-                        <h2>GIÀY FUTSAL - SỰ LỰA CHỌN HOÀN HẢO CHO SÂN TRONG NHÀ</h2>
+                    <h2>GIÀY FUTSAL - SỰ LỰA CHỌN HOÀN HẢO CHO SÂN TRONG NHÀ</h2>
                         <p>
                             <strong>SOCCER SHOES STORE</strong> tự hào mang đến bộ sưu tập <strong>giày Futsal</strong> chất lượng cao, được thiết kế dành riêng cho các trận đấu trên mặt sân trong nhà, sàn gỗ hoặc sân Futsal chuyên dụng. 
                             Với sự kết hợp giữa công nghệ tiên tiến và thiết kế hiện đại, giày Futsal của chúng tôi không chỉ đáp ứng nhu cầu về hiệu suất mà còn mang lại sự thoải mái tối đa trong suốt trận đấu.<br><br>
@@ -195,12 +195,11 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                         ?>
                     </div>
                 </div>
-           
-            <div class="clear"></div>
+            </div>
         </div>
-
+        
         <!-- FOOTER -->
-            <?php include 'includes/footer.php'; ?>
+        <?php include 'includes/footer.php'; ?>
     </div>
 </body>
 </html>

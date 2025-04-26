@@ -53,42 +53,21 @@
                         <li><a href="Giay_Bong_Da.php" class="sub-navigation__link">Tất cả sản phẩm</a></li>
                         <li><a href="Giay_San_TN.php" class="sub-navigation__link">Giày sân tự nhiên</a></li>
                         <li><a href="Giay_SAN_NT.php" class="sub-navigation__link">Giày sân nhân tạo</a></li>
-                        <li><a href="Giay_Futsal.php" class="sub-navigation__link">Giày sân Futsal</a></li>
+                        <li><a href="Giay_Futsal.php" class="sub-navigation__link">Giày Futsal</a></li>
                         <li><a href="Giay_Tre_Em.php" class="sub-navigation__link">Giày trẻ em</a></li>
-                        <li><a href="Hang_Moi_Ve" class="sub-navigation__link">Hàng mới về</a></li>
+                        <li><a href="Hang_Moi_Ve.php" class="sub-navigation__link">Hàng mới về</a></li>
                         <li><a href="Giay_Sale.php" class="sub-navigation__link">Sale</a></li>
                     </ul>
                 </li>
 
                 <li class="main-navigation__item">
                     <a href="Giay_San_TN.php" class="main-navigation__link">Giày cỏ tự nhiên</a>
-                    <!-- <i class="fa-solid fa-angle-down"></i>
-                    <ul class="sub-navigation__list">
-                        <li><a href="#" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="#" class="sub-navigation__link">Adidas</a></li>
-                        <li><a href="#" class="sub-navigation__link">Puma</a></li>
-                        <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                    </ul> -->
                 </li>
                 <li class="main-navigation__item">
                     <a href="Giay_San_NT.php" class="main-navigation__link">Giày cỏ nhân tạo</a>
-                    <!-- <i class="fa-solid fa-angle-down"></i>
-                    <ul class="sub-navigation__list">
-                        <li><a href="#" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="#" class="sub-navigation__link">Adidas</a></li>
-                        <li><a href="#" class="sub-navigation__link">Puma</a></li>
-                        <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                    </ul> -->
                 </li>
                 <li class="main-navigation__item">
                     <a href="Giay_Futsal.php" class="main-navigation__link">Giày FUTSAL</a>
-                    <!-- <i class="fa-solid fa-angle-down"></i>
-                    <ul class="sub-navigation__list">
-                        <li><a href="nike.php" class="sub-navigation__link">Nike</a></li>
-                        <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
-                        <li><a href="#" class="sub-navigation__link">Puma</a></li>
-                        <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                    </ul> -->
                 </li>
                 <li>
                     <a href="Giay_Sale.php" class="main-navigation__link">Sale</a>

@@ -1,3 +1,7 @@
+<?php
+// Lấy tên file hiện tại
+$currentPage = basename($_SERVER['PHP_SELF']);
+?>
 <div class="sidebar">
     <h3>DANH MỤC SẢN PHẨM</h3>
     <ul>
@@ -40,29 +44,25 @@
         <h3>SIZE</h3>
         <form id="sizeForm" class="size-grid">
             <div class="size-col">
-                <label><input type="radio" name="size" value="25"> 25</label><br>
-                <label><input type="radio" name="size" value="26"> 26</label><br>
-                <label><input type="radio" name="size" value="27"> 27</label><br>
-                <label><input type="radio" name="size" value="28"> 28</label><br>
-                <label><input type="radio" name="size" value="29"> 29</label><br>
-                <label><input type="radio" name="size" value="30"> 30</label><br>
-                <label><input type="radio" name="size" value="31"> 31</label><br>
-                <label><input type="radio" name="size" value="32"> 32</label><br>
-                <label><input type="radio" name="size" value="33"> 33</label><br>
-                <label><input type="radio" name="size" value="34"> 34</label><br>
-                <label><input type="radio" name="size" value="35"> 35</label><br>
-            </div>
-            <div class="size-col">    
-                <label><input type="radio" name="size" value="36"> 36</label><br>
-                <label><input type="radio" name="size" value="37"> 37</label><br>
-                <label><input type="radio" name="size" value="38"> 38</label><br>
-                <label><input type="radio" name="size" value="39"> 39</label><br>
-                <label><input type="radio" name="size" value="40"> 40</label><br>
-                <label><input type="radio" name="size" value="41"> 41</label><br>
-                <label><input type="radio" name="size" value="42"> 42</label><br>
-                <label><input type="radio" name="size" value="43"> 43</label><br>
-                <label><input type="radio" name="size" value="44"> 44</label><br>
-                <label><input type="radio" name="size" value="45"> 45</label>
+                <?php
+                if ($currentPage == 'Giay_Tre_Em.php') {
+                    for ($size = 25; $size <= 35; $size++) {
+                        echo '<label><input type="radio" name="size" value="' . $size . '"> ' . $size . '</label><br>';
+                        // Khi tới size 30 thì đóng cột 1, mở cột 2
+                        if ($size == 30) {
+                            echo '</div><div class="size-col">';
+                        }
+                    }
+                } else {
+                    for ($size = 25; $size <= 45; $size++) {
+                        echo '<label><input type="radio" name="size" value="' . $size . '"> ' . $size . '</label><br>';
+                        // Khi tới size 35 thì đóng cột 1, mở cột 2
+                        if ($size == 35) {
+                            echo '</div><div class="size-col">';
+                        }
+                    }
+                }
+                ?>
             </div>
         </form>
     </div>
