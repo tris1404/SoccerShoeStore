@@ -28,7 +28,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
             )";
         }
 
-        // Nếu có lọc theo size
+        // Nếu có lọc theo siz
         if (!empty($size)) {
             $size = mysqli_real_escape_string($conn, $size);
             $sql .= " AND FIND_IN_SET('$size', size)"; // size lưu dạng chuỗi cách nhau bằng dấu phẩy
