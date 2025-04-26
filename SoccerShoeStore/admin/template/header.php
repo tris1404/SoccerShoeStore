@@ -67,6 +67,7 @@
             <ul class="dropdown-menu">
                 <li><a href="">Đăng ký</a></li>
                 <li><a href="../public/logout.php">Đăng xuất</a></li>
+                <li><a href="../public/index.php" target="_blank">Trang User</a></li>
             </ul>
         </div>
     </div>

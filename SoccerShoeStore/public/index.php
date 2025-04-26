@@ -13,6 +13,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 ?>
+<?php
+if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
+    echo "<script>alert('Đăng xuất thành công');</script>";
+}
+?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
