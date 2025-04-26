@@ -209,13 +209,14 @@ body {
   white-space: normal;
 }
 
-/* ==== Nhãn giảm giá / Tag đặc biệt ==== */
+/* ==== Nhãn giảm giá / Tag đặc biệt / Product Type ==== */
 .label-sale,
-.sale-tag {
+.sale-tag,
+.product-type {
   position: absolute;
-  top: 10px;
+  top: 14px;
   padding: 4px 8px;
-  font-size: 12px;
+  font-size: 17px;
   border-radius: 4px;
   z-index: 2;
 }
@@ -230,6 +231,30 @@ body {
   right: 10px;
   background-color: #ffc107;
   color: black;
+}
+
+.product-type {
+  right: 10px; /* Vị trí đối diện với label-sale */
+  color: white;
+  text-transform: uppercase; /* Chuyển chữ thành in hoa */
+}
+
+/* Màu sắc cho từng product_type */
+.type-hot {
+  background-color: #f44336; /* Đỏ cho Hot */
+}
+
+.type-new {
+  background-color: #2196f3; /* Xanh dương cho New */
+}
+
+.type-sale {
+  background-color: #4caf50; /* Xanh lá cho Sale */
+}
+
+/* Xử lý xung đột khi có sale-tag và product-type */
+.sale-tag + .product-type {
+  top: 40px;
 }
 
 /* ==== Giá sản phẩm ==== */
