@@ -205,9 +205,10 @@
                     <i class="fa-solid fa-user"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Đăng ký</a></li>
-                    <li><a href="#">Đăng nhập</a></li>
-                    <li><a href="#">Đăng xuất</a></li>
+                    <li><a href="register.php">Đăng ký</a></li>
+                    <li><a href="login.php">Đăng nhập</a></li>
+                    <li><a href="logout.php">Đăng xuất</a></li>
+                    
                 </ul>
             </div>
         </div>

@@ -47,7 +47,7 @@ body{
 }
 
 .container button{
-    background-color: #512da8;
+    background-color: black;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -161,9 +161,14 @@ body{
 }
 
 .toggle{
-    background-color: #512da8;
+    background-color: black;
     height: 100%;
-    background: linear-gradient(to right, #5c6bc0, #512da8);
+    /* background: linear-gradient(to right, #66BB6A, #388E3C); */
+    background-image: url('https://i.pinimg.com/736x/c2/33/bd/c233bd412e82c841ebade15db6574074.jpg');
+    background-size: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: #fff;
     position: relative;
     left: -100%;
