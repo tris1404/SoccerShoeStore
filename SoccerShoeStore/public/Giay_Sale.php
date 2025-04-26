@@ -42,7 +42,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
         if (mysqli_num_rows($result) > 0):
             while ($row = mysqli_fetch_assoc($result)): ?>
                 <div class="mustbuy-item">
-                <a href="product_detail.php?id=<?= $row['id'] ?>">
+                <a href="product-detail.php?id=<?= $row['id'] ?>">
                         <img src="<?= $row['image'] ?>" alt="<?= $row['name'] ?>">
                         <h3><?= $row['name'] ?></h3>
                         <?php if ($row['discount'] > 0): ?>
