@@ -49,6 +49,12 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                         <?php if (!empty($row['tag'])): ?>
                             <span class="sale-tag"><?= htmlspecialchars($row['tag']) ?></span>
                         <?php endif; ?>
+                            <!-- Hiển thị product_type (Hot, New, Sale) -->
+                            <?php if (isset($row['product_type']) && $row['product_type'] !== 'Normal'): ?>
+                                <span class="product-type type-<?= strtolower($row['product_type']) ?>">
+                                    <?= htmlspecialchars($row['product_type']) ?>
+                                </span>
+                            <?php endif; ?>
                         <div class="price-container">
                             <?php if (
                                 isset($row['discount_price']) &&
@@ -171,6 +177,12 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                                             <?php endif; ?>
                                             <?php if (!empty($row['tag'])): ?>
                                                 <span class="sale-tag"><?= htmlspecialchars($row['tag']) ?></span>
+                                            <?php endif; ?>
+                                            <!-- Hiển thị product_type (Hot, New, Sale) -->
+                                            <?php if (isset($row['product_type']) && $row['product_type'] !== 'Normal'): ?>
+                                                <span class="product-type type-<?= strtolower($row['product_type']) ?>">
+                                                    <?= htmlspecialchars($row['product_type']) ?>
+                                                </span>
                                             <?php endif; ?>
                                             <div class="price-container">
                                                 <?php if (
