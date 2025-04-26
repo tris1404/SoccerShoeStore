@@ -47,105 +47,52 @@
                     <a href="index.php" class="main-navigation__link">Trang chủ</a>
                 </li>
                 <li class="main-navigation__item">
-                    <a href="#" class="main-navigation__link">Giày bóng đá</a>
+                    <a href="Giay_Bong_Da.php" class="main-navigation__link">Giày bóng đá</a>
                     <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
-                        <li><a href="#" class="sub-navigation__link">Tất cả sản phẩm</a></li>
-                        <li><a href="#" class="sub-navigation__link">Hàng mới về</a></li>
-                        <li><a href="#" class="sub-navigation__link">Sản Phẩm Bán Chạy</a></li>
+                        <li><a href="Giay_Bong_Da.php" class="sub-navigation__link">Tất cả sản phẩm</a></li>
+                        <li><a href="Giay_San_TN.php" class="sub-navigation__link">Giày sân tự nhiên</a></li>
+                        <li><a href="Giay_SAN_NT.php" class="sub-navigation__link">Giày sân nhân tạo</a></li>
+                        <li><a href="Giay_Futsal.php" class="sub-navigation__link">Giày sân Futsal</a></li>
+                        <li><a href="Giay_Tre_Em.php" class="sub-navigation__link">Giày trẻ em</a></li>
+                        <li><a href="Hang_Moi_Ve" class="sub-navigation__link">Hàng mới về</a></li>
+                        <li><a href="Giay_Sale.php" class="sub-navigation__link">Sale</a></li>
                     </ul>
                 </li>
 
                 <li class="main-navigation__item">
-                    <a href="giay_san_tu_nhien.php" class="main-navigation__link">Giày cỏ tự nhiên</a>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <a href="Giay_San_TN.php" class="main-navigation__link">Giày cỏ tự nhiên</a>
+                    <!-- <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
                         <li><a href="#" class="sub-navigation__link">Nike</a></li>
                         <li><a href="#" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <li class="main-navigation__item">
-                    <a href="#" class="main-navigation__link">Giày cỏ nhân tạo</a>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <a href="Giay_San_NT.php" class="main-navigation__link">Giày cỏ nhân tạo</a>
+                    <!-- <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
                         <li><a href="#" class="sub-navigation__link">Nike</a></li>
                         <li><a href="#" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
                 <li class="main-navigation__item">
-                    <a href="#" class="main-navigation__link">Giày FUTSAL</a>
-                    <i class="fa-solid fa-angle-down"></i>
+                    <a href="Giay_Futsal.php" class="main-navigation__link">Giày FUTSAL</a>
+                    <!-- <i class="fa-solid fa-angle-down"></i>
                     <ul class="sub-navigation__list">
                         <li><a href="nike.php" class="sub-navigation__link">Nike</a></li>
                         <li><a href="adidas.php" class="sub-navigation__link">Adidas</a></li>
                         <li><a href="#" class="sub-navigation__link">Puma</a></li>
                         <li><a href="#" class="sub-navigation__link">Mizuno</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
-                <li class="main-navigation__item">
-                    <a href="#" class="main-navigation__link">Thương hiệu</a>
-                    <i class="fa-solid fa-angle-down"></i>
-                    <ul class="sub-navigation__list">
-                        <!-- NIKE -->
-                        <li class="sub-navigation__item">
-                            <a href="nike.php" class="sub-navigation__link">Nike
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="nike.php#mercurial" class="sub-navigation__link">NIKE MERCURIAL</a></li>
-                                <li><a href="nike.php#tiempo" class="sub-navigation__link">NIKE TIEMPO</a></li>
-                                <li><a href="nike.php#phantom" class="sub-navigation__link">NIKE PHANTOM</a></li>
-                                <li><a href="nike.php#react-gato" class="sub-navigation__link">NIKE REACT GATO</a>
-                                </li>
-                                <li><a href="nike.php#lunar" class="sub-navigation__link">NIKE LUNAR</a></li>
-                                <li><a href="nike.php#street-gato" class="sub-navigation__link">NIKE STREET GATO</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- ADIDAS -->
-                        <li class="sub-navigation__item">
-                            <a href="adidas.php" class="sub-navigation__link">ADIDAS
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="adidas.php#f50" class="sub-navigation__link">ADIDAS F50</a></li>
-                                <li><a href="adidas.php#predator" class="sub-navigation__link">ADIDAS PREDATOR</a>
-                                </li>
-                                <li><a href="adidas.php#copa" class="sub-navigation__link">ADIDAS COPA</a></li>
-                                <li><a href="adidas.php#x" class="sub-navigation__link">ADIDAS X</a></li>
-                                <li><a href="adidas.php#top-sala" class="sub-navigation__link">ADIDAS TOP SALA</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- PUMA -->
-                        <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">PUMA
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">PUMA FUTURE</a></li>
-                                <li><a href="#" class="sub-navigation__link">PUMA ULTRA</a></li>
-                                <li><a href="#" class="sub-navigation__link">PUMA KING</a></li>
-                            </ul>
-                        </li>
-                        <!-- MIZUNO -->
-                        <li class="sub-navigation__item">
-                            <a href="#" class="sub-navigation__link">MIZUNO
-                                <i class="fa-solid fa-angle-right"></i>
-                            </a>
-                            <ul class="sub-navigation__list">
-                                <li><a href="#" class="sub-navigation__link">MIZUNO MONARCIDA</a></li>
-                                <li><a href="#" class="sub-navigation__link">MIZUNO ALPHA</a></li>
-                                <li><a href="#" class="sub-navigation__link">MIZUNO MORELIA</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                <li>
+                    <a href="Giay_Sale.php" class="main-navigation__link">Sale</a>
                 </li>
-                <li><a href="#" class="main-navigation__link">Sale</a></li>
             </ul>
         </nav>
 
