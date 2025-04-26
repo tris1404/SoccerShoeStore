@@ -55,7 +55,7 @@
                         <li><a href="Giay_SAN_NT.php" class="sub-navigation__link">Giày sân nhân tạo</a></li>
                         <li><a href="Giay_Futsal.php" class="sub-navigation__link">Giày sân Futsal</a></li>
                         <li><a href="Giay_Tre_Em.php" class="sub-navigation__link">Giày trẻ em</a></li>
-                        <li><a href="Hang_Moi_Ve" class="sub-navigation__link">Hàng mới về</a></li>
+                        <li><a href="Hang_Moi_Ve.php" class="sub-navigation__link">Hàng mới về</a></li>
                         <li><a href="Giay_Sale.php" class="sub-navigation__link">Sale</a></li>
                     </ul>
                 </li>

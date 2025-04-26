@@ -74,6 +74,7 @@ if (
                         <option value="Sân tự nhiên">Giày sân tự nhiên</option>
                         <option value="Sân nhân tạo">Giày sân nhân tạo</option>
                         <option value="Futsal">Giày Futsal</option>
+                        <option value="Trẻ Em">Giày Trẻ Em</option>
                     </select>
 
                     <label for="quantity">Số lượng:</label>

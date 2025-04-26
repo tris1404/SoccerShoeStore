@@ -10,7 +10,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
         $size = $_GET['size'] ?? '';
 
         // Tạo câu truy vấn cơ bản
-        $sql = "SELECT * FROM products WHERE 1";
+        $sql = "SELECT * FROM products WHERE shoe_type = 'Fustal'";
 
         // Nếu người dùng chọn thương hiệu
         if (!empty($brand)) {
@@ -158,7 +158,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                     <!-- Danh sách sản phẩm ban đầu (khi không lọc) -->
                     <div class="product-list">
                         <?php
-                            $sql = "SELECT * FROM products"; // Lấy tất cả sản phẩm
+                            $sql = "SELECT * FROM products WHERE shoe_type = 'Fustal'"; // Lấy tất cả sản phẩm có shoe_type là fustal
                             $result = mysqli_query($conn, $sql);
                             if (mysqli_num_rows($result) > 0):
                                 while ($row = mysqli_fetch_assoc($result)): ?>
