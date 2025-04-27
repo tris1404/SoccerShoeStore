@@ -15,7 +15,6 @@ if (session_status() === PHP_SESSION_NONE) {
             </a>
         </nav>
 
-        <!-- TOP-BAR RIGHT -->
         <nav class="top-bar__right">
             <a href="#" class="top-bar__right__item">Liên hệ</a>
             <span class="pipe2">|</span>
@@ -70,16 +69,15 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li class="main-navigation__item">
                     <a href="Giay_Futsal.php" class="main-navigation__link">Giày FUTSAL</a>
                 </li>
-                <li>
+                <li class="main-navigation__item">
                     <a href="Giay_Hot.php" class="main-navigation__link">HOT</a>
                 </li>
-                <li>
+                <li class="main-navigation__item">
                     <a href="Giay_Sale.php" class="main-navigation__link">Sale</a>
                 </li>
             </ul>
         </nav>
 
-        <!-- SEARCH -->
         <div class="search-cart">
             <div class="search">
                 <form action="index.php?pg=giay_san_tu_nhien" method="post" class="search-form">
@@ -91,35 +89,10 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
 
             <div class="cart">
-                <a href="favorite.php" class="global-navigation__cart__link">
-                    <i class="fa-regular fa-heart"></i>
-                    <span class="global-navigation__cart__link__count">0</span>
-                </a>
-
                 <?php
-                // Lấy số lượng sản phẩm trong giỏ hàng
                 $cartCount = 0;
 
-<<<<<<< HEAD
-            if (isset($_SESSION['user']['id'])) {
-                // Người dùng đã đăng nhập, lấy số lượng từ cơ sở dữ liệu
-                require_once '../config/database.php';
-                $userId = $_SESSION['user']['id'];
-                $query = "SELECT SUM(qty) AS total_items FROM cart_items WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?)";
-                $stmt = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($stmt, 'i', $userId);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                if ($row = mysqli_fetch_assoc($result)) {
-                    $cartCount = (int)$row['total_items'];
-=======
-                if (session_status() === PHP_SESSION_NONE) {
-                    session_start();
->>>>>>> f5d3f202a851192ab05932d68e8cf9f7ac90d787
-                }
-
                 if (isset($_SESSION['user']['id'])) {
-                    // Người dùng đã đăng nhập, lấy số lượng từ cơ sở dữ liệu
                     require_once '../config/database.php';
                     $userId = $_SESSION['user']['id'];
                     $query = "SELECT SUM(qty) AS total_items FROM cart_items WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?)";
@@ -132,7 +105,6 @@ if (session_status() === PHP_SESSION_NONE) {
                     }
                     mysqli_stmt_close($stmt);
                 } else {
-                    // Người dùng chưa đăng nhập, lấy số lượng từ session
                     if (isset($_SESSION['guest_cart'])) {
                         foreach ($_SESSION['guest_cart'] as $item) {
                             $cartCount += $item['quantity'];
@@ -140,6 +112,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     }
                 }
                 ?>
+                <a href="favorite.php" class="global-navigation__cart__link">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="global-navigation__cart__link__count">0</span>
+                </a>
                 <a href="cart.php" class="global-navigation__cart__link">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="global-navigation__cart__link__count"><?php echo $cartCount; ?></span>
@@ -150,12 +126,15 @@ if (session_status() === PHP_SESSION_NONE) {
                         <i class="fa-solid fa-user"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="register.php">Đăng ký</a></li>
-                        <li><a href="login.php">Đăng nhập</a></li>
-                        <li><a href="logout.php">Đăng xuất</a></li>
-
+                        <?php if (isset($_SESSION['user_name'])): ?>
+                            <li><a href="logout.php">Đăng xuất</a></li>
+                        <?php else: ?>
+                            <li><a href="register.php">Đăng ký</a></li>
+                            <li><a href="login.php">Đăng nhập</a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>
