@@ -4,13 +4,18 @@ include '../config/database.php';
 
 // Kiểm tra nếu có request AJAX (ajax=1 trên URL)
 if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+
+        // Đảm bảo lọc sản phẩm mới vừa về 
+        $product_type = 'new';
+        $where = "product_type = '$product_type'";
+
         // Lấy dữ liệu lọc từ URL (nếu có)
         $brand = $_GET['brand'] ?? '';
         $price = $_GET['price'] ?? '';
         $size = $_GET['size'] ?? '';
 
         // Tạo câu truy vấn cơ bản
-        $sql = "SELECT * FROM products WHERE product_type = 'new'";
+        $sql = "SELECT * FROM products WHERE $where";
 
         // Nếu người dùng chọn thương hiệu
         if (!empty($brand)) {
@@ -113,10 +118,9 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 });
 
                 // Gửi request đến chính file Giay_Bong_Da.php, lấy HTML sản phẩm về
-                fetch('Giay_Bong_Da.php?' + params.toString())
+                fetch(window.location.pathname + '?' + params.toString())
                     .then(response => response.text())
                     .then(html => {
-                        // Thay nội dung phần sản phẩm bằng HTML mới
                         document.querySelector('.product-list').innerHTML = html;
                     });
             }
@@ -144,7 +148,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     
                     <!-- Giới thiệu mô tả -->
                     <div class="product-description">
-                        <h2>GIÀY MỚI VỀ</h2>
+                        <h2>SẢN PHẨM MỚI - TRẢI NGHIỆM MỚI</h2>
                         <p>
                             Tại <strong>SOCCER SHOES STORE</strong>, chúng tôi hiểu rằng mỗi bề mặt sân đều đòi hỏi một loại giày bóng đá phù hợp. 
                             Đó là lý do chúng tôi mang đến bộ sưu tập <strong>giày sân cỏ nhân tạo</strong>, được thiết kế đặc biệt để tối ưu hóa hiệu suất trên mặt sân cỏ nhân tạo.<br><br>
@@ -162,7 +166,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                     <!-- Danh sách sản phẩm ban đầu (khi không lọc) -->
                     <div class="product-list">
                         <?php
-                            $sql = "SELECT * FROM products WHERE product_type = 'new'"; // Lấy tất cả sản phẩm có product_type là new
+                            $sql = "SELECT * FROM products WHERE product_type = 'new'"; // Lấy tất cả sản phẩm mới 
                             $result = mysqli_query($conn, $sql);
                             if (mysqli_num_rows($result) > 0):
                                 while ($row = mysqli_fetch_assoc($result)): ?>

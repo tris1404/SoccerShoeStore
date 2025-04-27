@@ -126,6 +126,29 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
             brandForm.addEventListener('change', filterProducts);
             priceForm.addEventListener('change', filterProducts);
             sizeForm.addEventListener('change', filterProducts);
+
+            // Các brand bên trang index
+            const urlParams = new URLSearchParams(window.location.search);
+            const brandFromUrl = urlParams.get('brand') || '';
+            const priceFromUrl = urlParams.get('price') || '';
+            const sizeFromUrl = urlParams.get('size') || '';
+
+            if (brandFromUrl || priceFromUrl || sizeFromUrl) {
+                // Nếu có thì tự động gửi filter luôn
+                const params = new URLSearchParams({
+                    ajax: '1',
+                    brand: brandFromUrl,
+                    price: priceFromUrl,
+                    size: sizeFromUrl
+                });
+
+                fetch('Giay_Bong_Da.php?' + params.toString())
+                    .then(response => response.text())
+                    .then(html => {
+                        document.querySelector('.product-list').innerHTML = html;
+                    });
+            }
+
         });
     </script>
 

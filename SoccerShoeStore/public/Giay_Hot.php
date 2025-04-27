@@ -4,13 +4,18 @@ include '../config/database.php';
 
 // Kiểm tra nếu có request AJAX (ajax=1 trên URL)
 if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+
+        // Đảm bảo lọc sản phẩm hot
+        $product_type = 'hot';
+        $where = "product_type = '$product_type'";
+
         // Lấy dữ liệu lọc từ URL (nếu có)
         $brand = $_GET['brand'] ?? '';
         $price = $_GET['price'] ?? '';
         $size = $_GET['size'] ?? '';
 
         // Tạo câu truy vấn cơ bản
-        $sql = "SELECT * FROM products WHERE shoe_type = 'Fustal'";
+        $sql = "SELECT * FROM products WHERE $where";
 
         // Nếu người dùng chọn thương hiệu
         if (!empty($brand)) {
@@ -113,10 +118,9 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 });
 
                 // Gửi request đến chính file Giay_Bong_Da.php, lấy HTML sản phẩm về
-                fetch('Giay_Bong_Da.php?' + params.toString())
+                fetch(window.location.pathname + '?' + params.toString())
                     .then(response => response.text())
                     .then(html => {
-                        // Thay nội dung phần sản phẩm bằng HTML mới
                         document.querySelector('.product-list').innerHTML = html;
                     });
             }
@@ -159,7 +163,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                     <!-- Danh sách sản phẩm ban đầu (khi không lọc) -->
                     <div class="product-list">
                         <?php
-                            $sql = "SELECT * FROM products WHERE shoe_type = 'Fustal'"; // Lấy tất cả sản phẩm có shoe_type là fustal
+                            $sql = "SELECT * FROM products WHERE product_type = 'hot'"; // Lấy tất cả sản phẩm hot 
                             $result = mysqli_query($conn, $sql);
                             if (mysqli_num_rows($result) > 0):
                                 while ($row = mysqli_fetch_assoc($result)): ?>

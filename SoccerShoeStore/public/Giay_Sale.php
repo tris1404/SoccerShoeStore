@@ -6,13 +6,18 @@ include '../config/database.php';
 
 // Kiểm tra nếu có request AJAX (ajax=1 trên URL)
 if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+
+        // Đảm bảo lọc sản phẩm sale
+        $product_type = 'sale';
+        $where = "product_type = '$product_type'";
+
         // Lấy dữ liệu lọc từ URL (nếu có)
         $brand = $_GET['brand'] ?? '';
         $price = $_GET['price'] ?? '';
         $size = $_GET['size'] ?? '';
 
         // Tạo câu truy vấn cơ bản
-        $sql = "SELECT * FROM products WHERE product_type = 'sale'";
+        $sql = "SELECT * FROM products WHERE $where";
 
         // Nếu người dùng chọn thương hiệu
         if (!empty($brand)) {
@@ -115,10 +120,9 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 });
 
                 // Gửi request đến chính file Giay_Bong_Da.php, lấy HTML sản phẩm về
-                fetch('Giay_Bong_Da.php?' + params.toString())
+                fetch(window.location.pathname + '?' + params.toString())
                     .then(response => response.text())
                     .then(html => {
-                        // Thay nội dung phần sản phẩm bằng HTML mới
                         document.querySelector('.product-list').innerHTML = html;
                     });
             }
@@ -141,7 +145,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 <!-- Banner giới thiệu -->
                 <div class="content">
                     <div class="product-intro">
-                    <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Giày cỏ tự nhiên">
+                    <img src="https://file.hstatic.net/1000061481/collection/nms08446_43dde62629d544818aed429dc952a827.jpg" alt="Giày cỏ tự nhiên">
                     </div>
     
                     <!-- Giới thiệu mô tả -->
@@ -164,7 +168,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                     <!-- Danh sách sản phẩm ban đầu (khi không lọc) -->
                     <div class="product-list">
                         <?php
-                            $sql = "SELECT * FROM products WHERE product_type = 'sale'"; // Lấy sản phẩm có product_type là sale
+                            $sql = "SELECT * FROM products WHERE product_type = 'sale'"; // Lấy sản phẩm đang sale
                             $result = mysqli_query($conn, $sql);
                             if (mysqli_num_rows($result) > 0):
                                 while ($row = mysqli_fetch_assoc($result)): ?>

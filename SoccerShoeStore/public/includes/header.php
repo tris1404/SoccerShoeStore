@@ -1,4 +1,8 @@
-<!-- Header -->
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <header class="header">
     <div class="top-bar-container">
         <nav class="top-bar__left">
@@ -19,10 +23,6 @@
             <span class="pipe2">|</span>
 
             <?php
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
-
             if (isset($_SESSION['user_name'])) {
                 echo '<span class="top-bar__right__item">Hi, ' . htmlspecialchars($_SESSION['user_name']) . '</span><span class="pipe2">|</span>';
                 echo '<a href="logout.php" class="top-bar__right__item">Đăng xuất</a>';
@@ -36,7 +36,7 @@
 
     <div class="navigation-container">
         <div class="logo">
-            <a href="#" class="logo-link">
+            <a href="index.php" class="logo-link">
                 <img src="assets/img/logo.png" alt="Soccer Shoes Store">
             </a>
         </div>
@@ -56,8 +56,8 @@
                         <li><a href="Giay_Futsal.php" class="sub-navigation__link">Giày Futsal</a></li>
                         <li><a href="Giay_Tre_Em.php" class="sub-navigation__link">Giày trẻ em</a></li>
                         <li><a href="Hang_Moi_Ve.php" class="sub-navigation__link">Hàng mới về</a></li>
-                        <li><a href="Giay_Hot.php" class="sub-navigation__link">HOT</a></li>
                         <li><a href="Giay_Sale.php" class="sub-navigation__link">Sale</a></li>
+                        <li><a href="Giay_Hot.php" class="sub-navigation__link">HOT</a></li>
                     </ul>
                 </li>
 
@@ -98,10 +98,6 @@
             <?php
             // Lấy số lượng sản phẩm trong giỏ hàng
             $cartCount = 0;
-
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
 
             if (isset($_SESSION['user']['id'])) {
                 // Người dùng đã đăng nhập, lấy số lượng từ cơ sở dữ liệu

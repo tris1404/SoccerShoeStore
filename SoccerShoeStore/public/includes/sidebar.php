@@ -6,12 +6,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <h3>DANH MỤC SẢN PHẨM</h3>
     <ul>
         <li><a href="Giay_Bong_Da.php">TẤT CẢ SẢN PHẨM</a></li>
-        <li><a href="Hang_Moi_Ve.php">HÀNG MỚI VỀ</a></li>
         <li><a href="Giay_San_TN.php">GIÀY CỎ TỰ NHIÊN</a></li>
         <li><a href="Giay_San_NT.php">GIÀY CỎ NHÂN TẠO</a></li>
         <li><a href="Giay_Futsal.php">GIÀY FUTSAL</a></li>
         <li><a href="Giay_Tre_Em.php">GIÀY ĐÁ BÓNG TRẺ EM</a></li>
+        <li><a href="Hang_Moi_Ve.php">HÀNG MỚI VỀ</a></li>
         <li><a href="Giay_Sale.php">SALE</a></li>
+        <li><a href="Giay_Hot.php">HOT</a></li>
     </ul>
 
     <!-- Thương hiệu -->

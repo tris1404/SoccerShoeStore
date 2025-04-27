@@ -71,7 +71,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                             <h2>BỘ SƯU TẬP MỚI</h2>
                         </div>
                         <div class="mustbuy-img">
-                            <a href="">
+                            <a href="Giay_Bong_Da.php">
                                 <img src="assets/img/banner-title/nike.jpg" alt="Bộ sưu tập mới">
                             </a>
                             <?php
@@ -79,7 +79,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                             require_once("../config/database.php");
 
                             // Câu lệnh SQL để lấy dữ liệu
-                            $sql = "SELECT * FROM products WHERE status = 1 ORDER BY created_at DESC LIMIT 4";
+                            $sql = "SELECT * FROM products WHERE product_type = 'hot' ORDER BY created_at DESC LIMIT 4";
 
                             // Thực thi truy vấn
                             $result = mysqli_query($conn, $sql);
@@ -130,28 +130,28 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="Giay_San_NT.php">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/newcoll_1_img_large.jpg?v=2118"
                                             alt="Nike Air Max">
                                     </a>
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="Giay_Futsal.php">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/newcoll_2_img_large.jpg?v=2118"
                                             alt="Nike ZoomX">
                                     </a>
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="Giay_Sale.php">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/newcoll_4_img_large.jpg?v=2118"
                                             alt="Nike Air Force 1">
                                     </a>
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="">
+                                    <a href="index.php">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/newcoll_3_img_large.jpg?v=2118"
                                             alt="Nike Air Force 1">
                                     </a>
@@ -171,7 +171,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                             </a>
                             <div class="mustbuy-product">
                                 <div class="mustbuy-item">
-                                    <a href="#">
+                                <a href="Giay_Bong_Da.php?brand=NIKE" class="brand-link" data-brand="NIKE">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_1_large.jpg?v=2118"
                                             alt="Nike Air Max">
                                         <h3>NIKE</h3>
@@ -179,7 +179,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="#">
+                                    <a href="Giay_Bong_Da.php?brand=ADIDAS" class="brand-link" data-brand="ADIDAS">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_2_large.jpg?v=2118"
                                             alt="Nike ZoomX">
                                         <h3>ADIDAS</h3>
@@ -187,7 +187,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="#">
+                                    <a href="Giay_Bong_Da.php?brand=MIZUNO" class="brand-link" data-brand="MIZUNO">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_3_large.jpg?v=2118"
                                             alt="Nike Air Force 1">
                                         <h3>MIZUNO</h3>
@@ -195,15 +195,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="#">
-                                        <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_5_large.jpg?v=2118"
-                                            alt="Nike Air Force 1">
-                                        <h3>JOMA</h3>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="#">
+                                    <a href="Giay_Bong_Da.php?brand=PUMA" class="brand-link" data-brand="PUMA">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_4_large.jpg?v=2118"
                                             alt="Nike Air Force 1">
                                         <h3>PUMA</h3>
@@ -211,15 +203,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="#">
-                                        <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_6_large.jpg?v=2118"
-                                            alt="Nike Air Force 1">
-                                        <h3>DESPORTE</h3>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="#">
+                                    <a href="Giay_Bong_Da.php?brand=KAMITO" class="brand-link" data-brand="KAMITO">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_8_large.jpg?v=2118"
                                             alt="Nike Air Force 1">
                                         <h3>KAMITO</h3>
@@ -227,15 +211,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="#">
-                                        <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_7_large.jpg?v=2118"
-                                            alt="Nike Air Force 1">
-                                        <h3>ASICS</h3>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="#">
+                                    <a href="Giay_Bong_Da.php?brand=ZOCKER" class="brand-link" data-brand="ZOCKER">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/check_use_icon_9_large.jpg?v=2118"
                                             alt="Nike Air Force 1">
                                         <h3>ZOCKER</h3>
@@ -246,7 +222,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                     </div>
                 </div>
 
-                <div class="list-sole">
+                <!-- <div class="list-sole">
                     <div class="ega-container">
                         <div class="list-sole-title">
                             <h2>LỰA CHỌN PHÙ HỢP - THỐNG TRỊ MỌI MẶT CỎ</h2>
@@ -316,12 +292,12 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="hot">
                     <div class="ega-container">
                         <div class="hot-title">
-                            <h2>SẢN PHẨM HOT</h2>
+                            <h2>SẢN PHẨM MỚI</h2>
                         </div>
                         <div class="hot-img">
                             <a href="">
@@ -332,7 +308,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                             require_once("../config/database.php");
 
                             // Câu lệnh SQL để lấy dữ liệu
-                            $sql = "SELECT * FROM products WHERE product_type = 'hot' ORDER BY created_at DESC LIMIT 4";
+                            $sql = "SELECT * FROM products WHERE product_type = 'new' ORDER BY created_at DESC LIMIT 4";
                             // Thực thi truy vấn
                             $result = mysqli_query($conn, $sql);
 
@@ -428,7 +404,6 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
             <!-- End content -->
             <!-- Sidebar -->
             <!-- End sidebar -->
-
         </div>
         <!-- End wrapper-container -->
 

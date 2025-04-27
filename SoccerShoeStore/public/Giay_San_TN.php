@@ -2,23 +2,28 @@
 // Kết nối CSDL từ file cấu hình
 include '../config/database.php';
 
-// Kiểm tra nếu có request AJAX (ajax=1 trên URL)
-if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+        // Kiểm tra nếu có request AJAX (ajax=1 trên URL)
+        if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+
+        // Đảm bảo lọc sản phẩm theo Sân Tự Nhiên
+        $shoeType = 'Sân Tự Nhiên';
+        $where = "shoe_type = '$shoeType'";
+        
         // Lấy dữ liệu lọc từ URL (nếu có)
         $brand = $_GET['brand'] ?? '';
         $price = $_GET['price'] ?? '';
         $size = $_GET['size'] ?? '';
 
         // Tạo câu truy vấn cơ bản
-        $sql = "SELECT * FROM products WHERE WHERE shoe_type = 'Sân Tự Nhiên'";
+        $sql = "SELECT * FROM products WHERE $where";
 
         // Nếu người dùng chọn thương hiệu
         if (!empty($brand)) {
-            $brand = mysqli_real_escape_string($conn, $brand); // Tránh SQL injection
+            $brand = mysqli_real_escape_string($conn, $brand);
             $sql .= " AND brand = '$brand'";
         }
 
-        // Nếu có lọc theo khoảng giá (VD: 500000-1000000)
+        // Nếu lọc theo khoảng giá
         if (!empty($price)) {
             list($minPrice, $maxPrice) = explode('-', $price);
             $sql .= " AND (
@@ -32,6 +37,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
             $size = mysqli_real_escape_string($conn, $size);
             $sql .= " AND FIND_IN_SET('$size', size)"; // size lưu dạng chuỗi cách nhau bằng dấu phẩy
         }
+        
 
         // Chạy truy vấn
         $result = mysqli_query($conn, $sql);
@@ -113,12 +119,12 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 });
 
                 // Gửi request đến chính file Giay_Bong_Da.php, lấy HTML sản phẩm về
-                fetch('Giay_Bong_Da.php?' + params.toString())
+                fetch(window.location.pathname + '?' + params.toString())
                     .then(response => response.text())
                     .then(html => {
-                        // Thay nội dung phần sản phẩm bằng HTML mới
                         document.querySelector('.product-list').innerHTML = html;
                     });
+
             }
 
             // Khi có thay đổi ở form lọc => gọi hàm filterProducts
@@ -139,7 +145,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 <!-- Banner giới thiệu -->
                 <div class="content">
                     <div class="product-intro">
-                    <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Giày cỏ tự nhiên">
+                    <img src="https://pos.nvncdn.com/b0b717-26181/pc/20241111_xTNeUnPh.gif" alt="Giày cỏ tự nhiên">
                     </div>
     
                     <!-- Giới thiệu mô tả -->
