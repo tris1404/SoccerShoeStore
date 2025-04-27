@@ -233,7 +233,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 <!-- Banner giới thiệu -->
                 <div class="content">
                     <div class="product-intro">
-                        <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Giày cỏ tự nhiên">
+                        <img src="https://cdn.yousport.vn/Media/Blog/Top%205%20gi%C3%A0y%20Futsal%20b%C3%A1n%20ch%E1%BA%A1y%20nh%E1%BA%A5t%20%E1%BB%9F%20Yousportvn%20n%E1%BB%ADa%20%C4%91%E1%BA%A7u%20n%C4%83m%202020/top-5-giay-futsal-ban-chay-nhat-o-yousport-hades.jpg" alt="Giày cỏ tự nhiên">
                     </div>
     
                     <!-- Giới thiệu mô tả -->

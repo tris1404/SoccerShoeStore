@@ -233,7 +233,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
             <!-- Banner giới thiệu -->
             <div class="content">
                 <div class="product-intro">
-                    <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Giày cỏ nhân tạo">
+                    <img src="https://file.hstatic.net/1000061481/collection/nms07343_2f76841e3ddf4516b84bb7521a24e965.jpg" alt="Giày cỏ nhân tạo">
                 </div>
 
                 <!-- Giới thiệu mô tả -->

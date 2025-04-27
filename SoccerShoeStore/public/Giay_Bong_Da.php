@@ -2,6 +2,9 @@
 // Kết nối CSDL từ file cấu hình
 include '../config/database.php';
 
+// Bật output buffering để ngăn lỗi header
+ob_start();
+
 // Số sản phẩm mỗi trang
 $productsPerPage = 12;
 
@@ -20,6 +23,8 @@ $totalPages = ceil($totalProducts / $productsPerPage);
 
 // Kiểm tra nếu có request AJAX (ajax=1 trên URL)
 if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
+    header('Content-Type: application/json');
+
     // Lấy dữ liệu lọc từ URL (nếu có)
     $brand = $_GET['brand'] ?? '';
     $price = $_GET['price'] ?? '';
@@ -69,37 +74,16 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
         while ($row = mysqli_fetch_assoc($result)): ?>
             <div class="mustbuy-item">
                 <a href="product-detail.php?id=<?= $row['id'] ?>">
-                    <img src="<?= $row['image'] ?>" alt="<?= $row['name'] ?>">
-                    <h3><?= $row['name'] ?></h3>
+                    <img src="<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
+                    <h3><?= htmlspecialchars($row['name']) ?></h3>
                     <?php if ($row['discount'] > 0): ?>
                         <span class="label-sale">-<?= $row['discount'] ?>%</span>
                     <?php endif; ?>
-                    <?php if (!empty($row['tag'])): ?>
-                        <span class="sale-tag"><?= htmlspecialchars($row['tag']) ?></span>
-                    <?php endif; ?>
-                    <!-- Hiển thị product_type (Hot, New, Sale) -->
-                    <?php if (isset($row['product_type']) && $row['product_type'] !== 'Normal'): ?>
-                        <span class="product-type type-<?= strtolower($row['product_type']) ?>">
-                            <?= htmlspecialchars($row['product_type']) ?>
-                        </span>
-                    <?php endif; ?>
                     <div class="price-container">
-                        <?php if (
-                            isset($row['discount_price']) &&
-                            isset($row['price']) &&
-                            $row['discount'] > 0 &&
-                            $row['discount_price'] < $row['price']
-                        ): ?>
-                            <span class="price"><?= number_format($row['discount_price']) ?>đ</span>
+                        <span class="price"><?= number_format($row['discount_price'] ?? $row['price']) ?>đ</span>
+                        <?php if ($row['discount'] > 0): ?>
                             <span class="original-price"><?= number_format($row['price']) ?>đ</span>
-                        <?php elseif (isset($row['price'])): ?>
-                            <span class="price"><?= number_format($row['price']) ?>đ</span>
-                        <?php else: ?>
-                            <span class="price">Liên hệ</span>
                         <?php endif; ?>
-                        <button class="favorite-btn">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
                     </div>
                 </a>
             </div>
@@ -110,45 +94,36 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     $productsHtml = ob_get_clean();
 
     // Tạo HTML cho phân trang
+    // Tạo HTML cho phân trang
     ob_start();
-    if ($totalPagesFiltered > 1): ?>
-        <div class="pagination">
-            <!-- Nút Previous -->
-            <?php if ($page > 1): ?>
-                <a href="#" data-page="<?= $page - 1 ?>"><</a>
-            <?php else: ?>
-                <span class="disabled"><</span>
-            <?php endif; ?>
+    if ($totalProductsFiltered > $productsPerPage):
+        if ($totalPagesFiltered > 1): ?>
+            <div class="pagination">
+                <?php if ($page > 1): ?>
+                    <a href="?page=<?= $page - 1 ?>"><</a>
+                <?php else: ?>
+                    <span class="disabled"><</span>
+                <?php endif; ?>
 
-            <!-- Các nút số trang -->
-            <?php
+                <?php
                 $startPage = max(1, $page - 2);
-                $endPage = min($totalPagesFiltered, $page + 2);
-
-                if ($endPage - $startPage + 1 < 5) {
-                    if ($startPage == 1) {
-                        $endPage = min($totalPagesFiltered, $startPage + 4);
-                    } else {
-                        $startPage = max(1, $endPage - 4);
-                    }
-                }
+                $endPage = min($totalPagesFiltered, $page + 2); // Cũng sửa thành totalPagesFiltered
 
                 for ($i = $startPage; $i <= $endPage; $i++): ?>
-                    <a href="#" data-page="<?= $i ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
-            <?php endfor; ?>
+                    <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+                <?php endfor; ?>
 
-            <!-- Nút Next -->
-            <?php if ($page < $totalPagesFiltered): ?>
-                <a href="#" data-page="<?= $page + 1 ?>">></a>
-            <?php else: ?>
-                <span class="disabled">></span>
-            <?php endif; ?>
-        </div>
-    <?php endif;
+                <?php if ($page < $totalPagesFiltered): ?>
+                    <a href="?page=<?= $page + 1 ?>">></a>
+                <?php else: ?>
+                    <span class="disabled">></span>
+                <?php endif; ?>
+            </div>
+        <?php endif;
+    endif;
     $paginationHtml = ob_get_clean();
 
     // Trả về JSON chứa HTML của danh sách sản phẩm và phân trang
-    header('Content-Type: application/json');
     echo json_encode([
         'products' => $productsHtml,
         'pagination' => $paginationHtml
@@ -169,105 +144,140 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
     <link rel="icon" type="image/x-icon" href="assets/img/football-shoes.png">
 </head>
 <body>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const brandForm = document.getElementById('brandForm');
-            const priceForm = document.getElementById('priceForm');
-            const sizeForm = document.getElementById('sizeForm');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const brandForm = document.getElementById('brandForm');
+        const priceForm = document.getElementById('priceForm');
+        const sizeForm = document.getElementById('sizeForm');
 
-            function filterProducts(page = 1) {
-                const brand = brandForm.querySelector('input[name="brand"]:checked')?.value || '';
-                const price = priceForm.querySelector('input[name="price"]:checked')?.value || '';
-                const size = sizeForm.querySelector('input[name="size"]:checked')?.value || '';
+        // Hàm xử lý lọc sản phẩm
+        function filterProducts(page = 1) {
+            const brand = brandForm.querySelector('input[name="brand"]:checked')?.value || '';
+            const price = priceForm.querySelector('input[name="price"]:checked')?.value || '';
+            const size = sizeForm.querySelector('input[name="size"]:checked')?.value || '';
 
-                const params = new URLSearchParams({
-                    ajax: '1',
-                    brand: brand,
-                    price: price,
-                    size: size,
-                    page: page
+            const params = new URLSearchParams({
+                ajax: '1',
+                brand: brand,
+                price: price,
+                size: size,
+                page: page
+            });
+
+            fetch('Giay_Bong_Da.php?' + params.toString())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Cập nhật danh sách sản phẩm
+                    document.querySelector('.product-list').innerHTML = data.products;
+
+                    // Xử lý phân trang
+                    const paginationContainer = document.querySelector('.pagination');
+                    if (paginationContainer) {
+                        if (data.pagination.trim()) {
+                            paginationContainer.outerHTML = data.pagination; // Nếu có phân trang mới
+                        } else {
+                            paginationContainer.remove(); // Nếu không còn phân trang => xóa luôn
+                        }
+                    } else {
+                        if (data.pagination.trim()) {
+                            document.querySelector('.product-list').insertAdjacentHTML('afterend', data.pagination); // Nếu cần thì thêm mới
+                        }
+                    }
+
+                    // Gắn lại sự kiện click cho các liên kết phân trang
+                    attachPaginationEvents();
+
+                    // Cập nhật URL trên trình duyệt
+                    const newUrl = `${window.location.pathname}?page=${page}${brand ? '&brand=' + brand : ''}${price ? '&price=' + price : ''}${size ? '&size=' + size : ''}`;
+                    history.pushState({}, '', newUrl);
+                })
+
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
                 });
+        }
 
-                fetch('Giay_Bong_Da.php?' + params.toString())
-                    .then(response => response.json())
-                    .then(data => {
-                        document.querySelector('.product-list').innerHTML = data.products;
-                        document.querySelector('.pagination').outerHTML = data.pagination || '';
-                        const newUrl = `${window.location.pathname}?page=${page}${brand ? '&brand=' + brand : ''}${price ? '&price=' + price : ''}${size ? '&size=' + size : ''}`;
-                        history.pushState({}, '', newUrl);
-
-                        document.querySelectorAll('.pagination a').forEach(link => {
-                            link.addEventListener('click', function (e) {
-                                e.preventDefault();
-                                const page = this.getAttribute('data-page');
-                                filterProducts(page);
-                                document.querySelector('.product-list').scrollIntoView({ behavior: 'smooth' });
-                            });
-                        });
-                    });
-            }
-
-            brandForm.addEventListener('change', () => filterProducts(1));
-            priceForm.addEventListener('change', () => filterProducts(1));
-            sizeForm.addEventListener('change', () => filterProducts(1));
-
+        // Hàm gắn sự kiện click cho các liên kết phân trang
+        function attachPaginationEvents() {
             document.querySelectorAll('.pagination a').forEach(link => {
                 link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const page = this.getAttribute('data-page');
+                    e.preventDefault(); // Ngăn hành động mặc định của liên kết
+                    const page = this.textContent.trim();
                     filterProducts(page);
                     document.querySelector('.product-list').scrollIntoView({ behavior: 'smooth' });
                 });
             });
+        }
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const brandFromUrl = urlParams.get('brand') || '';
-            const priceFromUrl = urlParams.get('price') || '';
-            const sizeFromUrl = urlParams.get('size') || '';
-            const pageFromUrl = urlParams.get('page') || 1;
+        // Gắn sự kiện khi thay đổi bộ lọc
+        brandForm.addEventListener('change', () => filterProducts(1));
+        priceForm.addEventListener('change', () => filterProducts(1));
+        sizeForm.addEventListener('change', () => filterProducts(1));
 
-            if (brandFromUrl || priceFromUrl || sizeFromUrl || pageFromUrl != 1) {
-                const params = new URLSearchParams({
-                    ajax: '1',
-                    brand: brandFromUrl,
-                    price: priceFromUrl,
-                    size: sizeFromUrl,
-                    page: pageFromUrl
+        // Gắn sự kiện click cho các liên kết phân trang ban đầu
+        attachPaginationEvents();
+
+        // Kiểm tra URL hiện tại để áp dụng bộ lọc từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const brandFromUrl = urlParams.get('brand') || '';
+        const priceFromUrl = urlParams.get('price') || '';
+        const sizeFromUrl = urlParams.get('size') || '';
+        const pageFromUrl = urlParams.get('page') || 1;
+
+        if (brandFromUrl || priceFromUrl || sizeFromUrl || pageFromUrl != 1) {
+            const params = new URLSearchParams({
+                ajax: '1',
+                brand: brandFromUrl,
+                price: priceFromUrl,
+                size: sizeFromUrl,
+                page: pageFromUrl
+            });
+
+            fetch('Giay_Bong_Da.php?' + params.toString())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Cập nhật danh sách sản phẩm
+                    document.querySelector('.product-list').innerHTML = data.products;
+
+                    // Cập nhật phân trang
+                    if (data.pagination) {
+                        document.querySelector('.pagination').outerHTML = data.pagination;
+                    }
+
+                    // Gắn lại sự kiện click cho các liên kết phân trang
+                    attachPaginationEvents();
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
                 });
-
-                fetch('Giay_Bong_Da.php?' + params.toString())
-                    .then(response => response.json())
-                    .then(data => {
-                        document.querySelector('.product-list').innerHTML = data.products;
-                        document.querySelector('.pagination').outerHTML = data.pagination || '';
-                        document.querySelectorAll('.pagination a').forEach(link => {
-                            link.addEventListener('click', function (e) {
-                                e.preventDefault();
-                                const page = this.getAttribute('data-page');
-                                filterProducts(page);
-                                document.querySelector('.product-list').scrollIntoView({ behavior: 'smooth' });
-                            });
-                        });
-                    });
-            }
-        });
-    </script>
-
+        }
+    });
+</script>
     <div class="wrapper">
         <!-- HEADER -->
         <?php include 'includes/header.php'; ?>
-    
+
         <div id="main">
             <div class="maincontent">
-                <!-- Sidebar lọc sản phẩm -->
+                <!-- Sidebar -->
                 <?php include 'includes/sidebar.php'; ?>
-                <!-- Banner giới thiệu -->
+
+                <!-- Nội dung -->
                 <div class="content">
                     <div class="product-intro">
                         <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Giày cỏ tự nhiên">
                     </div>
-    
-                    <!-- Giới thiệu mô tả -->
+
                     <div class="product-description">
                         <h2>TẤT CẢ SẢN PHẨM</h2>
                         <p>
@@ -275,7 +285,6 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                             Với hơn 5 năm hình thành và phát triển, chúng tôi phục vụ hơn 20.000 khách hàng mỗi năm, trải dài khắp cả nước.
                             Chúng tôi là đại lý phân phối chính hãng các thương hiệu quốc tế <strong>NIKE, ADIDAS, PUMA, MIZUNO, DESPORTE, JOMA,...</strong> 
                             và các thương hiệu Việt Nam <strong>NMS, ZOCKER, KAMITO…</strong><br><br>
-    
                             <strong>Các sản phẩm chúng tôi phân phối bao gồm:</strong><br>
                             <strong>Giày cỏ tự nhiên:</strong> Là mẫu giày đinh FG, AG, MG dành cho mặt sân cỏ tự nhiên 11 người. 
                             <strong>Giày cỏ nhân tạo:</strong> Là mẫu giày đinh TF dành cho mặt sân cỏ nhân tạo 5-7 người, đây là loại giày phổ biến nhất tại Việt Nam. 
@@ -285,87 +294,54 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                             <strong>Giày bóng đá phiên bản giới hạn:</strong> Các mẫu giày bóng đá được sản xuất với số lượng giới hạn.<br><br>
                         </p>
                     </div>
-    
-                    <!-- Danh sách sản phẩm ban đầu (khi không lọc) -->
+
                     <div class="product-list">
                         <?php
-                            $sql = "SELECT * FROM products LIMIT $offset, $productsPerPage";
-                            $result = mysqli_query($conn, $sql);
-                            if (mysqli_num_rows($result) > 0):
-                                while ($row = mysqli_fetch_assoc($result)): ?>
-                                    <div class="mustbuy-item">
-                                        <a href="product-detail.php?id=<?= $row['id'] ?>">
-                                            <img src="<?= $row['image'] ?>" alt="<?= $row['name'] ?>">
-                                            <h3><?= $row['name'] ?></h3>
+                        $sql = "SELECT * FROM products LIMIT $offset, $productsPerPage";
+                        $result = mysqli_query($conn, $sql);
+                        if (mysqli_num_rows($result) > 0):
+                            while ($row = mysqli_fetch_assoc($result)): ?>
+                                <div class="mustbuy-item">
+                                    <a href="product-detail.php?id=<?= $row['id'] ?>">
+                                        <img src="<?= htmlspecialchars($row['image']) ?>" alt="<?= htmlspecialchars($row['name']) ?>">
+                                        <h3><?= htmlspecialchars($row['name']) ?></h3>
+                                        <?php if ($row['discount'] > 0): ?>
+                                            <span class="label-sale">-<?= $row['discount'] ?>%</span>
+                                        <?php endif; ?>
+                                        <div class="price-container">
+                                            <span class="price"><?= number_format($row['discount_price'] ?? $row['price']) ?>đ</span>
                                             <?php if ($row['discount'] > 0): ?>
-                                                <span class="label-sale">-<?= $row['discount'] ?>%</span>
+                                                <span class="original-price"><?= number_format($row['price']) ?>đ</span>
                                             <?php endif; ?>
-                                            <?php if (!empty($row['tag'])): ?>
-                                                <span class="sale-tag"><?= htmlspecialchars($row['tag']) ?></span>
-                                            <?php endif; ?>
-                                            <!-- Hiển thị product_type (Hot, New, Sale) -->
-                                            <?php if (isset($row['product_type']) && $row['product_type'] !== 'Normal'): ?>
-                                                <span class="product-type type-<?= strtolower($row['product_type']) ?>">
-                                                    <?= htmlspecialchars($row['product_type']) ?>
-                                                </span>
-                                            <?php endif; ?>
-                                            <div class="price-container">
-                                                <?php if (
-                                                    isset($row['discount_price']) &&
-                                                    isset($row['price']) &&
-                                                    $row['discount'] > 0 &&
-                                                    $row['discount_price'] < $row['price']
-                                                ): ?>
-                                                    <span class="price"><?= number_format($row['discount_price']) ?>đ</span>
-                                                    <span class="original-price"><?= number_format($row['price']) ?>đ</span>
-                                                <?php elseif (isset($row['price'])): ?>
-                                                    <span class="price"><?= number_format($row['price']) ?>đ</span>
-                                                <?php else: ?>
-                                                    <span class="price">Liên hệ</span>
-                                                <?php endif; ?>
-                                                <button class="favorite-btn">
-                                                    <i class="fa-regular fa-heart"></i>
-                                                </button>
-                                            </div>
-                                        </a>
-                                    </div>
-                                <?php endwhile;
-                            else:
-                                echo '<p>KHÔNG CÓ SẢN PHẨM NÀO.</p>';
-                            endif;
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endwhile;
+                        else:
+                            echo '<p>KHÔNG CÓ SẢN PHẨM NÀO.</p>';
+                        endif;
                         ?>
                     </div>
 
                     <!-- Phân trang -->
                     <?php if ($totalPages > 1): ?>
                         <div class="pagination">
-                            <!-- Nút Previous -->
                             <?php if ($page > 1): ?>
-                                <a href="#" data-page="<?= $page - 1 ?>"><</a>
+                                <a href="?page=<?= $page - 1 ?>"><</a>
                             <?php else: ?>
                                 <span class="disabled"><</span>
                             <?php endif; ?>
 
-                            <!-- Các nút số trang -->
                             <?php
-                                $startPage = max(1, $page - 2);
-                                $endPage = min($totalPages, $page + 2);
+                            $startPage = max(1, $page - 2);
+                            $endPage = min($totalPages, $page + 2);
 
-                                if ($endPage - $startPage + 1 < 5) {
-                                    if ($startPage == 1) {
-                                        $endPage = min($totalPages, $startPage + 4);
-                                    } else {
-                                        $startPage = max(1, $endPage - 4);
-                                    }
-                                }
-
-                                for ($i = $startPage; $i <= $endPage; $i++): ?>
-                                    <a href="#" data-page="<?= $i ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
+                            for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                <a href="?page=<?= $i ?>" class="<?= $i == $page ? 'active' : '' ?>"><?= $i ?></a>
                             <?php endfor; ?>
 
-                            <!-- Nút Next -->
                             <?php if ($page < $totalPages): ?>
-                                <a href="#" data-page="<?= $page + 1 ?>">></a>
+                                <a href="?page=<?= $page + 1 ?>">></a>
                             <?php else: ?>
                                 <span class="disabled">></span>
                             <?php endif; ?>
@@ -374,7 +350,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 </div>
             </div>
         </div>
-        
+
         <!-- FOOTER -->
         <?php include 'includes/footer.php'; ?>
     </div>

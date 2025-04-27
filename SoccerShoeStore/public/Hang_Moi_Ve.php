@@ -233,7 +233,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
             <!-- Banner giới thiệu -->
             <div class="content">
                 <div class="product-intro">
-                    <img src="../public/assets/img/banner/banner-chi-tiet-sp.webp" alt="Hàng mới về">
+                    <img src="https://pos.nvncdn.com/b0b717-26181/pc/20241111_xTNeUnPh.gif" alt="Hàng mới về">
                 </div>
 
                 <!-- Giới thiệu mô tả -->

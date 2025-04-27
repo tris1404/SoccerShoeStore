@@ -241,7 +241,7 @@ if (isset($_GET['ajax']) && $_GET['ajax'] == '1') {
                 <!-- Banner giới thiệu -->
                 <div class="content">
                     <div class="product-intro">
-                        <img src="https://pos.nvncdn.com/b0b717-26181/pc/20241111_xTNeUnPh.gif" alt="Giày cỏ tự nhiên">
+                        <img src="https://file.hstatic.net/1000061481/file/giay_da_bong_dep_nhat__5__2fbe5b60eb0a4adea3c1db1cad18aaae.jpg" alt="Giày cỏ tự nhiên">
                     </div>
     
                     <!-- Giới thiệu mô tả -->

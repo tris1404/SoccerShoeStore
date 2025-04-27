@@ -2,15 +2,14 @@
 // Include the database connection file
 require_once("../config/database.php");
 
-session_start();
+
 if (isset($_SESSION['success'])) {
     $message = $_SESSION['success'];
     echo "<script>alert('$message');</script>";
     unset($_SESSION['success']);
 }
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
+    echo "<script>alert('Đăng xuất thành công');</script>";
 }
 ?>
 <?php
@@ -18,9 +17,6 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
     echo "<script>alert('Đăng xuất thành công');</script>";
 }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -151,7 +147,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                 </div>
 
                                 <div class="mustbuy-item">
-                                    <a href="index.php">
+                                    <a href="Giay_Bong_Da.php">
                                         <img src="https://theme.hstatic.net/200000278317/1000929405/14/newcoll_3_img_large.jpg?v=2118"
                                             alt="Nike Air Force 1">
                                     </a>
@@ -221,78 +217,6 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="list-sole">
-                    <div class="ega-container">
-                        <div class="list-sole-title">
-                            <h2>LỰA CHỌN PHÙ HỢP - THỐNG TRỊ MỌI MẶT CỎ</h2>
-                        </div>
-                        <div class="list-sole-img">
-                            <a href="">
-                            </a>
-                            <div class="mustbuy-product">
-                                <div class="mustbuy-item">
-                                    <a href="">
-                                        <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_1fg_d_992232ca56.jpg"
-                                            alt="Nike Air Max">
-                                        <h3>FIRM GROUND (FG)</h3>
-                                        <p>Đế chuyên dụng cho sân cỏ tự nhiên khô ráo, có đinh dài giúp bám sân tốt</p>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="">
-                                        <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_6ag_d_e4cc4b01aa.jpg"
-                                            alt="Nike ZoomX">
-                                        <h3>Artificial Grass (AG)</h3>
-                                        <p>Đế dành cho sân cỏ nhân tạo, đinh ngắn và nhiều hơn để giảm áp lực lên chân.
-                                        </p>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="">
-                                        <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_3mg_d_995c1a9a37.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>Multi-Ground (MG)</h3>
-                                        <p>Đế đa dụng, kết hợp giữa FG và AG, phù hợp cho cả sân cỏ tự nhiên lẫn nhân
-                                            tạo</p>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="">
-                                        <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_5sg_d_e4249b8c10.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>Soft Ground (SG)</h3>
-                                        <p>Đế dành cho sân cỏ tự nhiên mềm, thường có đinh kim loại giúp bám sân trơn
-                                            trượt.</p>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="">
-                                        <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_4in_d_a2aec953c6.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>Indoor (IN)</h3>
-                                        <p>Đế bằng, chuyên dùng cho sân futsal trong nhà hoặc mặt sân cứng như bê tông.
-                                        </p>
-                                    </a>
-                                </div>
-
-                                <div class="mustbuy-item">
-                                    <a href="">
-                                        <img src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/global_main_pack_1_pure_victory_football_ss25_launch_plp_statement_card_2tf_d_e7c204e02b.jpg"
-                                            alt="Nike Air Force 1">
-                                        <h3>Turf (TF)</h3>
-                                        <p>Đế đinh dăm, thiết kế cho sân cỏ nhân tạo cứng hoặc sân đất, giúp di chuyển
-                                            linh hoạt.</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="hot">
                     <div class="ega-container">
