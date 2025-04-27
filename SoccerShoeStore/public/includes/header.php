@@ -100,22 +100,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 // Lấy số lượng sản phẩm trong giỏ hàng
                 $cartCount = 0;
 
-<<<<<<< HEAD
-            if (isset($_SESSION['user']['id'])) {
-                // Người dùng đã đăng nhập, lấy số lượng từ cơ sở dữ liệu
-                require_once '../config/database.php';
-                $userId = $_SESSION['user']['id'];
-                $query = "SELECT SUM(qty) AS total_items FROM cart_items WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?)";
-                $stmt = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($stmt, 'i', $userId);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-                if ($row = mysqli_fetch_assoc($result)) {
-                    $cartCount = (int)$row['total_items'];
-=======
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
->>>>>>> f5d3f202a851192ab05932d68e8cf9f7ac90d787
                 }
 
                 if (isset($_SESSION['user']['id'])) {
