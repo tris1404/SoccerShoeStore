@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 27, 2025 lúc 06:46 AM
+-- Thời gian đã tạo: Th4 27, 2025 lúc 10:07 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -350,13 +350,20 @@ INSERT INTO `products` (`id`, `name`, `size`, `price`, `brand`, `shoe_type`, `qu
 (4, 'Nike United Mercurial Superfly 10 Elite', '38,39,40,41,42', 8350000, 'Nike', 'Sân tự nhiên', 8, 'https://static.nike.com/a/images/t_default/d04f3004-bc36-4c38-b7ff-ed01479e39a9/ZM+SUPERFLY+10+ELITE+FG+NU1.png', 7, 1, '2025-04-15 10:34:42', 'sale', 'Nike United Mercurial Superfly 10 Elite thuộc dòng giày cao cấp của Nike, thiết kế dành cho các cầu thủ tấn công với phần upper siêu nhẹ và công nghệ Flyknit giúp tối ưu tốc độ và cảm giác bóng.', 7765500),
 (5, 'Nike Superfly 10 Academy Mercurial Dream Speed', '38,39,40,41,42', 3060000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/acf1c7f9-bebd-41fc-b81f-9af24b7e2ddb/ZM+SUPERFLY+10+ACAD+MDS+FG%2FMG.png', 4, 1, '2025-04-15 13:13:53', 'hot', 'Nike Superfly 10 Academy Mercurial Dream Speed là lựa chọn lý tưởng cho các cầu thủ trẻ yêu thích tốc độ, thiết kế theo cảm hứng từ những cầu thủ hàng đầu như Cristiano Ronaldo.', 2937600),
 (6, 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF - DO9347-400', '38,39,40,41,42', 3050000, 'Nike', 'Sân nhân tạo', 4, 'https://cdn.chiaki.vn/unsafe/0x480/left/top/smart/filters:quality(75)/https://chiaki.vn/upload/product/2024/03/giay-da-bong-nike-zoom-mercurial-superfly-9-academy-km-tf-do9347-400-65e6c7b166cef-05032024142017.png', 20, 1, '2025-04-15 13:17:15', 'hot', 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF là phiên bản sân cỏ nhân tạo với thiết kế lấy cảm hứng từ Kylian Mbappé, mang lại cảm giác thoải mái, linh hoạt và kiểm soát bóng tối ưu.', 2440000),
-(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Futsal', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, '2025-04-15 13:21:23', 'hot', 'Adidas Predator League Fold-over Tongue TF mang phong cách cổ điển với lưỡi gà gập, phù hợp cho sân cỏ nhân tạo. Giày hỗ trợ kiểm soát bóng chính xác và tăng độ bám sân trong từng pha xử lý.', 2590000),
+(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Sân nhân tạo', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, '2025-04-15 13:21:23', 'hot', 'Adidas Predator League Fold-over Tongue TF mang phong cách cổ điển với lưỡi gà gập, phù hợp cho sân cỏ nhân tạo. Giày hỗ trợ kiểm soát bóng chính xác và tăng độ bám sân trong từng pha xử lý.', 2590000),
 (8, 'PUMA ULTRA 5 PRO CAGE', '38,39,40,41,42', 2990000, 'Puma', 'Futsal', 9, 'https://product.hstatic.net/200000740801/product/untitled-1-01_4f268638fff14ab18cbfda5b37b0f026_master.jpg', 24, 1, '2025-04-15 13:25:34', 'hot', 'PUMA ULTRA 5 PRO CAGE là mẫu giày sân bóng mini (sân phủi) với thiết kế nhẹ, đế cao su chống trượt giúp di chuyển linh hoạt và chắc chắn trong các trận đấu tốc độ cao.', 2272400),
 (9, 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG', '38,39,40,41,42', 2899999, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107839/01/sv01/fnd/THA/fmt/png/PUMA-x-NEYMAR-JR-FUTURE-7-ULTIMATE-FG/AG-Football-Boots', 10, 1, '2025-04-15 13:30:30', 'new', 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG là phiên bản đặc biệt kết hợp giữa PUMA và Neymar Jr, tích hợp công nghệ tiên tiến hỗ trợ kiểm soát bóng và dứt điểm với độ chính xác cao.', 2609999),
 (10, 'Adidas Predator Freak+ FG Meteorite Pack', '38,39,40,41,42', 2400000, 'Adidas', 'Sân tự nhiên', 3, 'https://venifutebol.com.br/cdn/shop/products/Chuteira-Predator-Freak-FG-Meteorite-Pack-1.jpg?v=1670451646', 30, 1, '2025-04-15 13:33:39', 'new', 'Adidas Predator Freak+ FG Meteorite Pack là đôi giày sân cỏ tự nhiên không dây, nổi bật với công nghệ Demonskin giúp tăng khả năng xoáy bóng và kiểm soát bóng hoàn hảo trong mọi điều kiện thi đấu.', 1680000),
 (11, 'Adidas X Crazyfast.1 IC Messi Spark Gen10s ​​Pack Futsal Shoes', '38,39,40,41,42', 2299998, 'Adidas', 'Futsal', 19, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraFutsalAdidasXCrazyfast1.MessiSparkGen10sPack1.png?v=1712946425', 10, 1, '2025-04-15 13:39:01', 'new', 'Adidas X Crazyfast.1 IC Messi Spark Gen10s Pack là mẫu giày futsal trong nhà dành riêng cho fan của Lionel Messi, mang thiết kế năng động, đế chống trượt và trọng lượng siêu nhẹ để tăng tốc tối đa.', 2069998),
 (12, ' Puma Ultra 5 Carbon TF Ayrton Senna Pack Soccer Cleats', '38,39,40,41,42', 2500000, 'Puma', 'Sân nhân tạo', 8, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraCampoeSocietyPumaUltra5CarbonMGVolumeUpPack1.png?v=1733938699', 25, 1, '2025-04-15 13:42:23', 'new', 'Puma Ultra 5 Carbon TF Ayrton Senna Pack là phiên bản giới hạn lấy cảm hứng từ tay đua huyền thoại Ayrton Senna, với đế TF chuyên dụng cho sân cỏ nhân tạo, nhẹ, bám sân tốt và thiết kế độc đáo, đậm chất tốc độ.', 1875000),
-(14, 'Nike Jr. Mercurial Vapor 16 Academy \'Kylian Mbappé\'', '37,38,39,40,41,42', 2039000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7c520669-a3c0-4fc0-8724-4d92b0339b47/JR+ZOOM+VAPOR+16+ACAD+KM+FG%2FMG.png', 5, 1, '2025-04-27 10:20:37', 'new', '', 1937050);
+(13, 'Nike Jr. Mercurial Vapor 16 Academy \'Kylian Mbappé\'', '37,38,39,40,41,42', 2039000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7c520669-a3c0-4fc0-8724-4d92b0339b47/JR+ZOOM+VAPOR+16+ACAD+KM+FG%2FMG.png', 5, 1, '2025-04-27 10:20:37', 'new', '', 1937050),
+(14, 'GIÀY PUMA FUTURE 7 MATCH VOL. UP TT', '37,38,39,40,41,42', 2260000, 'Puma', 'Sân nhân tạo', 12, 'https://product.hstatic.net/200000740801/product/lux_galaxy01010_3591939a0ee74575b57d58bcfc9e2cf2_master.jpg', 10, 1, '2025-04-27 13:13:09', 'normal', '', 2034000),
+(15, 'ULTRA 5 ULTIMATE FG ', '38,39,40,41,42', 7250000, 'Puma', 'Sân nhân tạo', 15, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/107683/02/sv01/fnd/IND/fmt/png/ULTRA-5-ULTIMATE-FG-Unisex-Football-Boots', 20, 1, '2025-04-27 13:24:54', 'sale', '', 5800000),
+(16, 'FUTURE 8 PLAY IT YELLOW', '38,39,40,41,42', 1770000, 'Puma', 'Futsal', 5, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/108379/03/sv01/fnd/GBR/fmt/png/FUTURE-8-PLAY-IT-Football-Boots', 5, 1, '2025-04-27 13:49:43', 'normal', '', 1681500),
+(17, 'ULTRA 5 PLAY TT ', '39,40,41,42,43', 1200000, 'Puma', 'Futsal', 8, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/107910/03/sv01/fnd/EEA/fmt/png/ULTRA-5-PLAY-TT-Football-Boots-Youth', 13, 1, '2025-04-27 13:56:15', 'sale', '', 1044000),
+(18, 'Adidas Turf X Crazyfast.3', '38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 16, 'https://www.futbolemotion.com/imagesarticulos/198211/grandes/bota-adidas-x-crazyfast.3-turf-blanco-2.webp', 20, 1, '2025-04-27 14:01:04', 'sale', '', 1920000),
+(19, 'Adidas Turf X Crazyfast League', '37,38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 9, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/6034723899f142359d53592ca2e840fb_9366/Giay_DJa_Bong_Turf_X_Crazyfast_League_Mau_vang_IF0698_06_standard.jpg', 30, 1, '2025-04-27 14:04:41', 'sale', '', 1680000),
+(20, 'ADIDAS TOP SALA COMPETITION II - IH7684 - TRẮNG/ĐỎ', '38,39,40,41,42', 2150000, 'Adidas', 'Sân tự nhiên', 16, 'https://www.sportvision.ba/files/images/slike_proizvoda/media/IH7/IH7684/images/IH7684.jpg', 0, 1, '2025-04-27 15:03:02', 'normal', '', 2150000);
 
 -- --------------------------------------------------------
 
@@ -390,13 +397,20 @@ INSERT INTO `products_admin` (`id`, `name`, `size`, `price`, `category`, `shoe_t
 (4, 'Nike United Mercurial Superfly 10 Elite', '38,39,40,41,42', 8350000, 'Nike', 'Sân tự nhiên', 8, 'https://static.nike.com/a/images/t_default/d04f3004-bc36-4c38-b7ff-ed01479e39a9/ZM+SUPERFLY+10+ELITE+FG+NU1.png', 7, 1, 'sale', 7765500.00),
 (5, 'Nike Superfly 10 Academy Mercurial Dream Speed', '38,39,40,41,42', 3060000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/t_default/acf1c7f9-bebd-41fc-b81f-9af24b7e2ddb/ZM+SUPERFLY+10+ACAD+MDS+FG%2FMG.png', 4, 1, 'hot', 2937600.00),
 (6, 'NIKE ZOOM MERCURIAL SUPERFLY 9 KM ACADEMY TF - DO9347-400', '38,39,40,41,42', 3050000, 'Nike', 'Sân nhân tạo', 4, 'https://cdn.chiaki.vn/unsafe/0x480/left/top/smart/filters:quality(75)/https://chiaki.vn/upload/product/2024/03/giay-da-bong-nike-zoom-mercurial-superfly-9-academy-km-tf-do9347-400-65e6c7b166cef-05032024142017.png', 20, 1, 'hot', 2440000.00),
-(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Futsal', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, 'hot', 2590000.00),
+(7, 'Adidas Predator League Fold-over Tongue TF Pure Victory - Rød/Hvid/Sort', '38,39,40,41,42', 3500000, 'Adidas', 'Sân nhân tạo', 17, 'https://thumblr.uniid.it/product/377479/d120eedae5dd.jpg?width=3840&format=webp&q=75', 26, 1, 'hot', 2590000.00),
 (8, 'PUMA ULTRA 5 PRO CAGE', '38,39,40,41,42', 2990000, 'Puma', 'Futsal', 9, 'https://product.hstatic.net/200000740801/product/untitled-1-01_4f268638fff14ab18cbfda5b37b0f026_master.jpg', 24, 1, 'hot', 2272400.00),
 (9, 'PUMA x NEYMAR JR FUTURE 7 ULTIMATE FG/AG', '38,39,40,41,42', 2899999, 'Puma', 'Sân tự nhiên', 6, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_1000,h_1000/global/107839/01/sv01/fnd/THA/fmt/png/PUMA-x-NEYMAR-JR-FUTURE-7-ULTIMATE-FG/AG-Football-Boots', 10, 1, 'new', 2609999.10),
 (10, 'Adidas Predator Freak+ FG Meteorite Pack', '38,39,40,41,42', 2400000, 'Adidas', 'Sân tự nhiên', 3, 'https://venifutebol.com.br/cdn/shop/products/Chuteira-Predator-Freak-FG-Meteorite-Pack-1.jpg?v=1670451646', 30, 1, 'new', 1680000.00),
 (11, 'Adidas X Crazyfast.1 IC Messi Spark Gen10s ​​Pack Futsal Shoes', '38,39,40,41,42', 2299998, 'Adidas', 'Futsal', 19, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraFutsalAdidasXCrazyfast1.MessiSparkGen10sPack1.png?v=1712946425', 10, 1, 'new', 2069998.20),
 (12, ' Puma Ultra 5 Carbon TF Ayrton Senna Pack Soccer Cleats', '38,39,40,41,42', 2500000, 'Puma', 'Sân nhân tạo', 8, 'https://venifutebol.com.br/cdn/shop/files/ChuteiraCampoeSocietyPumaUltra5CarbonMGVolumeUpPack1.png?v=1733938699', 25, 1, 'new', 1875000.00),
-(14, 'Nike Jr. Mercurial Vapor 16 Academy \'Kylian Mbappé\'', '37,38,39,40,41,42', 2039000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7c520669-a3c0-4fc0-8724-4d92b0339b47/JR+ZOOM+VAPOR+16+ACAD+KM+FG%2FMG.png', 5, 1, 'new', 1937050.00);
+(13, 'Nike Jr. Mercurial Vapor 16 Academy \'Kylian Mbappé\'', '37,38,39,40,41,42', 2039000, 'Nike', 'Sân tự nhiên', 15, 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/7c520669-a3c0-4fc0-8724-4d92b0339b47/JR+ZOOM+VAPOR+16+ACAD+KM+FG%2FMG.png', 5, 1, 'new', 1937050.00),
+(14, 'GIÀY PUMA FUTURE 7 MATCH VOL. UP TT', '37,38,39,40,41,42', 2260000, 'Puma', 'Sân nhân tạo', 12, 'https://product.hstatic.net/200000740801/product/lux_galaxy01010_3591939a0ee74575b57d58bcfc9e2cf2_master.jpg', 10, 1, 'normal', 2034000.00),
+(15, 'ULTRA 5 ULTIMATE FG ', '38,39,40,41,42', 7250000, 'Puma', 'Sân nhân tạo', 15, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/107683/02/sv01/fnd/IND/fmt/png/ULTRA-5-ULTIMATE-FG-Unisex-Football-Boots', 20, 1, 'sale', 5800000.00),
+(16, 'FUTURE 8 PLAY IT YELLOW', '38,39,40,41,42', 1770000, 'Puma', 'Futsal', 5, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/108379/03/sv01/fnd/GBR/fmt/png/FUTURE-8-PLAY-IT-Football-Boots', 5, 1, 'normal', 1681500.00),
+(17, 'ULTRA 5 PLAY TT ', '39,40,41,42,43', 1200000, 'Puma', 'Futsal', 8, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/107910/03/sv01/fnd/EEA/fmt/png/ULTRA-5-PLAY-TT-Football-Boots-Youth', 13, 1, 'sale', 1044000.00),
+(18, 'Adidas Turf X Crazyfast.3', '38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 16, 'https://www.futbolemotion.com/imagesarticulos/198211/grandes/bota-adidas-x-crazyfast.3-turf-blanco-2.webp', 20, 1, 'sale', 1920000.00),
+(19, 'Adidas Turf X Crazyfast League', '37,38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 9, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/6034723899f142359d53592ca2e840fb_9366/Giay_DJa_Bong_Turf_X_Crazyfast_League_Mau_vang_IF0698_06_standard.jpg', 30, 1, 'sale', 1680000.00),
+(20, 'ADIDAS TOP SALA COMPETITION II - IH7684 - TRẮNG/ĐỎ', '38,39,40,41,42', 2150000, 'Adidas', 'Sân tự nhiên', 16, 'https://www.sportvision.ba/files/images/slike_proizvoda/media/IH7/IH7684/images/IH7684.jpg', 0, 1, 'normal', 2150000.00);
 
 -- --------------------------------------------------------
 
@@ -605,7 +619,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT cho bảng `order_items`
@@ -623,13 +637,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `products_admin`
 --
 ALTER TABLE `products_admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `reviews`
