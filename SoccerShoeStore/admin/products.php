@@ -13,7 +13,12 @@ if (
     header("Location: ../public/login.php");
     exit();
 }
+
+
 ?>
+
+
+<!-- Nội dung của products.php -->
 
 <!DOCTYPE html>
 <html lang="vi">
