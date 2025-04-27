@@ -208,13 +208,12 @@ if (isset($_POST['selected_products'])) {
     } elseif (is_string($_POST['selected_products'])) {
         $selectedProducts = json_decode($_POST['selected_products'], true);
     }
+} elseif (isset($_SESSION['selected_products'])) {
+    $selectedProducts = $_SESSION['selected_products'];
+    unset($_SESSION['selected_products']); // Xóa sau khi sử dụng
 }
-$cartItems = [];
 
-if (empty($selectedProducts)) {
-    echo 'Không có sản phẩm nào được chọn để thanh toán. Vui lòng quay lại giỏ hàng.';
-    exit();
-}
+$cartItems = [];
 
 if ($userId) {
     foreach ($selectedProducts as $key) {
@@ -264,7 +263,12 @@ if ($userId) {
     }
 }
 
+if (empty($selectedProducts)) {
+    echo 'Không có sản phẩm nào được chọn để thanh toán. Vui lòng quay lại giỏ hàng.';
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,9 +282,7 @@ if ($userId) {
 </head>
 <body>
     <div id="wrapper">
-        <!-- Wrapper-container -->
         <div class="checkout-container">
-            <!-- Phần trái: Thông tin giao hàng -->
             <div class="shipping-info">
                 <h2>Thông tin giao hàng</h2>
                 <form id="shippingForm" method="POST" action="checkout.php">
@@ -289,13 +291,10 @@ if ($userId) {
                     <?php endforeach; ?>
                     <label for="fullName">Họ và tên:</label>
                     <input type="text" id="fullName" name="fullName" required>
-
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
-
                     <label for="phone">Số điện thoại:</label>
                     <input type="tel" id="phone" name="phone" required>
-
                     <label>Chọn phương thức giao hàng:</label>
                     <div class="delivery-method">
                         <div class="radio-option">
@@ -325,7 +324,6 @@ if ($userId) {
                             </select>
                         </div>
                     </div>
-
                     <label>Chọn phương thanh toán:</label>
                     <div class="payment-method">
                         <div class="radio-option">
@@ -349,20 +347,16 @@ if ($userId) {
                             <label for="creditCard">Thẻ tín dụng/ghi nợ</label>
                         </div>
                     </div>
-
                     <div class="order-note">
                         <p>Ghi chú đơn hàng:</p>
                         <textarea rows="4" name="orderNote" placeholder="Nhập ghi chú cho đơn hàng của bạn"></textarea>
                     </div>
-
                     <div class="button">
                         <button type="button" onclick="checkout()" class="cart-button">Giỏ hàng</button>
                         <button type="submit" id="continuePaymentButton" class="continue-button">Hoàn tất thanh toán</button>
                     </div>
                 </form>
             </div>
-
-            <!-- Phần phải: Thông tin sản phẩm và tổng tiền -->
             <div class="order-summary">
                 <div class="product-header">
                     <h1>Giày đá bóng chính hãng</h1>
