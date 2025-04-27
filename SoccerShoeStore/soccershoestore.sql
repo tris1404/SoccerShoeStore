@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 27, 2025 lúc 10:07 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 27, 2025 at 11:57 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `soccershoestore`
+-- Database: `soccershoestore`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admins`
+-- Table structure for table `admins`
 --
 
 CREATE TABLE `admins` (
@@ -43,7 +43,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `admins`
+-- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `phone`, `address`, `status`, `role`, `created_at`, `updated_at`) VALUES
@@ -53,7 +53,7 @@ INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `r
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `brands`
+-- Table structure for table `brands`
 --
 
 CREATE TABLE `brands` (
@@ -66,7 +66,7 @@ CREATE TABLE `brands` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `brands`
+-- Dumping data for table `brands`
 --
 
 INSERT INTO `brands` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
@@ -77,7 +77,7 @@ INSERT INTO `brands` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cart`
+-- Table structure for table `cart`
 --
 
 CREATE TABLE `cart` (
@@ -88,7 +88,7 @@ CREATE TABLE `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `cart`
+-- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
@@ -98,7 +98,7 @@ INSERT INTO `cart` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cart_items`
+-- Table structure for table `cart_items`
 --
 
 CREATE TABLE `cart_items` (
@@ -116,7 +116,7 @@ CREATE TABLE `cart_items` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -130,7 +130,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `created_at`, `updated_at`, `parent_id`) VALUES
@@ -205,7 +205,7 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `status`, `created_at`, `updated
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -221,7 +221,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -231,7 +231,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -250,7 +250,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -273,7 +273,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_items`
+-- Table structure for table `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -289,7 +289,7 @@ CREATE TABLE `order_items` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -301,7 +301,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `personal_access_tokens`
+-- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -319,7 +319,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -340,7 +340,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `size`, `price`, `brand`, `shoe_type`, `quantity`, `image`, `discount`, `status`, `created_at`, `product_type`, `description`, `discount_price`) VALUES
@@ -363,12 +363,21 @@ INSERT INTO `products` (`id`, `name`, `size`, `price`, `brand`, `shoe_type`, `qu
 (17, 'ULTRA 5 PLAY TT ', '39,40,41,42,43', 1200000, 'Puma', 'Futsal', 8, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/107910/03/sv01/fnd/EEA/fmt/png/ULTRA-5-PLAY-TT-Football-Boots-Youth', 13, 1, '2025-04-27 13:56:15', 'sale', '', 1044000),
 (18, 'Adidas Turf X Crazyfast.3', '38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 16, 'https://www.futbolemotion.com/imagesarticulos/198211/grandes/bota-adidas-x-crazyfast.3-turf-blanco-2.webp', 20, 1, '2025-04-27 14:01:04', 'sale', '', 1920000),
 (19, 'Adidas Turf X Crazyfast League', '37,38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 9, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/6034723899f142359d53592ca2e840fb_9366/Giay_DJa_Bong_Turf_X_Crazyfast_League_Mau_vang_IF0698_06_standard.jpg', 30, 1, '2025-04-27 14:04:41', 'sale', '', 1680000),
-(20, 'ADIDAS TOP SALA COMPETITION II - IH7684 - TRẮNG/ĐỎ', '38,39,40,41,42', 2150000, 'Adidas', 'Sân tự nhiên', 16, 'https://www.sportvision.ba/files/images/slike_proizvoda/media/IH7/IH7684/images/IH7684.jpg', 0, 1, '2025-04-27 15:03:02', 'normal', '', 2150000);
+(20, 'ADIDAS TOP SALA COMPETITION II - IH7684 - TRẮNG/ĐỎ', '38,39,40,41,42', 2150000, 'Adidas', 'Sân tự nhiên', 16, 'https://www.sportvision.ba/files/images/slike_proizvoda/media/IH7/IH7684/images/IH7684.jpg', 0, 1, '2025-04-27 15:03:02', 'normal', '', 2150000),
+(21, 'Firm Ground Predator League', '37,38,39,40,41,42', 1190000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/c887dc4191774575832d37a3f8d0b116_9366/Giay_DJa_Bong_Firm_Ground_Predator_League_DJen_IG7748_06_standard.jpg', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Adidas Firm Ground Predator League, thiết kế chuyên dụng cho sân cỏ tự nhiên, hỗ trợ kiểm soát bóng và tăng tốc hiệu quả.', 1190000),
+(22, 'Turf Copa Pure 3 Club', '37,38,39,40,41,42', 1190000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b6586b9e979b4d97979f0e82b585e595_9366/Giay_DJa_Bong_Turf_Copa_Pure_3_Club_Tre_Em_trang_IE1185_06_standard.jpg', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Adidas Turf Copa Pure 3 Club dành cho sân cỏ nhân tạo, thiết kế nhẹ nhàng, phù hợp cho trẻ em.', 1190000),
+(23, 'F50 League TF J Messi', '37,38,39,40,41,42', 1190000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/34857d71b8f243b4aab1b2b6f55b0bb9_9366/F50_LEAGUE_TF_J_MESSI_Bac_IH0925_06_standard.jpg', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Adidas F50 League TF J Messi, phiên bản sân cỏ nhân tạo lấy cảm hứng từ Lionel Messi, hỗ trợ tốc độ và kiểm soát bóng.', 1190000),
+(24, 'Turf Predator League', '37,38,39,40,41,42', 1700000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/a66b83384d84411d862f0250e41f0e9a_9366/Giay_DJa_Bong_Turf_Predator_League_Tre_Em_trang_ID3801_06_standard.jpg', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Adidas Turf Predator League dành cho sân cỏ nhân tạo, thiết kế tối ưu cho trẻ em, hỗ trợ bám sân tốt.', 1700000),
+(25, 'Turf Copa Pure 3', '37,38,39,40,41,42', 1700000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/6512c55c9c664c84830dea2aa9c46d18_9366/Giay_DJa_Bong_Turf_Copa_Pure_3_League_Tre_Em_Mau_xanh_da_troi_IE1188_06_standard.jpg', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Adidas Turf Copa Pure 3, phiên bản sân cỏ nhân tạo với màu xanh da trời nổi bật, phù hợp cho trẻ em.', 1700000),
+(26, 'Nike Jr Legend 10 Academy', '37,38,39,40,41,42', 1745000, 'Nike', 'Trẻ Em', 10, 'https://supersports.com.vn/cdn/shop/files/DV4351-400-3.jpg?v=1728985616&width=1000', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Nike Jr Legend 10 Academy, thiết kế cho sân cỏ tự nhiên, phù hợp cho trẻ em với độ bền và độ bám sân cao.', 1745000),
+(27, 'Nike Tiempo Legend 10 Academy', '37,38,39,40,41,42', 1745000, 'Nike', 'Trẻ Em', 10, 'https://supersports.com.vn/cdn/shop/files/DV4351-800-2.jpg?v=1742529136&width=1000', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Nike Tiempo Legend 10 Academy, phiên bản sân cỏ tự nhiên, mang lại cảm giác bóng tốt và độ bền cao.', 1745000),
+(28, 'Nike Tiempo Legend 10 Academy TF DV4342-700', '37,38,39,40,41,42', 1890000, 'Nike', 'Trẻ Em', 10, 'https://product.hstatic.net/200000601263/product/d43dfb52632e4375a09347345b2e41b1_a8c98ccde93741d59cf77d1dd53d85f8_1024x1024.jpg', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Nike Tiempo Legend 10 Academy TF DV4342-700, phiên bản sân cỏ nhân tạo với đế TF chống trượt hiệu quả.', 1890000),
+(29, 'Unisex N.I.K.E Jr Zoom Superfly 9 Acad Fg/Mg', '37,38,39,40,41,42', 2199000, 'Nike', 'Trẻ Em', 10, 'https://down-vn.img.susercontent.com/file/vn-11134201-7ra0g-m7btf8h90anw75@resize_w900_nl.webp', 0, 1, '2025-04-27 16:38:22', 'normal', 'Giày đá bóng Unisex Nike Jr Zoom Superfly 9 Acad FG/MG, thiết kế linh hoạt cho cả sân cỏ tự nhiên và nhân tạo, phù hợp cho trẻ em.', 2199000);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products_admin`
+-- Table structure for table `products_admin`
 --
 
 CREATE TABLE `products_admin` (
@@ -387,7 +396,7 @@ CREATE TABLE `products_admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products_admin`
+-- Dumping data for table `products_admin`
 --
 
 INSERT INTO `products_admin` (`id`, `name`, `size`, `price`, `category`, `shoe_type`, `quantity`, `image`, `discount`, `status`, `product_type`, `discount_price`) VALUES
@@ -410,12 +419,21 @@ INSERT INTO `products_admin` (`id`, `name`, `size`, `price`, `category`, `shoe_t
 (17, 'ULTRA 5 PLAY TT ', '39,40,41,42,43', 1200000, 'Puma', 'Futsal', 8, 'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/107910/03/sv01/fnd/EEA/fmt/png/ULTRA-5-PLAY-TT-Football-Boots-Youth', 13, 1, 'sale', 1044000.00),
 (18, 'Adidas Turf X Crazyfast.3', '38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 16, 'https://www.futbolemotion.com/imagesarticulos/198211/grandes/bota-adidas-x-crazyfast.3-turf-blanco-2.webp', 20, 1, 'sale', 1920000.00),
 (19, 'Adidas Turf X Crazyfast League', '37,38,39,40,41,42', 2400000, 'Adidas', 'Sân nhân tạo', 9, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/6034723899f142359d53592ca2e840fb_9366/Giay_DJa_Bong_Turf_X_Crazyfast_League_Mau_vang_IF0698_06_standard.jpg', 30, 1, 'sale', 1680000.00),
-(20, 'ADIDAS TOP SALA COMPETITION II - IH7684 - TRẮNG/ĐỎ', '38,39,40,41,42', 2150000, 'Adidas', 'Sân tự nhiên', 16, 'https://www.sportvision.ba/files/images/slike_proizvoda/media/IH7/IH7684/images/IH7684.jpg', 0, 1, 'normal', 2150000.00);
+(20, 'ADIDAS TOP SALA COMPETITION II - IH7684 - TRẮNG/ĐỎ', '38,39,40,41,42', 2150000, 'Adidas', 'Sân tự nhiên', 16, 'https://www.sportvision.ba/files/images/slike_proizvoda/media/IH7/IH7684/images/IH7684.jpg', 0, 1, 'normal', 2150000.00),
+(21, 'Firm Ground Predator League', '37,38,39,40,41,42', 1190000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/c887dc4191774575832d37a3f8d0b116_9366/Giay_DJa_Bong_Firm_Ground_Predator_League_DJen_IG7748_06_standard.jpg', 0, 1, 'normal', 1190000.00),
+(22, 'Turf Copa Pure 3 Club', '37,38,39,40,41,42', 1190000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/b6586b9e979b4d97979f0e82b585e595_9366/Giay_DJa_Bong_Turf_Copa_Pure_3_Club_Tre_Em_trang_IE1185_06_standard.jpg', 0, 1, 'normal', 1190000.00),
+(23, 'F50 League TF J Messi', '37,38,39,40,41,42', 1190000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/34857d71b8f243b4aab1b2b6f55b0bb9_9366/F50_LEAGUE_TF_J_MESSI_Bac_IH0925_06_standard.jpg', 0, 1, 'normal', 1190000.00),
+(24, 'Turf Predator League', '37,38,39,40,41,42', 1700000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/a66b83384d84411d862f0250e41f0e9a_9366/Giay_DJa_Bong_Turf_Predator_League_Tre_Em_trang_ID3801_06_standard.jpg', 0, 1, 'normal', 1700000.00),
+(25, 'Turf Copa Pure 3', '37,38,39,40,41,42', 1700000, 'Adidas', 'Trẻ Em', 10, 'https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/6512c55c9c664c84830dea2aa9c46d18_9366/Giay_DJa_Bong_Turf_Copa_Pure_3_League_Tre_Em_Mau_xanh_da_troi_IE1188_06_standard.jpg', 0, 1, 'normal', 1700000.00),
+(26, 'Nike Jr Legend 10 Academy', '37,38,39,40,41,42', 1745000, 'Nike', 'Trẻ Em', 10, 'https://supersports.com.vn/cdn/shop/files/DV4351-400-3.jpg?v=1728985616&width=1000', 0, 1, 'normal', 1745000.00),
+(27, 'Nike Tiempo Legend 10 Academy', '37,38,39,40,41,42', 1745000, 'Nike', 'Trẻ Em', 10, 'https://supersports.com.vn/cdn/shop/files/DV4351-800-2.jpg?v=1742529136&width=1000', 0, 1, 'normal', 1745000.00),
+(28, 'Nike Tiempo Legend 10 Academy TF DV4342-700', '37,38,39,40,41,42', 1890000, 'Nike', 'Trẻ Em', 10, 'https://product.hstatic.net/200000601263/product/d43dfb52632e4375a09347345b2e41b1_a8c98ccde93741d59cf77d1dd53d85f8_1024x1024.jpg', 0, 1, 'normal', 1890000.00),
+(29, 'Unisex N.I.K.E Jr Zoom Superfly 9 Acad Fg/Mg', '37,38,39,40,41,42', 2199000, 'Nike', 'Trẻ Em', 10, 'https://down-vn.img.susercontent.com/file/vn-11134201-7ra0g-m7btf8h90anw75@resize_w900_nl.webp', 0, 1, 'normal', 2199000.00);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `reviews`
+-- Table structure for table `reviews`
 --
 
 CREATE TABLE `reviews` (
@@ -431,7 +449,7 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -450,7 +468,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `phone`, `address`, `status`, `created_at`, `updated_at`, `role`) VALUES
@@ -459,32 +477,32 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (21, 'Nguyễn Tài Trí', 'tri@gmail.com', NULL, 'Tri@12345', NULL, '', '', 'Active', NULL, NULL, 'User');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `admins`
+-- Indexes for table `admins`
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `admins_email_unique` (`email`);
 
 --
--- Chỉ mục cho bảng `brands`
+-- Indexes for table `brands`
 --
 ALTER TABLE `brands`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `brands_slug_unique` (`slug`);
 
 --
--- Chỉ mục cho bảng `cart`
+-- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `cart_items`
+-- Indexes for table `cart_items`
 --
 ALTER TABLE `cart_items`
   ADD PRIMARY KEY (`id`),
@@ -492,7 +510,7 @@ ALTER TABLE `cart_items`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
@@ -500,20 +518,20 @@ ALTER TABLE `categories`
   ADD KEY `fk_categories_parent` (`parent_id`);
 
 --
--- Chỉ mục cho bảng `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Chỉ mục cho bảng `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
@@ -521,7 +539,7 @@ ALTER TABLE `orders`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `order_items`
+-- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
@@ -529,13 +547,13 @@ ALTER TABLE `order_items`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Chỉ mục cho bảng `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Chỉ mục cho bảng `personal_access_tokens`
+-- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -543,19 +561,19 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `products_admin`
+-- Indexes for table `products_admin`
 --
 ALTER TABLE `products_admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `reviews`
+-- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`),
@@ -563,131 +581,131 @@ ALTER TABLE `reviews`
   ADD KEY `reviews_product_id_foreign` (`product_id`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `admins`
+-- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `brands`
+-- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `cart`
+-- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `cart_items`
+-- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
--- AUTO_INCREMENT cho bảng `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT cho bảng `order_items`
+-- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `personal_access_tokens`
+-- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT cho bảng `products_admin`
+-- AUTO_INCREMENT for table `products_admin`
 --
 ALTER TABLE `products_admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT cho bảng `reviews`
+-- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `cart`
+-- Constraints for table `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `cart_items`
+-- Constraints for table `cart_items`
 --
 ALTER TABLE `cart_items`
   ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `categories`
+-- Constraints for table `categories`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `fk_categories_parent` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 
 --
--- Các ràng buộc cho bảng `orders`
+-- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
--- Các ràng buộc cho bảng `order_items`
+-- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,

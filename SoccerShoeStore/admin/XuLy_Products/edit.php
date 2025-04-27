@@ -254,6 +254,7 @@ $discount = isset($product['discount']) ? $product['discount'] : 0;
                 <option value="Sân tự nhiên" <?= $product['shoe_type'] == 'Sân tự nhiên' ? 'selected' : '' ?>>Giày sân tự nhiên</option>
                 <option value="Sân nhân tạo" <?= $product['shoe_type'] == 'Sân nhân tạo' ? 'selected' : '' ?>>Giày sân nhân tạo</option>
                 <option value="Futsal" <?= $product['shoe_type'] == 'Futsal' ? 'selected' : '' ?>>Giày Futsal</option>
+                <option value="Trẻ Em" <?= $product['shoe_type'] == 'Trẻ Em' ? 'selected' : '' ?>>Giày Trẻ Em</option>
             </select>
         </div>
 

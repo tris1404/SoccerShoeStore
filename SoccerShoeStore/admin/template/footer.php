@@ -1,5 +1,5 @@
 <!-- Footer -->
 <footer class="footer">
-    <p>&copy; 2025 SoccerShoeStore. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
+    <p>&copy; Bản quyền  © 2025 SoccerShoeStore  | <a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản</a></p>
 </footer>
 <!-- End Footer -->
