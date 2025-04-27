@@ -92,13 +92,10 @@ if (session_status() === PHP_SESSION_NONE) {
                 <?php
                 $cartCount = 0;
 
-<<<<<<< HEAD
-=======
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
 
->>>>>>> efbedaaf9ef14b83cf06fd8243077bfd8281623e
                 if (isset($_SESSION['user']['id'])) {
                     require_once '../config/database.php';
                     $userId = $_SESSION['user']['id'];
