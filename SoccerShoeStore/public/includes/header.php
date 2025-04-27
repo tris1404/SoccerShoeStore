@@ -6,12 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
 <header class="header">
     <div class="top-bar-container">
         <nav class="top-bar__left">
-            <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">Soccer Shoes Store
-                <i class="fa-solid fa-location-dot"></i>
+            <a href="https://maps.app.goo.gl/ZM8L8w7GoELmbm1x6" class="top-bar__left__item" target="_blank">
+                Soccer Shoes Store <i class="fa-solid fa-location-dot"></i>
             </a>
             <span class="pipe1">|</span>
-            <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">Kết nối
-                <i class="fa-brands fa-facebook"></i>
+            <a href="https://www.facebook.com/nttris1404" class="top-bar__left__item" target="_blank">
+                Kết nối <i class="fa-brands fa-facebook"></i>
             </a>
         </nav>
 
@@ -92,13 +92,10 @@ if (session_status() === PHP_SESSION_NONE) {
                 <?php
                 $cartCount = 0;
 
-<<<<<<< HEAD
-=======
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
 
->>>>>>> 2bf98b3e73ac955ed4b68911162adac87bd328c7
                 if (isset($_SESSION['user']['id'])) {
                     require_once '../config/database.php';
                     $userId = $_SESSION['user']['id'];
@@ -146,8 +143,3 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </div>
 </header>
-<!-- End header -->
-
-<style>
-
-</style>
