@@ -107,7 +107,7 @@
 
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2025 Copyright:
+     Bản quyền © 2025 :
     <a class="text-reset fw-bold" href="https://soccershoestore.com/">SoccerShoeStore.com</a>
   </div>
   <!-- Copyright -->
