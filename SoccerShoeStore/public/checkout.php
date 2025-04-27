@@ -45,9 +45,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['paymentMethod'])) {
     $fullName = mysqli_real_escape_string($conn, $_POST['fullName']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $deliveryMethod = $_POST['deliveryMethod'];
-    $paymentMethod = $_POST['paymentMethod'];
+    $deliveryMethod = isset($_POST['deliveryMethod']) ? $_POST['deliveryMethod'] : null;
+    $paymentMethod = isset($_POST['paymentMethod']) ? $_POST['paymentMethod'] : null;
     $orderNote = isset($_POST['orderNote']) ? mysqli_real_escape_string($conn, $_POST['orderNote']) : null;
+
+    // Ánh xạ deliveryMethod sang giá trị ENUM
+    $deliveryMethodEnum = null;
+    if ($deliveryMethod === 'homeDelivery') {
+        $deliveryMethodEnum = 'Giao hàng tận nhà';
+    } elseif ($deliveryMethod === 'storePickup') {
+        $deliveryMethodEnum = 'Nhận hàng tại cửa hàng';
+    }
+
+    // Ánh xạ paymentMethod sang giá trị ENUM
+    $paymentMethodEnum = null;
+    switch ($paymentMethod) {
+        case 'cod':
+            $paymentMethodEnum = 'Thanh toán khi nhận hàng';
+            break;
+        case 'bankTransfer':
+            $paymentMethodEnum = 'Chuyển khoản ngân hàng';
+            break;
+        case 'creditCard':
+            $paymentMethodEnum = 'Thẻ tín dụng/ ghi nợ';
+            break;
+    }
+
+    // Kiểm tra dữ liệu bắt buộc
+    if (empty($deliveryMethodEnum) || empty($paymentMethodEnum)) {
+        echo "Vui lòng chọn phương thức giao hàng và thanh toán hợp lệ.";
+        exit();
+    }
 
     // Xử lý địa chỉ
     $address = '';
@@ -58,9 +86,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['paymentMethod'])) {
         $district = mysqli_real_escape_string($conn, $_POST['district']);
         $province = mysqli_real_escape_string($conn, $_POST['province']);
         $address = "$addressDetails, $commune, $district, $province";
-    } else {
-        $storeId = $_POST['store'];
+    } elseif ($deliveryMethod === 'storePickup') {
+        $storeId = isset($_POST['store']) ? mysqli_real_escape_string($conn, $_POST['store']) : null;
+        if (empty($storeId)) {
+            echo "Vui lòng chọn cửa hàng nhận.";
+            exit();
+        }
         $address = "Nhận tại cửa hàng: $storeId";
+    } else {
+        echo "Phương thức giao hàng không hợp lệ.";
+        exit();
     }
 
     // Lấy danh sách sản phẩm được chọn
@@ -131,10 +166,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['paymentMethod'])) {
     // Lưu đơn hàng vào cơ sở dữ liệu
     $orderCode = generateOrderCode($conn);
     $query = "INSERT INTO orders (order_code, user_id, full_name, email, phone, address, delivery_method, store_id, payment_method, order_note, status) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')";
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Đang chờ')";
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, 'sissssssss', $orderCode, $userId, $fullName, $email, $phone, $address, $deliveryMethod, $storeId, $paymentMethod, $orderNote);
-    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_param($stmt, 'sissssssss', $orderCode, $userId, $fullName, $email, $phone, $address, $deliveryMethodEnum, $storeId, $paymentMethodEnum, $orderNote);
+    if (!mysqli_stmt_execute($stmt)) {
+        echo "Lỗi lưu đơn hàng: " . mysqli_stmt_error($stmt);
+        exit();
+    }
     $orderId = mysqli_insert_id($conn);
     mysqli_stmt_close($stmt);
 

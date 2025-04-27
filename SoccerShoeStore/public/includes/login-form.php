@@ -13,7 +13,7 @@
     <div class="container" id="container">
         <div class="form-container sign-in">
             <form method="post" action="login.php" onsubmit="return validateForm(event)">
-                <h1>Đăng Kí</h1>
+                <h1>Đăng Nhập</h1>
                 <?php echo "<h4 style='color: red; font-size: 14px; font-weight: bold; margin-top: 5px;' class='invalid-feedback'>$errorMsg</h4>"; ?>
                 <div class="social-icons">
                     <a href="#" onclick="alert('Đang hiện thực.....')" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -23,7 +23,7 @@
                 </div>
                 <span>hoặc sử dụng mật khẩu email của bạn</span>
                 <select name="role" id="role" class="role">
-                    <option value="" disabled selected hidden>Role</option>
+                    <option value="" disabled selected hidden>Vai trò</option>
                     <option value="admin">Admin</option>
                     <option value="staff">Nhân viên</option>
                     <option value="user">Người Dùng</option>

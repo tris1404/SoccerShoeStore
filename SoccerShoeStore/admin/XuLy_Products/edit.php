@@ -364,8 +364,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      WHERE id = $id";
 
     if (mysqli_query($conn, $sql_admin) && mysqli_query($conn, $sql_customer)) {
-        echo "<script>alert('Cập nhật thành công!');</script>";
-        header("Location: ../productsWELL.php");
+        // echo "<script>alert('Cập nhật thành công!');</script>";
+        session_start();
+        $_SESSION['message'] = "Cập nhật sản phẩm thành công!";
+        header("Location: ../products.php");
         exit();
     } else {
         echo "Lỗi cập nhật: " . mysqli_error($conn);

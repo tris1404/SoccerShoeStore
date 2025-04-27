@@ -32,6 +32,7 @@ $items_result = $conn->query($items_sql);
 
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <title>Chi tiết đơn hàng</title>
@@ -41,12 +42,18 @@ $items_result = $conn->query($items_sql);
     <style>
         /* CSS Variables */
         :root {
-            --primary-color: #e6c200; /* Vàng nhạt ánh kim */
-            --background-color: #f5f5f5; /* Trắng ngọc trai */
-            --card-background: rgba(255, 255, 255, 0.7); /* Kính mờ nhẹ */
-            --text-color: #333333; /* Đen nhạt */
-            --text-muted: #666666; /* Xám trung */
-            --border-color: rgba(0, 0, 0, 0.1); /* Viền mờ */
+            --primary-color: #e6c200;
+            /* Vàng nhạt ánh kim */
+            --background-color: #f5f5f5;
+            /* Trắng ngọc trai */
+            --card-background: rgba(255, 255, 255, 0.7);
+            /* Kính mờ nhẹ */
+            --text-color: #333333;
+            /* Đen nhạt */
+            --text-muted: #666666;
+            /* Xám trung */
+            --border-color: rgba(0, 0, 0, 0.1);
+            /* Viền mờ */
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s ease-in-out;
         }
@@ -165,49 +172,54 @@ $items_result = $conn->query($items_sql);
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <h2>Chi tiết đơn hàng <?= htmlspecialchars($order['order_code']) ?></h2>
-    <p><strong>Khách hàng:</strong> <?= htmlspecialchars($order['full_name']) ?></p>
-    <p><strong>Email:</strong> <?= htmlspecialchars($order['email']) ?></p>
-    <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($order['phone']) ?></p>
-    <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($order['address']) ?></p>
-    <p><strong>Phương thức giao hàng:</strong> <?= htmlspecialchars($order['delivery_method']) ?></p>
-    <p><strong>Phương thức thanh toán:</strong> <?= htmlspecialchars($order['payment_method']) ?></p>
-    <p><strong>Ghi chú đơn hàng:</strong> <?= htmlspecialchars($order['order_note'] ?: 'Không có') ?></p>
-    <p><strong>Trạng thái:</strong> <?= htmlspecialchars($order['status']) ?></p>
-    <p><strong>Ngày đặt:</strong> <?= date("d/m/Y H:i", strtotime($order['created_at'])) ?></p>
-    <p><strong>Ngày chỉnh sửa gần nhất:</strong> <?= date("d/m/Y H:i", strtotime($order['updated_at'])) ?></p>
+    <div class="container">
+        <h2>Chi tiết đơn hàng <?= htmlspecialchars($order['order_code']) ?></h2>
+        <p><strong>Khách hàng:</strong> <?= htmlspecialchars($order['full_name']) ?></p>
+        <p><strong>Email:</strong> <?= htmlspecialchars($order['email']) ?></p>
+        <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($order['phone']) ?></p>
+        <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($order['address']) ?></p>
+        <p><strong>Phương thức giao hàng:</strong> <?= htmlspecialchars($order['delivery_method']) ?></p>
+        <?php if ($order['delivery_method'] == 'Nhận hàng tại cửa hàng'): ?>
+            <p><strong>Cửa hàng:</strong> <?= htmlspecialchars($order['store_id']) ?></p>
+        <?php endif; ?>
+        <p><strong>Phương thức thanh toán:</strong> <?= htmlspecialchars($order['payment_method']) ?></p>
+        <p><strong>Ghi chú đơn hàng:</strong> <?= htmlspecialchars($order['order_note'] ?: 'Không có') ?></p>
+        <p><strong>Trạng thái:</strong> <?= htmlspecialchars($order['status']) ?></p>
+        <p><strong>Ngày đặt:</strong> <?= date("d/m/Y H:i", strtotime($order['created_at'])) ?></p>
+        <p><strong>Ngày chỉnh sửa gần nhất:</strong> <?= date("d/m/Y H:i", strtotime($order['updated_at'])) ?></p>
 
-    <h3>Danh sách sản phẩm</h3>
-    <?php if ($items_result->num_rows > 0): ?>
-        <table class="items-table">
-            <thead>
-                <tr>
-                    <th>Sản phẩm</th>
-                    <th>Số lượng</th>
-                    <th>Kích thước</th>
-                    <th>Giá</th>
-                    <th>Giá giảm</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($item = $items_result->fetch_assoc()): ?>
+        <h3>Danh sách sản phẩm</h3>
+        <?php if ($items_result->num_rows > 0): ?>
+            <table class="items-table">
+                <thead>
                     <tr>
-                        <td><?= htmlspecialchars($item['product_name']) ?></td>
-                        <td><?= $item['quantity'] ?></td>
-                        <td><?= $item['size'] ?></td>
-                        <td><?= number_format($item['price'], 0, ',', '.') ?> VNĐ</td>
-                        <td><?= number_format($item['discount_price'], 0, ',', '.') ?> VNĐ</td>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Kích thước</th>
+                        <th>Giá</th>
+                        <th>Giá giảm</th>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p class="no-items">Không có sản phẩm trong đơn hàng này.</p>
-    <?php endif; ?>
+                </thead>
+                <tbody>
+                    <?php while ($item = $items_result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($item['product_name']) ?></td>
+                            <td><?= $item['quantity'] ?></td>
+                            <td><?= $item['size'] ?></td>
+                            <td><?= number_format($item['price'], 0, ',', '.') ?> VNĐ</td>
+                            <td><?= number_format($item['discount_price'], 0, ',', '.') ?> VNĐ</td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <p class="no-items">Không có sản phẩm trong đơn hàng này.</p>
+        <?php endif; ?>
 
-    <a href="../orders.php" class="add-btn">← Quay lại danh sách</a>
-</div>
+        <a href="../orders.php" class="add-btn">← Quay lại danh sách</a>
+    </div>
 </body>
+
 </html>

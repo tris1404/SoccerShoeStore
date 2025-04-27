@@ -18,6 +18,7 @@ body {
 /* Header */
 .header {
   width: 100%;
+  padding-bottom: 20px;
   background-color: #f0f0f0;
   color: #000;
 }
@@ -256,7 +257,6 @@ body {
 #wrapper-container {
   display: flex;
   flex-direction: row-reverse;
-  padding: 20px 0;
   background-color: #f0f0f0;
   align-items: center;
   justify-content: center;
@@ -332,6 +332,7 @@ body {
 
 .btn-left i,
 .btn-right i {
+  margin: auto;
   font-size: 30px;
   color: #ffffffb5;
 }
@@ -357,7 +358,7 @@ body {
 
 /* Footer */
 footer {
-  background-color: #b8b8b8a7;
+  background-color: #f0f0f0;
   padding-top: 10px;
 }
 
@@ -741,4 +742,12 @@ footer p {
 
 .dropdown-menu li:hover {
   background-color: #e8e8e8;
+}
+
+
+.search-cart {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
