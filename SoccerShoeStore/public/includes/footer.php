@@ -91,7 +91,7 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">Liên hệ--</h6>
-          <p><i class="fas fa-home me-3"></i> Đại học Giao thông vận tải TP.HCM</p>
+          <p><i class="fas fa-home me-3"></i> SoccerShoeStore</p>
           <p>
             <i class="fas fa-envelope me-3"></i>info@soccershoestore.com
           </p>
